@@ -4,15 +4,6 @@ import onSubmitForm from '../components/LoginForm';
 import updateCurrentPage from '../components/Pagination';
 import updateStartEndPage from '../components/Pagination';
 
-export type State = {
-    isLoggingOut: boolean,
-    isLoggingIn: boolean,
-    logInErrorReason: string,
-    isSignedUp: boolean,
-    isSigningUp: boolean,
-    signUpErrorReason: string,
-    me: any,
-}
 
 export const initialState: State = {
   isLoggingOut: false, // 로그아웃 시도중
@@ -23,33 +14,15 @@ export const initialState: State = {
   signUpErrorReason: '', // 회원가입 실패 사유
   me: null, // 내 정보
 };
-export type Action = 
-| ReturnType<typeof onLogOut>
-| ReturnType<typeof onSubmitForm>
-| ReturnType<typeof updateCurrentPage>
-| ReturnType<typeof updateStartEndPage>
-
-// | ReturnType<typeof addTodo>
-// | ReturnType<typeof addTodo>
-
-// | ReturnType<typeof addTodo>
-// | ReturnType<typeof addTodo>
-// | ReturnType<typeof addTodo>
-// { type: 'SIGN_UP_REQUEST' } |
-// { type: 'SIGN_UP_SUCCESS' } |
-// { type: 'SIGN_UP_FAILURE' } |
-
-// { type: 'LOG_IN_REQUEST' } |
-// { type: 'LOG_IN_SUCCESS' } |
-// { type: 'LOG_IN_FAILURE' } |
-
-// { type: 'LOG_OUT_REQUEST' } |
-// { type: 'LOG_OUT_SUCCESS' } |
-// { type: 'LOG_OUT_FAILURE' } |
-
-// { type: 'LOAD_USER_REQUEST' } |
-// { type: 'LOAD_USER_SUCCESS' } |
-// { type: 'LOAD_USER_FAILURE' }
+export type State = {
+    isLoggingOut: boolean,
+    isLoggingIn: boolean,
+    logInErrorReason: string,
+    isSignedUp: boolean,
+    isSigningUp: boolean,
+    signUpErrorReason: string,
+    me: any,
+}
 
 export const SIGN_UP_REQUEST = 'SIGN_UP_REQUEST' as const;
 export const SIGN_UP_SUCCESS = 'SIGN_UP_SUCCESS' as const;
@@ -69,10 +42,19 @@ export const LOAD_USER_FAILURE = 'LOAD_USER_FAILURE' as const;
 
 export const SIGN_UP_DONE = 'SIGN_UP_DONE';
 
-const dummy = {
-    id: 'admin',
-    password: 123
-}
+export type Action = 
+| ReturnType<typeof onLogOut>
+| ReturnType<typeof onSubmitForm>
+| ReturnType<typeof updateCurrentPage>
+| ReturnType<typeof updateStartEndPage>
+
+export const signUpRequest = ( id, password ) => ({
+    type: SIGN_UP_REQUEST,
+    data: {
+        userId: id,
+        password
+    }
+})
 
 export default ( state:State = initialState, action ):State => {
     // console.log(action.data);
@@ -119,7 +101,6 @@ export default ( state:State = initialState, action ):State => {
             case LOG_IN_SUCCESS: {
                 draft.isLoggingIn = false;
                 draft.me = action.data;
-                // draft.me = dummy;
                 break;
             }
             case LOG_IN_FAILURE: {

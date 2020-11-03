@@ -3,7 +3,8 @@ import { useDispatch, useSelector } from "react-redux";
 import Router from "next/router";
 import { object } from 'prop-types';
 import { SIGN_UP_REQUEST, SIGN_UP_DONE } from '../reducers/user';
-
+import { RootState } from '../reducers';
+import { signUpRequest } from '../reducers/user';
 import { useRouter } from 'next/router'
 import { LOAD_USER_REQUEST } from '../reducers/user';
 import { END } from 'redux-saga';
@@ -21,14 +22,14 @@ export const useInput = (initValue = null) => {
 
 const signup = () => {
     const [passwordCheck, setPasswordCheck] = useState("");
-    const [term, setTerm] = useState(false);
+    const [term, setTerm] = useState();
     const [passwordError, setPasswordError] = useState(false);
     const [termError, setTermError] = useState(false);
 
     const [ id, onChangeId ] = useInput('');
     const [ password, onChangePassword ] = useInput('');
     const dispatch = useDispatch();
-    const { signUpErrorReason, isSignedUp } = useSelector( state => state.user );
+    const { signUpErrorReason, isSignedUp } = useSelector( ( state: RootState ) => state.user );
     // const { isSigningUp } = useSelector( state => state.user );
 
     // 커스텀 훅으로 코드 줄임
@@ -59,13 +60,14 @@ const signup = () => {
             return setTermError(true);
         }
         // 회원 가입 요청
-        dispatch({
-            type: SIGN_UP_REQUEST,
-            data: {
-                userId: id,
-                password
-            }
-        })
+        // dispatch({
+        //     type: SIGN_UP_REQUEST,
+        //     data: {
+        //         userId: id,
+        //         password
+        //     }
+        // })
+        dispatch( signUpRequest(id, password) );
     },[ id, password, passwordCheck, term ])
 
     const onChangePasswordCheck = useCallback((e) => {
@@ -126,7 +128,7 @@ const signup = () => {
 };
 
 
-export const getServerSideProps = wrapper.getServerSideProps( async ( context ) => {
+export const getServerSideProps = wrapper.getServerSideProps( async ( context:RootState ) => {
     const cookie = context.req ? context.req.headers.cookie : '';
 
     if ( context.req && cookie ) {
