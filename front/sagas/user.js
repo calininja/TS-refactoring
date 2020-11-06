@@ -74,7 +74,6 @@ function logOutAPI() {
 }
 function* logOut(action) {
     try {
-        // const result = yield call(logInAPI, action.data);
         yield call(logOutAPI);
         yield put({
             // put은 dispatch와 동일

@@ -48,12 +48,26 @@ export type Action =
 | ReturnType<typeof updateCurrentPage>
 | ReturnType<typeof updateStartEndPage>
 
-export const signUpRequest = ( id, password ) => ({
+
+export const signUpRequestAction = ( id, password ) => ({
     type: SIGN_UP_REQUEST,
     data: {
         userId: id,
         password
     }
+})
+export const signUpDoneAction = ( ) => ({
+    type:LOG_OUT_REQUEST,
+})
+export const loginRequestAction = ( id, password ) => ({
+    type:LOG_IN_REQUEST,
+    data:{
+        userId: id,
+        password
+    }
+})
+export const logoutRequestAction = ( ) => ({
+    type:LOG_OUT_REQUEST,
 })
 
 export default ( state:State = initialState, action ):State => {
@@ -69,30 +83,30 @@ export default ( state:State = initialState, action ):State => {
             //         signUpErrorReason: '',
             //     };
             // }
-            // case SIGN_UP_DONE: {
-            //     draft.isSigningUp = false;
-            //     draft.isSignedUp = false;
-            //     draft.signUpErrorReason = '';
-            //     break;
-            // }
-            // case SIGN_UP_REQUEST: {
-            //     draft.isSigningUp = true;
-            //     draft.isSignedUp = false;
-            //     draft.signUpErrorReason = '';
-            //     break;
-            // }
-            // case SIGN_UP_SUCCESS: {
-            //     draft.isSigningUp = false;
-            //     draft.isSignedUp = true;
-            //     break;
-            // }
-            // case SIGN_UP_FAILURE: {
-            //     draft.isLoggingIn = false;
-            //     draft.isSignedUp = false;
-            //     draft.signUpErrorReason = action.error;
-            //     draft.me = null;
-            //     break;
-            // }
+            case SIGN_UP_DONE: {
+                draft.isSigningUp = false;
+                draft.isSignedUp = false;
+                draft.signUpErrorReason = '';
+                break;
+            }
+            case SIGN_UP_REQUEST: {
+                draft.isSigningUp = true;
+                draft.isSignedUp = false;
+                draft.signUpErrorReason = '';
+                break;
+            }
+            case SIGN_UP_SUCCESS: {
+                draft.isSigningUp = false;
+                draft.isSignedUp = true;
+                break;
+            }
+            case SIGN_UP_FAILURE: {
+                draft.isLoggingIn = false;
+                draft.isSignedUp = false;
+                draft.signUpErrorReason = action.error;
+                draft.me = null;
+                break;
+            }
             case LOG_IN_REQUEST: {
                 draft.isLoggingIn = true;
                 draft.logInErrorReason = '';
@@ -109,15 +123,15 @@ export default ( state:State = initialState, action ):State => {
                 draft.me = null;
                 break;
             }
-            // case LOG_OUT_REQUEST: {
-            //     draft.isLoggingOut = true;
-            //     break;
-            // }
-            // case LOG_OUT_SUCCESS: {
-            //     draft.isLoggingOut = false;
-            //     draft.me = null;
-            //     break;
-            // }
+            case LOG_OUT_REQUEST: {
+                draft.isLoggingOut = true;
+                break;
+            }
+            case LOG_OUT_SUCCESS: {
+                draft.isLoggingOut = false;
+                draft.me = null;
+                break;
+            }
             // case LOAD_USER_REQUEST: {
             //     break;
             // }

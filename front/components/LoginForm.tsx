@@ -1,9 +1,8 @@
-// import React, { useState, useEffect, useCallback } from 'react';
 import * as React from 'react';
-import { useState, useEffect, useCallback } from 'react';
-import { useDispatch, useSelector } from "react-redux";
+import { useCallback } from 'react';
+import { useDispatch } from "react-redux";
 import Link from 'next/link';
-import { LOG_IN_REQUEST } from '../reducers/user';
+import { loginRequestAction } from '../reducers/user';
 import { useInput } from "../pages/signup";
 
 
@@ -14,13 +13,7 @@ const LoginForm = () => {
 
     const onSubmitForm = useCallback((e: React.FormEvent<HTMLFormElement>) => {
       e.preventDefault();
-        dispatch({
-            type:LOG_IN_REQUEST,
-            data:{
-                userId: id,
-                password
-            }
-        })
+        dispatch(loginRequestAction( id, password ));
     },[id, password])
 
 

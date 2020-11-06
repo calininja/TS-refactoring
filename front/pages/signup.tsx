@@ -1,11 +1,10 @@
-import React, { useState, useEffect, useCallback } from 'react';
+import * as React from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import { useDispatch, useSelector } from "react-redux";
 import Router from "next/router";
-import { object } from 'prop-types';
-import { SIGN_UP_REQUEST, SIGN_UP_DONE } from '../reducers/user';
+import { signUpDoneAction } from '../reducers/user';
 import { RootState } from '../reducers';
-import { signUpRequest } from '../reducers/user';
-import { useRouter } from 'next/router'
+import { signUpRequestAction } from '../reducers/user';
 import { LOAD_USER_REQUEST } from '../reducers/user';
 import { END } from 'redux-saga';
 import axios from 'axios';
@@ -59,15 +58,7 @@ const signup = () => {
         if ( !term ) {
             return setTermError(true);
         }
-        // 회원 가입 요청
-        // dispatch({
-        //     type: SIGN_UP_REQUEST,
-        //     data: {
-        //         userId: id,
-        //         password
-        //     }
-        // })
-        dispatch( signUpRequest(id, password) );
+        dispatch( signUpRequestAction( id, password ) );
     },[ id, password, passwordCheck, term ])
 
     const onChangePasswordCheck = useCallback((e) => {
@@ -82,16 +73,12 @@ const signup = () => {
     useEffect(() => {
         if (signUpErrorReason.response) {
             alert('이미 사용중인 아이디입니다.');
-            dispatch({
-                type: SIGN_UP_DONE,
-            })
+            dispatch(signUpDoneAction())
         }
         if( isSignedUp ) {
             alert("회원가입 했으니 메인페이지로 이동합니다.");
             Router.push("/");
-            dispatch({
-                type: SIGN_UP_DONE,
-            })
+            dispatch(signUpDoneAction())
         }
     }, [ signUpErrorReason, isSignedUp ]);
 
@@ -150,6 +137,4 @@ export const getServerSideProps = wrapper.getServerSideProps( async ( context:Ro
 //     return { pathname }
 // };
 
-signup.propTypes = {
-};
 export default signup;
