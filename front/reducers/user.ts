@@ -5,7 +5,7 @@ import updateCurrentPage from '../components/Pagination';
 import updateStartEndPage from '../components/Pagination';
 
 
-export const initialState: State = {
+export const initialState: UserState = {
   isLoggingOut: false, // 로그아웃 시도중
   isLoggingIn: false, // 로그인 시도중
   logInErrorReason: '', // 로그인 실패 사유
@@ -14,7 +14,7 @@ export const initialState: State = {
   signUpErrorReason: '', // 회원가입 실패 사유
   me: null, // 내 정보
 };
-export type State = {
+export type UserState = {
     isLoggingOut: boolean,
     isLoggingIn: boolean,
     logInErrorReason: string,
@@ -42,7 +42,7 @@ export const LOAD_USER_FAILURE = 'LOAD_USER_FAILURE' as const;
 
 export const SIGN_UP_DONE = 'SIGN_UP_DONE';
 
-export type Action = 
+export type UserAction = 
 | ReturnType<typeof onLogOut>
 | ReturnType<typeof onSubmitForm>
 | ReturnType<typeof updateCurrentPage>
@@ -70,8 +70,7 @@ export const logoutRequestAction = ( ) => ({
     type:LOG_OUT_REQUEST,
 })
 
-export default ( state:State = initialState, action ):State => {
-    // console.log(action.data);
+export default ( state:UserState = initialState, action: UserAction ):UserState => {
     return produce( state, (draft ) => {
         switch ( action.type ) {
             // immer 안쓸때

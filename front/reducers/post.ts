@@ -1,22 +1,16 @@
 import produce from 'immer';
+import onSubmit from '../pages/PostForm';
+import onChangeImages from '../pages/PostForm';
+import updateCurrentPage from '../components/Pagination';
+import updateStartEndPage from '../components/Pagination';
 
 export const initialState = {
-    // mainPosts: [{
-    //     id: 1,
-    //     User: {
-    //         id: 1,
-    //         name: '서영규',
-    //     },
-    //     title: '더미 제목',
-    //     content: '더미 내용',
-    //     img: 'https://images.immediate.co.uk/production/volatile/sites/3/2019/06/ST3-Production-Still-1-f51cc28.jpg?webp=true&quality=90&resize=620%2C413',
-    // }],
     mainPosts: [],
     mainPostsAll: [],
     singlePost: null,
     postDeleted: false,
     imagePaths: [],
-    addPostErrorReason: '',
+    addingPostErrorReason: '',
     isAddingPost: false,
     postAdded: false,
     postLoaded: false,
@@ -26,43 +20,85 @@ export const initialState = {
     end: 10,
     current: 1,
 }
+export type PostState = {
+    mainPosts: String[],
+    mainPostsAll: String[],
+    singlePost: null,
+    postDeleted: boolean,
+    imagePaths: String[],
+    addingPostErrorReason: String,
+    isAddingPost: boolean,
+    postAdded: boolean,
+    postLoaded: boolean,
+    
+    // pagination
+    start: Number,
+    end: Number,
+    current: Number,
+}
 
-export const ADD_POST_REQUEST = 'ADD_POST_REQUEST';
-export const ADD_POST_SUCCESS = 'ADD_POST_SUCCESS';
-export const ADD_POST_FAILURE = 'ADD_POST_FAILURE';
+export const ADD_POST_REQUEST = 'ADD_POST_REQUEST' as const;
+export const ADD_POST_SUCCESS = 'ADD_POST_SUCCESS' as const;
+export const ADD_POST_FAILURE = 'ADD_POST_FAILURE' as const;
 
-export const REMOVE_POST_REQUEST = 'REMOVE_POST_REQUEST';
-export const REMOVE_POST_SUCCESS = 'REMOVE_POST_SUCCESS';
-export const REMOVE_POST_FAILURE = 'REMOVE_POST_FAILURE';
+export const REMOVE_POST_REQUEST = 'REMOVE_POST_REQUEST' as const;
+export const REMOVE_POST_SUCCESS = 'REMOVE_POST_SUCCESS' as const;
+export const REMOVE_POST_FAILURE = 'REMOVE_POST_FAILURE' as const;
 
-export const LOAD_MAIN_POSTS_REQUEST = 'LOAD_MAIN_POSTS_REQUEST';
-export const LOAD_MAIN_POSTS_SUCCESS = 'LOAD_MAIN_POSTS_SUCCESS';
-export const LOAD_MAIN_POSTS_FAILURE = 'LOAD_MAIN_POSTS_FAILURE';
+export const LOAD_MAIN_POSTS_REQUEST = 'LOAD_MAIN_POSTS_REQUEST' as const;
+export const LOAD_MAIN_POSTS_SUCCESS = 'LOAD_MAIN_POSTS_SUCCESS' as const;
+export const LOAD_MAIN_POSTS_FAILURE = 'LOAD_MAIN_POSTS_FAILURE' as const;
 
-export const LOAD_SEARCH_POSTS_REQUEST = 'LOAD_SEARCH_POSTS_REQUEST';
-export const LOAD_SEARCH_POSTS_SUCCESS = 'LOAD_SEARCH_POSTS_SUCCESS';
-export const LOAD_SEARCH_POSTS_FAILURE = 'LOAD_SEARCH_POSTS_FAILURE';
+export const LOAD_SEARCH_POSTS_REQUEST = 'LOAD_SEARCH_POSTS_REQUEST' as const;
+export const LOAD_SEARCH_POSTS_SUCCESS = 'LOAD_SEARCH_POSTS_SUCCESS' as const;
+export const LOAD_SEARCH_POSTS_FAILURE = 'LOAD_SEARCH_POSTS_FAILURE' as const;
 
-export const LOAD_SINGLE_POST_REQUEST = 'LOAD_SINGLE_POST_REQUEST';
-export const LOAD_SINGLE_POST_SUCCESS = 'LOAD_SINGLE_POST_SUCCESS';
-export const LOAD_SINGLE_POST_FAILURE = 'LOAD_SINGLE_POST_FAILURE';
+export const LOAD_SINGLE_POST_REQUEST = 'LOAD_SINGLE_POST_REQUEST' as const;
+export const LOAD_SINGLE_POST_SUCCESS = 'LOAD_SINGLE_POST_SUCCESS' as const;
+export const LOAD_SINGLE_POST_FAILURE = 'LOAD_SINGLE_POST_FAILURE' as const;
 
-export const UPLOAD_IMAGES_REQUEST = 'UPLOAD_IMAGES_REQUEST';
-export const UPLOAD_IMAGES_SUCCESS = 'UPLOAD_IMAGES_SUCCESS';
-export const UPLOAD_IMAGES_FAILURE = 'UPLOAD_IMAGES_FAILURE';
+export const UPLOAD_IMAGES_REQUEST = 'UPLOAD_IMAGES_REQUEST' as const;
+export const UPLOAD_IMAGES_SUCCESS = 'UPLOAD_IMAGES_SUCCESS' as const;
+export const UPLOAD_IMAGES_FAILURE = 'UPLOAD_IMAGES_FAILURE' as const;
 
-export const REMOVE_IMAGE = 'REMOVE_IMAGE';
-export const POST_RESET_DONE = 'POST_RESET_DONE';
-export const POST_DELETE_DONE = 'POST_DELETE_DONE';
+export const REMOVE_IMAGE = 'REMOVE_IMAGE' as const;
+export const POST_RESET_DONE = 'POST_RESET_DONE' as const;
+export const POST_DELETE_DONE = 'POST_DELETE_DONE' as const;
 
-export const CURRENT_PAGE_NUMBER = 'CURRENT_PAGE_NUMBER';
-export const CURRENT_PAGE_NUMBER_SUCCESS = 'CURRENT_PAGE_NUMBER_SUCCESS';
-export const CURRENT_PAGE_NUMBER_FAILURE = 'CURRENT_PAGE_NUMBER_FAILURE';
-export const UPDATE_START_END_PAGE = 'UPDATE_START_END_PAGE';
-export const GO_TO_BEGIN = 'GO_TO_BEGIN';
+export const CURRENT_PAGE_NUMBER = 'CURRENT_PAGE_NUMBER' as const;
+export const CURRENT_PAGE_NUMBER_SUCCESS = 'CURRENT_PAGE_NUMBER_SUCCESS' as const;
+export const CURRENT_PAGE_NUMBER_FAILURE = 'CURRENT_PAGE_NUMBER_FAILURE' as const;
+export const UPDATE_START_END_PAGE = 'UPDATE_START_END_PAGE' as const;
+export const GO_TO_BEGIN = 'GO_TO_BEGIN' as const;
+
+export type PostAction = 
+| ReturnType<typeof onSubmit>
+| ReturnType<typeof onChangeImages>
+| ReturnType<typeof updateCurrentPage>
+| ReturnType<typeof updateStartEndPage>
 
 
-export default ( state = initialState, action ) => {
+export const addPostRequestAction = ( formData ) => ({
+    type: ADD_POST_REQUEST,
+    data: formData,
+})
+export const uploadImagesRequestAction = ( imageFormData ) => ({
+    type: UPLOAD_IMAGES_REQUEST,
+    data: imageFormData,
+})
+
+export const currentPageNumberAction = ( val ) => ({
+    type: CURRENT_PAGE_NUMBER,
+    payload: val,
+})
+export const updateStartEndPageAction = ( start, end ) => ({
+    type: UPDATE_START_END_PAGE,
+    payload: { start, end },
+})
+
+
+
+export default ( state:PostState = initialState, action: PostAction ):PostState => {
     return produce ( state, (draft) => {
         switch (action.type) {
 

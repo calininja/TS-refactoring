@@ -6,18 +6,21 @@ import {
     ADD_POST_REQUEST,
     UPLOAD_IMAGES_REQUEST,
     REMOVE_IMAGE,
+    addPostRequestAction,
+    uploadImagesRequestAction
 } from '../reducers/post';
 
 import { LOAD_USER_REQUEST } from '../reducers/user';
 import { END } from 'redux-saga';
 import axios from 'axios';
 import wrapper from '../store/configureStore';
+import { RootState } from '../reducers';
 
 const PostForm = () => {
     const dispatch = useDispatch();
     const [ title, setTitle ] = useState('');
     const [ content, setContent ] = useState('');
-    const { imagePaths, postAdded } = useSelector(state => state.post);
+    const { imagePaths, postAdded } = useSelector( ( state:RootState ) => state.post);
     const imageInput = useRef();
 
     useEffect(() => {
@@ -44,10 +47,7 @@ const PostForm = () => {
         formData.append('title', title);
         formData.append('content', content);
         console.log(title, content, formData);
-        dispatch({
-            type: ADD_POST_REQUEST,
-            data: formData,
-        })
+        dispatch(addPostRequestAction( formData ));
     }, [ title, content, imagePaths ]);
 
     const onChangeTitle = useCallback((e) => {
@@ -63,10 +63,8 @@ const PostForm = () => {
         [].forEach.call(e.target.files, (f) => {
             imageFormData.append('image', f);
         });
-        dispatch({
-            type: UPLOAD_IMAGES_REQUEST,
-            data: imageFormData,
-        });
+        dispatch(uploadImagesRequestAction( imageFormData 
+            ));
     }, []);
     const onClickImageUpload = useCallback(() => {
         imageInput.current.click();
@@ -129,8 +127,6 @@ export const getServerSideProps = wrapper.getServerSideProps( async( context ) =
 //     const { pathname } = context;
 //     return { pathname }
 // };
-PostForm.propTypes = {
-    
-}
+
 
 export default PostForm;

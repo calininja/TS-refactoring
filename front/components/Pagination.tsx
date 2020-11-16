@@ -1,15 +1,17 @@
 import React, { useCallback, useEffect } from 'react';
 import Link from 'next/link';
 import { useSelector, useDispatch } from 'react-redux';
+import { RootState } from '../reducers';
 
 import { 
+  currentPageNumberAction,
+  updateStartEndPageAction,
   CURRENT_PAGE_NUMBER,
-  UPDATE_START_END_PAGE, 
 } from '../reducers/post';
 
 const Pagination = () => {
   const dispatch = useDispatch();
-  const { mainPostsAll, start, end, current } = useSelector( state => state.post );
+  const { mainPostsAll, start, end, current } = useSelector( ( state: RootState ) => state.post );
 
   // 페이지네이션 도트 개수 설정
   const per = 10;
@@ -23,18 +25,12 @@ const Pagination = () => {
   
   // 현재 페이지 current 업데이트
   const updateCurrentPage = ( val ) => {
-    dispatch({
-        type: CURRENT_PAGE_NUMBER,
-        payload: val,
-    })
+    dispatch(currentPageNumberAction(val))
   }
 
   // 현재 장의 start와 end 번호 업데이트
   const updateStartEndPage = ( start, end ) => {
-    dispatch({
-        type: UPDATE_START_END_PAGE,
-        payload: { start, end },
-    })
+    dispatch(updateStartEndPageAction( start, end ));
   }
 
   // PREV & NEXT 페이지 이동 쿼리값, 변수
@@ -72,10 +68,7 @@ const Pagination = () => {
 
     // 페이지 창일때 쿼리값 커랜트로 받기
     if( pageUrl ) {
-      dispatch({
-        type: CURRENT_PAGE_NUMBER,
-        payload: getCurrent,
-      })
+      dispatch( currentPageNumberAction(getCurrent) );
       getCurrent <= 10 ?
       updateStartEndPage( 0, 10 ) : 
       updateStartEndPage( getStart, getStart+10 );
