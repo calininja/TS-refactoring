@@ -8,11 +8,16 @@ import { LOAD_USER_REQUEST } from '../../reducers/user';
 import { END } from 'redux-saga';
 import axios from 'axios';
 import wrapper from '../../store/configureStore';
+import { RootState } from '../../reducers';
+import { GetServerSideProps, InferGetServerSidePropsType  } from 'next';
 
+type State = {
+  item: string | number | string[] | number[];
+}
 
-const Page = () => {
+const Page:React.FunctionComponent<State> = () => {
   // const dispatch = useDispatch();
-  const { mainPosts } = useSelector( state => state.post );
+  const { mainPosts } = useSelector( ( state:RootState ) => state.post );
   const router = useRouter();
   const { page } = router.query;
   return (
@@ -26,7 +31,7 @@ const Page = () => {
   );
 };
 
-export const getServerSideProps = wrapper.getServerSideProps( async( context ) => {
+export const getServerSideProps:GetServerSideProps  = wrapper.getServerSideProps( async( context:any ) => {
   const cookie = context.req ? context.req.headers.cookie : '';
   const { page } = context.params;
 

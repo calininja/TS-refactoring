@@ -14,10 +14,17 @@ import {
 import { LOAD_USER_REQUEST } from '../reducers/user';
 import axios from 'axios';
 import styled from 'styled-components';
+import { RootState } from '../reducers';
 
-const Home = () => {
-    // const { me } = useSelector( state => state.user );
-    // const { mainPosts } = useSelector( state => state.post );
+type State = {
+    start: number;
+    end: number;
+    item: string | number | string[] | number[];
+}
+
+const Home:React.FunctionComponent<State> = () => {
+    const { me } = useSelector( (state:RootState) => state.user );
+    const { mainPosts } = useSelector( (state:RootState) => state.post );
     const dispatch = useDispatch();
 
     useEffect(() => {
@@ -36,14 +43,14 @@ const Home = () => {
 
     return (
         <>
-            {/* <div>
+            <div>
                  { mainPosts.map((item) => {
                      return (
                          <Title key={item.id} post={item}/>
                      );
                  }) }
                  <Title2>test</Title2>
-             </div> */}
+             </div>
         </>
     );
 };
@@ -51,7 +58,7 @@ const Title2 = styled.div`
   color: red;
 `;
 
-export const getServerSideProps = wrapper.getServerSideProps( async( context ) => {
+export const getServerSideProps = wrapper.getServerSideProps( async( context:any ) => {
     const cookie = context.req ? context.req.headers.cookie : '';
     if ( context.req && cookie ) {
         axios.defaults.headers.Cookie = cookie;
@@ -67,7 +74,7 @@ export const getServerSideProps = wrapper.getServerSideProps( async( context ) =
         payload: 1
     });
     context.store.dispatch(END);
-    // await context.store.sagaTask.toPromise();
+    await context.store.sagaTask.toPromise();
 });
 
 // getInitialProps

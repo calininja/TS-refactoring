@@ -71,6 +71,27 @@ export const CURRENT_PAGE_NUMBER_FAILURE = 'CURRENT_PAGE_NUMBER_FAILURE' as cons
 export const UPDATE_START_END_PAGE = 'UPDATE_START_END_PAGE' as const;
 export const GO_TO_BEGIN = 'GO_TO_BEGIN' as const;
 
+export type ADD_POST_REQUEST = {
+    type: typeof ADD_POST_REQUEST;
+}
+export type ADD_POST_SUCCESS = {
+    type: typeof ADD_POST_REQUEST;
+    data: PostState[];
+}
+export type ADD_POST_FAILURE = {
+    type: typeof ADD_POST_REQUEST;
+    error: Error;
+}
+export type REMOVE_POST_REQUEST = {
+    type: typeof REMOVE_POST_REQUEST;
+}
+export type REMOVE_POST_SUCCESS = {
+    type: typeof REMOVE_POST_SUCCESS;
+}
+export type REMOVE_POST_FAILURE = {
+    type: typeof REMOVE_POST_FAILURE;
+}
+
 export type PostAction = 
 | ReturnType<typeof onSubmit>
 | ReturnType<typeof onChangeImages>

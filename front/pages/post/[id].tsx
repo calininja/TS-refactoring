@@ -8,24 +8,25 @@ import { useRouter } from 'next/router';
 import { END } from 'redux-saga';
 import axios from 'axios';
 import wrapper from '../../store/configureStore';
+import { RootState } from '../../reducers';
 
 
 const post = () => {
 
-  const { singlePost } = useSelector(state => state.post);
+  const { singlePost } = useSelector( (state:RootState) => state.post);
   const router = useRouter();
   const { id } = router.query;
   return (
     <div>
       {singlePost ?
         <PostCard key={id} postId={id} /> :
-        ''}
+      ''}
     </div>
   );
 };
 
 
-export const getServerSideProps = wrapper.getServerSideProps( async( context ) => {
+export const getServerSideProps = wrapper.getServerSideProps( async( context:any ) => {
   const { id } = context.params;
   const cookie = context.req ? context.req.headers.cookie : '';
   if ( context.req && cookie ) {
@@ -56,8 +57,5 @@ export const getServerSideProps = wrapper.getServerSideProps( async( context ) =
 //   return { postId: parseInt( postId, 10), pathname};
 // };
 
-post.propTypes = {
-  id: PropTypes.number.isRequired,
-};
 
 export default post;
