@@ -1,8 +1,8 @@
 import produce from 'immer';
-import onLogOut from '../components/UserProfile';
-import onSubmitForm from '../components/LoginForm';
-import updateCurrentPage from '../components/Pagination';
-import updateStartEndPage from '../components/Pagination';
+import onLogOut from '../../components/UserProfile';
+import onSubmitForm from '../../components/LoginForm';
+import updateCurrentPage from '../../components/Pagination';
+import updateStartEndPage from '../../components/Pagination';
 
 
 export const initialState: UserState = {
@@ -42,14 +42,7 @@ export const LOAD_USER_FAILURE = 'LOAD_USER_FAILURE' as const;
 
 export const SIGN_UP_DONE = 'SIGN_UP_DONE';
 
-export type UserAction = 
-| ReturnType<typeof onLogOut>
-| ReturnType<typeof onSubmitForm>
-| ReturnType<typeof updateCurrentPage>
-| ReturnType<typeof updateStartEndPage>
-
-
-export const signUpRequestAction = ( id, password ) => ({
+export const signUpRequestAction = ( id: string, password:string ) => ({
     type: SIGN_UP_REQUEST,
     data: {
         userId: id,
@@ -57,9 +50,10 @@ export const signUpRequestAction = ( id, password ) => ({
     }
 })
 export const signUpDoneAction = ( ) => ({
-    type:LOG_OUT_REQUEST,
+    type:SIGN_UP_DONE,
 })
-export const loginRequestAction = ( id, password ) => ({
+
+export const loginRequestAction = ( id:string, password:string ) => ({
     type:LOG_IN_REQUEST,
     data:{
         userId: id,
@@ -69,6 +63,17 @@ export const loginRequestAction = ( id, password ) => ({
 export const logoutRequestAction = ( ) => ({
     type:LOG_OUT_REQUEST,
 })
+
+export type UserAction = 
+| ReturnType<typeof signUpRequestAction>
+| ReturnType<typeof signUpDoneAction>
+| ReturnType<typeof loginRequestAction>
+| ReturnType<typeof logoutRequestAction>
+// | ReturnType<typeof onLogOut>
+// | ReturnType<typeof onSubmitForm>
+// | ReturnType<typeof updateCurrentPage>
+// | ReturnType<typeof updateStartEndPage>
+
 
 export default ( state:UserState = initialState, action: UserAction ):UserState => {
     return produce( state, (draft ) => {

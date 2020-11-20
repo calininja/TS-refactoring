@@ -13,7 +13,7 @@ import {
     LOAD_USER_REQUEST,
     LOAD_USER_SUCCESS,
     LOAD_USER_FAILURE,
-} from "../reducers/user";
+} from "../reducers/user/user";
 
 
 function signUpAPI(signUpData) {

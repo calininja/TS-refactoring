@@ -1,8 +1,4 @@
 import produce from 'immer';
-import onSubmit from '../pages/PostForm';
-import onChangeImages from '../pages/PostForm';
-import updateCurrentPage from '../components/Pagination';
-import updateStartEndPage from '../components/Pagination';
 
 export const initialState = {
     mainPosts: [],
@@ -14,6 +10,7 @@ export const initialState = {
     isAddingPost: false,
     postAdded: false,
     postLoaded: false,
+    // hasMorePost: false,
     
     // pagination
     start: 0,
@@ -21,20 +18,21 @@ export const initialState = {
     current: 1,
 }
 export type PostState = {
-    mainPosts: String[],
-    mainPostsAll: String[],
+    mainPosts: string[],
+    mainPostsAll: string[],
     singlePost: null,
     postDeleted: boolean,
-    imagePaths: String[],
-    addingPostErrorReason: String,
+    imagePaths: string[],
+    addingPostErrorReason: string,
     isAddingPost: boolean,
     postAdded: boolean,
     postLoaded: boolean,
-    
+    // hasMorePost: boolean,
+
     // pagination
-    start: Number,
-    end: Number,
-    current: Number,
+    start: number,
+    end: number,
+    current: number,
 }
 
 export const ADD_POST_REQUEST = 'ADD_POST_REQUEST' as const;
@@ -71,55 +69,74 @@ export const CURRENT_PAGE_NUMBER_FAILURE = 'CURRENT_PAGE_NUMBER_FAILURE' as cons
 export const UPDATE_START_END_PAGE = 'UPDATE_START_END_PAGE' as const;
 export const GO_TO_BEGIN = 'GO_TO_BEGIN' as const;
 
-export type ADD_POST_REQUEST = {
-    type: typeof ADD_POST_REQUEST;
-}
-export type ADD_POST_SUCCESS = {
-    type: typeof ADD_POST_REQUEST;
-    data: PostState[];
-}
-export type ADD_POST_FAILURE = {
-    type: typeof ADD_POST_REQUEST;
-    error: Error;
-}
-export type REMOVE_POST_REQUEST = {
-    type: typeof REMOVE_POST_REQUEST;
-}
-export type REMOVE_POST_SUCCESS = {
-    type: typeof REMOVE_POST_SUCCESS;
-}
-export type REMOVE_POST_FAILURE = {
-    type: typeof REMOVE_POST_FAILURE;
-}
 
-export type PostAction = 
-| ReturnType<typeof onSubmit>
-| ReturnType<typeof onChangeImages>
-| ReturnType<typeof updateCurrentPage>
-| ReturnType<typeof updateStartEndPage>
+// 액션 생성 함수
 
-
-export const addPostRequestAction = ( formData ) => ({
+export const addPostRequestAction = ( formData: {title:string, content:string, image:File} ) => ({
     type: ADD_POST_REQUEST,
     data: formData,
 })
-export const uploadImagesRequestAction = ( imageFormData ) => ({
+export const addPostSuccessAction = ( data: any ) => ({
+    type: ADD_POST_SUCCESS,
+    data
+})
+export const addPostFailureAction = () => ({
+    type: ADD_POST_FAILURE,
+})
+
+export const removePostRequestAction = () => ({
+    type: REMOVE_POST_REQUEST,
+})
+export const removePostSuccessAction = ( data: any ) => ({
+    type: REMOVE_POST_SUCCESS,
+    data
+})
+export const removePostFailureAction = () => ({
+    type: REMOVE_POST_FAILURE,
+})
+
+export const loadMainPostRequestAction = () => ({
+    type: LOAD_MAIN_POSTS_REQUEST,
+})
+export const loadMainPostSuccessAction = () => ({
+    type: LOAD_MAIN_POSTS_SUCCESS,
+})
+export const loadMainPostFailureAction = () => ({
+    type: LOAD_MAIN_POSTS_FAILURE,
+})
+
+export const uploadImagesRequestAction = ( imageFormData:HTMLFormElement ) => ({
     type: UPLOAD_IMAGES_REQUEST,
     data: imageFormData,
 })
-
-export const currentPageNumberAction = ( val ) => ({
+export const currentPageNumberAction = ( val:number ) => ({
     type: CURRENT_PAGE_NUMBER,
     payload: val,
 })
-export const updateStartEndPageAction = ( start, end ) => ({
+export const updateStartEndPageAction = ( start:number, end:number ) => ({
     type: UPDATE_START_END_PAGE,
     payload: { start, end },
 })
 
+// 액션 타입을 선언할 때 as const를 사용하여야 아래부분 사용가능
+export type PostAction = 
+| ReturnType<typeof addPostRequestAction>
+| ReturnType<typeof addPostSuccessAction>
+| ReturnType<typeof addPostFailureAction>
 
+| ReturnType<typeof removePostRequestAction>
+| ReturnType<typeof removePostSuccessAction>
+| ReturnType<typeof removePostFailureAction>
 
-export default ( state:PostState = initialState, action: PostAction ):PostState => {
+| ReturnType<typeof loadMainPostRequestAction>
+| ReturnType<typeof loadMainPostSuccessAction>
+| ReturnType<typeof loadMainPostFailureAction>
+
+| ReturnType<typeof uploadImagesRequestAction>
+| ReturnType<typeof currentPageNumberAction>
+| ReturnType<typeof updateStartEndPageAction>
+
+export default ( state:PostState = initialState, action: PostAction):PostState => {
     return produce ( state, (draft) => {
         switch (action.type) {
 
@@ -153,13 +170,13 @@ export default ( state:PostState = initialState, action: PostAction ):PostState 
             case REMOVE_POST_FAILURE: {
                 break;
             }
-            case POST_RESET_DONE: {
-                draft.imagePaths = [];
-            }
-            case POST_DELETE_DONE: {
-                draft.postDeleted = false;
-                break;
-            }
+            // case POST_RESET_DONE: {
+            //     draft.imagePaths = [];
+            // }
+            // case POST_DELETE_DONE: {
+            //     draft.postDeleted = false;
+            //     break;
+            // }
             case LOAD_MAIN_POSTS_REQUEST:{
                 draft.mainPosts = [];
                 draft.postAdded = false;
@@ -173,59 +190,60 @@ export default ( state:PostState = initialState, action: PostAction ):PostState 
             case LOAD_MAIN_POSTS_FAILURE:{
                 break;
             }
-            case LOAD_SINGLE_POST_REQUEST: {
-                break;
-            }
-            case LOAD_SINGLE_POST_SUCCESS: {
-                draft.singlePost = action.data;
-                break;
-            }
-            case LOAD_SINGLE_POST_FAILURE: {
-                break;
-            }
-            case LOAD_SEARCH_POSTS_REQUEST: {
-                draft.mainPosts = !action.lastId ? [] : draft.mainPosts;
-                draft.hasMorePost = action.lastId ? draft.hasMorePost : true;
-                break;
-            }
-            case LOAD_SEARCH_POSTS_SUCCESS: {
-                action.data.forEach((d) => {
-                    draft.mainPosts.push(d);
-                });
-                draft.hasMorePost = action.data.length === 10;
-                break;
-            }
-            case LOAD_SEARCH_POSTS_FAILURE: {
-                break;
-            }
+            // case LOAD_SINGLE_POST_REQUEST: {
+            //     break;
+            // }
+            // case LOAD_SINGLE_POST_SUCCESS: {
+            //     draft.singlePost = action.data;
+            //     break;
+            // }
+            // case LOAD_SINGLE_POST_FAILURE: {
+            //     break;
+            // }
+            // case LOAD_SEARCH_POSTS_REQUEST: {
+            //     draft.mainPosts = !action.lastId ? [] : draft.mainPosts;
+            //     draft.hasMorePost = action.lastId ? draft.hasMorePost : true;
+            //     break;
+            // }
+            // case LOAD_SEARCH_POSTS_SUCCESS: {
+            //     action.data.forEach((d) => {
+            //         draft.mainPosts.push(d);
+            //     });
+            //     draft.hasMorePost = action.data.length === 10;
+            //     break;
+            // }
+            // case LOAD_SEARCH_POSTS_FAILURE: {
+            //     break;
+            // }
 
-            case UPDATE_START_END_PAGE: {
-                draft.start = action.payload.start;
-                draft.end = action.payload.end;
-                // draft.current = action.payload.start;
-                break;
-            }
-            case CURRENT_PAGE_NUMBER: {
-                draft.current = action.payload;
-                break;
-            }
-            case UPLOAD_IMAGES_REQUEST: {
-                break;
-            }
-            case UPLOAD_IMAGES_SUCCESS: {
-                action.data.forEach((p) => {
-                    draft.imagePaths.push(p);
-                });
-                break;
-            }
-            case UPLOAD_IMAGES_FAILURE: {
-                break;
-            }
-            case REMOVE_IMAGE: {
-                const index = draft.imagePaths.findIndex((v, i) => i === action.index);
-                draft.imagePaths.splice(index, 1);
-                break;
-            }
+            // case UPDATE_START_END_PAGE: {
+            //     draft.start = action.payload.start;
+            //     draft.end = action.payload.end;
+            //     // draft.current = action.payload.start;
+            //     break;
+            // }
+            // case CURRENT_PAGE_NUMBER: {
+            //     draft.current = action.payload;
+            //     break;
+            // }
+            // case UPLOAD_IMAGES_REQUEST: {
+            //     break;
+            // }
+            // case UPLOAD_IMAGES_SUCCESS: {
+            //     action.data.forEach((p) => {
+            //         draft.imagePaths.push(p);
+            //     });
+            //     break;
+            // }
+            // case UPLOAD_IMAGES_FAILURE: {
+            //     break;
+            // }
+            // case REMOVE_IMAGE: {
+            //     const index = draft.imagePaths.findIndex((v, i) => i === action.index);
+            //     draft.imagePaths.splice(index, 1);
+            //     break;
+            // }
+
             default: {
                 break;
             }

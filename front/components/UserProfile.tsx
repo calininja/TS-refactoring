@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { useCallback } from 'react';
 import { useDispatch, useSelector } from "react-redux";
-import { logoutRequestAction } from '../reducers/user';
+import { logoutRequestAction } from '../reducers/user/user';
 import Router from 'next/router';
 import { RootState } from '../reducers';
 const UserProfile = () => {

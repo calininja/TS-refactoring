@@ -6,7 +6,6 @@ import { RootState } from '../reducers';
 import { 
   currentPageNumberAction,
   updateStartEndPageAction,
-  CURRENT_PAGE_NUMBER,
 } from '../reducers/post';
 
 const Pagination = () => {

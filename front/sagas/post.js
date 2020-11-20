@@ -19,7 +19,7 @@ import {
     UPLOAD_IMAGES_FAILURE,
     UPLOAD_IMAGES_REQUEST,
     UPLOAD_IMAGES_SUCCESS,
-} from '../reducers/post';
+} from '../reducers/post/actions';
 
 function addPostAPI(postData) {
     return axios.post('/post', postData, {

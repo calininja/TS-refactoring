@@ -1,13 +1,17 @@
 import React, { useEffect, useCallback, useRef, memo } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import PropTypes from 'prop-types';
 import Router from 'next/router';
 import { REMOVE_POST_REQUEST, POST_DELETE_DONE } from '../reducers/post';
-import Rating from '../components/Rating';
+import { RootState } from '../reducers';
+// import Rating from './Rating';
 
-const PostCard = memo(({ postId }) => {
-    const { singlePost, postDeleted } = useSelector(state => state.post);
-    const { me } = useSelector( state => state.user);
+type PostCardType = {
+    postId: string | number;
+}
+
+const PostCard:React.FunctionComponent<PostCardType> = memo(({ postId }) => {
+    const { singlePost, postDeleted } = useSelector( (state:RootState) => state.post);
+    const { me } = useSelector( (state:RootState) => state.user);
     const dispatch = useDispatch();
 
     const menuRef = useRef();
@@ -74,7 +78,7 @@ const PostCard = memo(({ postId }) => {
                     { singlePost.User.userId }
                 </div>
                 <div className="imageRenderer">
-                {singlePost.Images && singlePost.Images[0] && <img src={ `http://localhost:3065/${singlePost.Images[0].src}` } style={{ maxWidth: '100%' }} alt=""/>}
+                { singlePost.Images && singlePost.Images[0] && <img src={ `http://localhost:3065/${singlePost.Images[0].src}` } style={{ maxWidth: '100%' }} alt=""/> }
                 </div>
                 <div className="contnetRenderer">
                     { singlePost.content }
@@ -95,8 +99,5 @@ const PostCard = memo(({ postId }) => {
     );
 });
 
-PostCard.propTypes = {
-    postId: PropTypes.number.isRequired,
-};
 
 export default PostCard;

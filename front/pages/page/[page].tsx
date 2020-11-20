@@ -1,10 +1,9 @@
 import React, { useCallback, useEffect } from 'react';
-import PropTypes from 'prop-types';
 import { useRouter } from 'next/router'
 import { useDispatch, useSelector } from 'react-redux';
 import Title from '../../components/Title';
 import { LOAD_MAIN_POSTS_REQUEST, UPDATE_START_END_PAGE } from '../../reducers/post';
-import { LOAD_USER_REQUEST } from '../../reducers/user';
+import { LOAD_USER_REQUEST } from '../../reducers/user/user';
 import { END } from 'redux-saga';
 import axios from 'axios';
 import wrapper from '../../store/configureStore';

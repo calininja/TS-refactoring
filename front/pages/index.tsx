@@ -11,19 +11,15 @@ import {
     UPDATE_START_END_PAGE,
     POST_RESET_DONE 
 } from '../reducers/post';
-import { LOAD_USER_REQUEST } from '../reducers/user';
+import { LOAD_USER_REQUEST } from '../reducers/user/user';
 import axios from 'axios';
 import styled from 'styled-components';
 import { RootState } from '../reducers';
+import { GetServerSideProps } from 'next';
 
-type State = {
-    start: number;
-    end: number;
-    item: string | number | string[] | number[];
-}
 
-const Home:React.FunctionComponent<State> = () => {
-    const { me } = useSelector( (state:RootState) => state.user );
+const Home:React.FunctionComponent = () => {
+    // const { me } = useSelector( (state:RootState) => state.user );
     const { mainPosts } = useSelector( (state:RootState) => state.post );
     const dispatch = useDispatch();
 
@@ -58,7 +54,7 @@ const Title2 = styled.div`
   color: red;
 `;
 
-export const getServerSideProps = wrapper.getServerSideProps( async( context:any ) => {
+export const getServerSideProps:GetServerSideProps = wrapper.getServerSideProps( async( context:any ) => {
     const cookie = context.req ? context.req.headers.cookie : '';
     if ( context.req && cookie ) {
         axios.defaults.headers.Cookie = cookie;

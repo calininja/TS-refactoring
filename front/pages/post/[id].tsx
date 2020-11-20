@@ -1,17 +1,17 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import { useSelector } from 'react-redux';
 import PostCard from '../../components/PostCard';
 import { LOAD_SINGLE_POST_REQUEST } from '../../reducers/post';
-import { LOAD_USER_REQUEST } from '../../reducers/user';
+import { LOAD_USER_REQUEST } from '../../reducers/user/user';
 import { useRouter } from 'next/router';
 import { END } from 'redux-saga';
 import axios from 'axios';
 import wrapper from '../../store/configureStore';
 import { RootState } from '../../reducers';
+import { GetServerSideProps } from 'next';
 
 
-const post = () => {
+const post:React.FunctionComponent = () => {
 
   const { singlePost } = useSelector( (state:RootState) => state.post);
   const router = useRouter();
@@ -26,7 +26,7 @@ const post = () => {
 };
 
 
-export const getServerSideProps = wrapper.getServerSideProps( async( context:any ) => {
+export const getServerSideProps:GetServerSideProps = wrapper.getServerSideProps( async( context:any ) => {
   const { id } = context.params;
   const cookie = context.req ? context.req.headers.cookie : '';
   if ( context.req && cookie ) {
