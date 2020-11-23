@@ -1,8 +1,9 @@
 import React from 'react';
 import AppLayout from "../components/AppLayout";
-import PropTypes from "prop-types";
 import Helmet from "react-helmet";
 import wrapper from '../store/configureStore';
+// import PropTypes from "prop-types";
+
 // import withRedux from 'next-redux-wrapper';
 // import { Provider, useSelector, useDispatch } from "react-redux";
 // import { createStore, compose, applyMiddleware } from 'redux';
@@ -143,11 +144,11 @@ const CaliBlog = ({ Component, pageProps }) => {
     );
 };
 
-// propTypes
-CaliBlog.propTypes = {
-    Component: PropTypes.elementType.isRequired,
-    pageProps: PropTypes.object.isRequired,
-  };
+// // propTypes
+// CaliBlog.propTypes = {
+//     Component: PropTypes.elementType.isRequired,
+//     pageProps: PropTypes.object.isRequired,
+//   };
 
 // getInitialProps
 // CaliBlog.getInitialProps = async ( context ) => {

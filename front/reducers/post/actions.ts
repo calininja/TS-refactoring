@@ -1,3 +1,6 @@
+import { object, string } from "prop-types";
+import { PostState } from "./types";
+
 export const ADD_POST_REQUEST = 'ADD_POST_REQUEST' as const;
 export const ADD_POST_SUCCESS = 'ADD_POST_SUCCESS' as const;
 export const ADD_POST_FAILURE = 'ADD_POST_FAILURE' as const;
@@ -113,7 +116,12 @@ export const GO_TO_BEGIN = 'GO_TO_BEGIN' as const;
 
 // 액션 생성 함수
 
-export const addPostRequestAction = ( formData: FormData ) => ({
+export type addPostRequestType = {
+    type: typeof ADD_POST_REQUEST,
+    data: FormData
+}
+
+export const addPostRequestAction = ( formData: FormData ): addPostRequestType => ({
     type: ADD_POST_REQUEST,
     data: formData,
 })
@@ -125,10 +133,17 @@ export const addPostFailureAction = () => ({
     type: ADD_POST_FAILURE,
 })
 
+export const postResetDoneAction = () => ({
+    type: POST_RESET_DONE,
+})
+export const postDeleteDoneAction = () => ({
+    type: POST_DELETE_DONE,
+})
+
 export const removePostRequestAction = () => ({
     type: REMOVE_POST_REQUEST,
 })
-export const removePostSuccessAction = ( data: string ) => ({
+export const removePostSuccessAction = <T>( data:AsyncState<T> ) => ({
     type: REMOVE_POST_SUCCESS,
     data
 })
@@ -139,22 +154,34 @@ export const removePostFailureAction = () => ({
 export const loadMainPostRequestAction = () => ({
     type: LOAD_MAIN_POSTS_REQUEST,
 })
-export const loadMainPostSuccessAction = () => ({
+export const loadMainPostSuccessAction = ( data: any ) => ({
     type: LOAD_MAIN_POSTS_SUCCESS,
+    data: data.posts
 })
 export const loadMainPostFailureAction = () => ({
     type: LOAD_MAIN_POSTS_FAILURE,
 })
 
-export const uploadImagesRequestAction = ( imageFormData:FormData ) => ({
+export const loadSinglePostRequestAction = () => ({
+    type: LOAD_SINGLE_POST_REQUEST,
+})
+export const loadSinglePostSuccessAction = ( data: any ) => ({
+    type: LOAD_SINGLE_POST_SUCCESS,
+    data: data.posts
+})
+export const loadSinglePostFailureAction = () => ({
+    type: LOAD_SINGLE_POST_FAILURE,
+})
+
+export const uploadImagesRequestAction = ( imageFormData: FormData ) => ({
     type: UPLOAD_IMAGES_REQUEST,
     data: imageFormData,
 })
-export const currentPageNumberAction = ( val:number ) => ({
+export const currentPageNumberAction = ( val: number ) => ({
     type: CURRENT_PAGE_NUMBER,
     payload: val,
 })
-export const updateStartEndPageAction = ( start:number, end:number ) => ({
+export const updateStartEndPageAction = ( start: number, end: number ) => ({
     type: UPDATE_START_END_PAGE,
     payload: { start, end },
 })
