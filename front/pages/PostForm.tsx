@@ -6,7 +6,7 @@ import {
     addPostRequestAction,
     uploadImagesRequestAction
 } from '../reducers/post/actions';
-import { LOAD_USER_REQUEST } from '../reducers/user/user';
+import { LOAD_USER_REQUEST } from '../reducers/user';
 import { END } from 'redux-saga';
 import axios from 'axios';
 import wrapper from '../store/configureStore';
@@ -102,7 +102,7 @@ const PostForm:React.FunctionComponent = () => {
     );
 };
 
-export const getServerSideProps:GetServerSideProps = wrapper.getServerSideProps( async( context ) => {
+export const getServerSideProps:GetServerSideProps = wrapper.getServerSideProps( async( context:any ) => {
     const cookie = context.req ? context.req.headers.cookie : '';
 
     if ( context.req && cookie ) {

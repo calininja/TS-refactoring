@@ -21,10 +21,14 @@ import {
   REMOVE_POST_SUCCESS,
 
   UPDATE_START_END_PAGE,
-  CURRENT_PAGE_NUMBER
+  CURRENT_PAGE_NUMBER,
+  
+  LOAD_SEARCH_POSTS_REQUEST,
+  LOAD_SEARCH_POSTS_SUCCESS,
+  LOAD_SEARCH_POSTS_FAILURE
 } from './actions';
 
-export const initialState = {
+export const initialState:PostState = {
   mainPosts: [],
   mainPostsAll: [],
   singlePost: null,
@@ -34,13 +38,12 @@ export const initialState = {
   isAddingPost: false,
   postAdded: false,
   postLoaded: false,
-  // hasMorePost: false,
+
   start: 0, // pagination
   end: 10,
   current: 1,
-  id: 0,
-  data:null,
-  error: null,
+  hasMorePost: false,
+  lastId: null,
 }
 
 export default ( state:PostState = initialState, action: PostAction):PostState => {
@@ -107,21 +110,21 @@ export default ( state:PostState = initialState, action: PostAction):PostState =
           case LOAD_SINGLE_POST_FAILURE: {
               break;
           }
-          // case LOAD_SEARCH_POSTS_REQUEST: {
-          //     draft.mainPosts = !action.lastId ? [] : draft.mainPosts;
-          //     draft.hasMorePost = action.lastId ? draft.hasMorePost : true;
-          //     break;
-          // }
-          // case LOAD_SEARCH_POSTS_SUCCESS: {
-          //     action.data.forEach((d) => {
-          //         draft.mainPosts.push(d);
-          //     });
-          //     draft.hasMorePost = action.data.length === 10;
-          //     break;
-          // }
-          // case LOAD_SEARCH_POSTS_FAILURE: {
-          //     break;
-          // }
+          case LOAD_SEARCH_POSTS_REQUEST: {
+              draft.mainPosts = !action.lastId ? [] : draft.mainPosts;
+              draft.hasMorePost = action.lastId ? draft.hasMorePost : true;
+              break;
+          }
+          case LOAD_SEARCH_POSTS_SUCCESS: {
+              action.data.forEach((d) => {
+                  draft.mainPosts.push(d);
+              });
+              draft.hasMorePost = action.data.length === 10;
+              break;
+          }
+          case LOAD_SEARCH_POSTS_FAILURE: {
+              break;
+          }
 
           case UPDATE_START_END_PAGE: {
               draft.start = action.payload.start;

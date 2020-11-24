@@ -1,6 +1,6 @@
 // import React, { useCallback, useEffect, useState } from 'react';
 import * as React from 'react';
-import { useCallback, useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { END } from 'redux-saga';
 import wrapper from '../store/configureStore';
@@ -11,7 +11,7 @@ import {
     UPDATE_START_END_PAGE,
     POST_RESET_DONE 
 } from '../reducers/post';
-import { LOAD_USER_REQUEST } from '../reducers/user/user';
+import { LOAD_USER_REQUEST } from '../reducers/user';
 import axios from 'axios';
 import styled from 'styled-components';
 import { RootState } from '../reducers';
@@ -21,6 +21,7 @@ import { GetServerSideProps } from 'next';
 const Home:React.FunctionComponent = () => {
     // const { me } = useSelector( (state:RootState) => state.user );
     const { mainPosts } = useSelector( (state:RootState) => state.post );
+    // const { mainPosts } = useSelector<RootState,PostState>( state => state.post );
     const dispatch = useDispatch();
 
     useEffect(() => {

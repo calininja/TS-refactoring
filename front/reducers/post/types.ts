@@ -14,6 +14,10 @@ import {
   loadMainPostSuccessAction,
   loadMainPostFailureAction,
 
+  loadSearchPostsRequestAction,
+  loadSearchPostsSuccessAction,
+  loadSearchPostsFailureAction,
+
   loadSinglePostRequestAction,
   loadSinglePostSuccessAction,
   loadSinglePostFailureAction,
@@ -41,6 +45,10 @@ export type PostAction =
 | ReturnType<typeof loadMainPostSuccessAction>
 | ReturnType<typeof loadMainPostFailureAction>
 
+| ReturnType<typeof loadSearchPostsRequestAction>
+| ReturnType<typeof loadSearchPostsSuccessAction>
+| ReturnType<typeof loadSearchPostsFailureAction>
+
 | ReturnType<typeof loadSinglePostRequestAction>
 | ReturnType<typeof loadSinglePostSuccessAction>
 | ReturnType<typeof loadSinglePostFailureAction>
@@ -55,21 +63,21 @@ export type PostAction =
 
 // 상태에서 사용할 데이터 타입 정의(initialState)
 export type PostState = {
-  mainPosts: string[],
+  mainPosts: any,
   mainPostsAll: string[],
-  singlePost: null,
+  singlePost: any,
   postDeleted: boolean,
   imagePaths: string[],
   addingPostErrorReason: string,
   isAddingPost: boolean,
   postAdded: boolean,
   postLoaded: boolean,
-  // hasMorePost: boolean,
+
   start: number,// pagination
   end: number,
   current: number,
-
-  id: number,
+  hasMorePost: boolean,
+  lastId: number,
 }
 
 

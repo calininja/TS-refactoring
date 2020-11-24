@@ -1,11 +1,13 @@
 import React, { useCallback, memo } from 'react';
 import Link from 'next/link';
 import { useSelector, useDispatch } from 'react-redux';
-import PropTypes from 'prop-types';
+import { RootState } from '../reducers';
 
-
-const Title = memo(({ post }) => {
-  const { me } = useSelector( state => state.user );
+type TitleType = {
+  post: any;
+}
+const Title = memo<TitleType>(({ post }) => {
+  const { me } = useSelector( (state:RootState) => state.user );
   const preventAccess = useCallback(() => {
     alert('로그인이 필요합니다.');
   },[])
@@ -38,9 +40,5 @@ const Title = memo(({ post }) => {
     </>
   );
 });
-
-Title.propTypes = {
-  post: PropTypes.object.isRequired,
-}
 
 export default Title;

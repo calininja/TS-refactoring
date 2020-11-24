@@ -8,13 +8,13 @@ import {
   updateStartEndPageAction,
 } from '../reducers/post';
 
-const Pagination = () => {
+const Pagination:React.FunctionComponent = () => {
   const dispatch = useDispatch();
   const { mainPostsAll, start, end, current } = useSelector( ( state: RootState ) => state.post );
 
   // 페이지네이션 도트 개수 설정
   const per = 10;
-  const dbPostsAll = mainPostsAll;
+  const dbPostsAll = Number(mainPostsAll);
   const total = Math.ceil( dbPostsAll / per );
   const array = [];
   for ( let i=1; i < total+1; i++ ) {

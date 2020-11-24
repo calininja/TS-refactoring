@@ -5,8 +5,9 @@ import { useRouter } from 'next/router'
 import { END } from 'redux-saga';
 import axios from 'axios';
 import wrapper from '../store/configureStore';
+import { GetServerSideProps } from 'next';
 
-const Profile = () => {
+const Profile:React.FunctionComponent = () => {
     return (
         <>
             <div>
@@ -22,7 +23,7 @@ const Profile = () => {
     );
 };
 
-export const getServerSideProps = wrapper.getServerSideProps( async ( context ) => {
+export const getServerSideProps:GetServerSideProps = wrapper.getServerSideProps( async ( context:any ) => {
     const cookie = context.req ? context.req.headers.cookie : '';
     console.log(context.query);
     console.log('pathname');

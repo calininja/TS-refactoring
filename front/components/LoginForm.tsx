@@ -2,7 +2,7 @@ import * as React from 'react';
 import { useCallback } from 'react';
 import { useDispatch } from "react-redux";
 import Link from 'next/link';
-import { loginRequestAction } from '../reducers/user/user';
+import { loginRequestAction } from '../reducers/user';
 import { useInput } from "../pages/signup";
 
 

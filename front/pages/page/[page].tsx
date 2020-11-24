@@ -3,18 +3,15 @@ import { useRouter } from 'next/router'
 import { useDispatch, useSelector } from 'react-redux';
 import Title from '../../components/Title';
 import { LOAD_MAIN_POSTS_REQUEST, UPDATE_START_END_PAGE } from '../../reducers/post';
-import { LOAD_USER_REQUEST } from '../../reducers/user/user';
+import { LOAD_USER_REQUEST } from '../../reducers/user';
 import { END } from 'redux-saga';
 import axios from 'axios';
 import wrapper from '../../store/configureStore';
 import { RootState } from '../../reducers';
-import { GetServerSideProps, InferGetServerSidePropsType  } from 'next';
+import { GetServerSideProps } from 'next';
 
-type State = {
-  item: string | number | string[] | number[];
-}
 
-const Page:React.FunctionComponent<State> = () => {
+const Page:React.FunctionComponent = () => {
   // const dispatch = useDispatch();
   const { mainPosts } = useSelector( ( state:RootState ) => state.post );
   const router = useRouter();

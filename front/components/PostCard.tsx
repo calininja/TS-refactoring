@@ -6,17 +6,17 @@ import { RootState } from '../reducers';
 // import Rating from './Rating';
 
 type PostCardType = {
-    postId: string | number;
+    postId: any;
 }
 
 const PostCard:React.FunctionComponent<PostCardType> = memo(({ postId }) => {
     const { singlePost, postDeleted } = useSelector( (state:RootState) => state.post);
     const { me } = useSelector( (state:RootState) => state.user);
     const dispatch = useDispatch();
-
-    const menuRef = useRef();
-    const deleteRef = useRef();
-    const modifyRef = useRef();
+    
+    const menuRef:React.MutableRefObject<HTMLButtonElement> = useRef();
+    const deleteRef:React.MutableRefObject<HTMLDivElement> = useRef();
+    const modifyRef:React.MutableRefObject<HTMLDivElement> = useRef();
 
     useEffect(() =>{ // 삭제 완료 => 스테이트 초기화(false)
         if( postDeleted ) {

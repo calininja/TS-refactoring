@@ -2,13 +2,14 @@ import * as React from 'react';
 import { useState, useEffect, useCallback } from 'react';
 import { useDispatch, useSelector } from "react-redux";
 import Router from "next/router";
-import { signUpDoneAction } from '../reducers/user/user';
+import { signUpDoneAction } from '../reducers/user';
 import { RootState } from '../reducers';
-import { signUpRequestAction } from '../reducers/user/user';
-import { LOAD_USER_REQUEST } from '../reducers/user/user';
+import { signUpRequestAction } from '../reducers/user';
+import { LOAD_USER_REQUEST } from '../reducers/user';
 import { END } from 'redux-saga';
 import axios from 'axios';
 import wrapper from '../store/configureStore';
+import { GetServerSideProps } from 'next';
 
 // 커스텀 훅
 export const useInput = (initValue = null) => {
@@ -19,7 +20,7 @@ export const useInput = (initValue = null) => {
     return [value, handler];
 };
 
-const signup = () => {
+const signup:React.FunctionComponent = () => {
     const [passwordCheck, setPasswordCheck] = useState("");
     const [term, setTerm] = useState();
     const [passwordError, setPasswordError] = useState(false);
@@ -48,7 +49,7 @@ const signup = () => {
     // const onChangeTerm = e => {
     //     setTerm(e.target.value);
     // };
-
+    
     const onSubmit = useCallback((e) => {
         e.preventDefault();
         // 패스워드 & 약관 체크
@@ -115,7 +116,7 @@ const signup = () => {
 };
 
 
-export const getServerSideProps = wrapper.getServerSideProps( async ( context:RootState ) => {
+export const getServerSideProps:GetServerSideProps = wrapper.getServerSideProps( async ( context:any ) => {
     const cookie = context.req ? context.req.headers.cookie : '';
 
     if ( context.req && cookie ) {

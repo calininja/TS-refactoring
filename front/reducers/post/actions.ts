@@ -1,5 +1,3 @@
-import { object, string } from "prop-types";
-import { PostState } from "./types";
 
 export const ADD_POST_REQUEST = 'ADD_POST_REQUEST' as const;
 export const ADD_POST_SUCCESS = 'ADD_POST_SUCCESS' as const;
@@ -116,12 +114,16 @@ export const GO_TO_BEGIN = 'GO_TO_BEGIN' as const;
 
 // 액션 생성 함수
 
-export type addPostRequestType = {
-    type: typeof ADD_POST_REQUEST,
-    data: FormData
-}
+// export type addPostRequestType = {
+//     type: typeof ADD_POST_REQUEST,
+//     data: FormData
+// }
+// export type AsyncState<T> = {
+//     type: typeof REMOVE_POST_SUCCESS,
+//     data: T,
+// }
 
-export const addPostRequestAction = ( formData: FormData ): addPostRequestType => ({
+export const addPostRequestAction = ( formData: FormData ) => ({
     type: ADD_POST_REQUEST,
     data: formData,
 })
@@ -143,7 +145,7 @@ export const postDeleteDoneAction = () => ({
 export const removePostRequestAction = () => ({
     type: REMOVE_POST_REQUEST,
 })
-export const removePostSuccessAction = <T>( data:AsyncState<T> ) => ({
+export const removePostSuccessAction = ( data ) => ({
     type: REMOVE_POST_SUCCESS,
     data
 })
@@ -160,6 +162,17 @@ export const loadMainPostSuccessAction = ( data: any ) => ({
 })
 export const loadMainPostFailureAction = () => ({
     type: LOAD_MAIN_POSTS_FAILURE,
+})
+
+export const loadSearchPostsRequestAction = () => ({
+    type: LOAD_SEARCH_POSTS_REQUEST,
+})
+export const loadSearchPostsSuccessAction = ( data: string[] ) => ({
+    type: LOAD_SEARCH_POSTS_SUCCESS,
+    data
+})
+export const loadSearchPostsFailureAction = () => ({
+    type: LOAD_SEARCH_POSTS_FAILURE,
 })
 
 export const loadSinglePostRequestAction = () => ({

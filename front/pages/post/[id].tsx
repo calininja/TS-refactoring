@@ -2,17 +2,17 @@ import React from 'react';
 import { useSelector } from 'react-redux';
 import PostCard from '../../components/PostCard';
 import { LOAD_SINGLE_POST_REQUEST } from '../../reducers/post';
-import { LOAD_USER_REQUEST } from '../../reducers/user/user';
-import { useRouter } from 'next/router';
+import { LOAD_USER_REQUEST } from '../../reducers/user';
+import { NextRouter, useRouter } from 'next/router';
 import { END } from 'redux-saga';
 import axios from 'axios';
 import wrapper from '../../store/configureStore';
 import { RootState } from '../../reducers';
 import { GetServerSideProps } from 'next';
+import { ParsedUrlQuery } from 'querystring';
 
 
 const post:React.FunctionComponent = () => {
-
   const { singlePost } = useSelector( (state:RootState) => state.post);
   const router = useRouter();
   const { id } = router.query;
