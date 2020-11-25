@@ -10,24 +10,24 @@ import {
   LOG_OUT_REQUEST, 
   LOG_OUT_SUCCESS, 
   SIGN_UP_DONE, 
-  SIGN_UP_FAILURE, 
   SIGN_UP_REQUEST, 
-  SIGN_UP_SUCCESS 
+  SIGN_UP_SUCCESS,
+  SIGN_UP_FAILURE, 
 } from "./actions";
 
 export const initialState: UserState = {
   isLoggingOut: false, // 로그아웃 시도중
   isLoggingIn: false, // 로그인 시도중
-  logInErrorReason: '', // 로그인 실패 사유
+  logInErrorReason: false, // 로그인 실패 사유
   isSignedUp: false, // 회원가입 성공
   isSigningUp: false, // 회원가입 시도중
-  signUpErrorReason: '', // 회원가입 실패 사유
+  signUpErrorReason: false, // 회원가입 실패 사유
   me: null, // 내 정보
 };
 
 
 export default ( state:UserState = initialState, action: UserAction ):UserState => {
-  return produce( state, (draft ) => {
+  return produce( state, ( draft ) => {
       switch ( action.type ) {
           // immer 안쓸때
           // case SIGN_IN_REQUEST: {
@@ -41,13 +41,13 @@ export default ( state:UserState = initialState, action: UserAction ):UserState 
           case SIGN_UP_DONE: {
               draft.isSigningUp = false;
               draft.isSignedUp = false;
-              draft.signUpErrorReason = '';
+              draft.signUpErrorReason = null;
               break;
           }
           case SIGN_UP_REQUEST: {
               draft.isSigningUp = true;
               draft.isSignedUp = false;
-              draft.signUpErrorReason = '';
+              draft.signUpErrorReason = null;
               break;
           }
           case SIGN_UP_SUCCESS: {
@@ -58,13 +58,14 @@ export default ( state:UserState = initialState, action: UserAction ):UserState 
           case SIGN_UP_FAILURE: {
               draft.isLoggingIn = false;
               draft.isSignedUp = false;
-              draft.signUpErrorReason = action.error;
+              draft.signUpErrorReason = true;
+            //   draft.signUpErrorReason = action.error;
               draft.me = null;
               break;
           }
           case LOG_IN_REQUEST: {
               draft.isLoggingIn = true;
-              draft.logInErrorReason = '';
+              draft.logInErrorReason = false;
               break;
           }
           case LOG_IN_SUCCESS: {
@@ -74,7 +75,8 @@ export default ( state:UserState = initialState, action: UserAction ):UserState 
           }
           case LOG_IN_FAILURE: {
               draft.isLoggingIn = false;
-              draft.logInErrorReason = action.reason;
+              draft.logInErrorReason = true;
+            //   draft.logInErrorReason = action.reason;
               draft.me = null;
               break;
           }

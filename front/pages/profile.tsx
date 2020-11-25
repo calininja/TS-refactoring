@@ -23,7 +23,7 @@ const Profile:React.FunctionComponent = () => {
     );
 };
 
-export const getServerSideProps:GetServerSideProps = wrapper.getServerSideProps( async ( context:any ) => {
+export const getServerSideProps:GetServerSideProps = wrapper.getServerSideProps( async ( context: object | any ) => {
     const cookie = context.req ? context.req.headers.cookie : '';
     console.log(context.query);
     console.log('pathname');

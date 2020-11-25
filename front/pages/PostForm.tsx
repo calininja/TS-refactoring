@@ -2,7 +2,7 @@ import React, { useCallback, useEffect, useState, useRef } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import Router from 'next/router';
 import { 
-    REMOVE_IMAGE,
+    removeImageAction,
     addPostRequestAction,
     uploadImagesRequestAction
 } from '../reducers/post/actions';
@@ -67,10 +67,7 @@ const PostForm:React.FunctionComponent = () => {
     }, [imageInput.current]);
 
     const onRemoveImage = useCallback(index => () => {
-        dispatch({
-            type: REMOVE_IMAGE,
-            index,
-        });
+        dispatch(removeImageAction());
     }, []);
 
     return (
@@ -102,7 +99,7 @@ const PostForm:React.FunctionComponent = () => {
     );
 };
 
-export const getServerSideProps:GetServerSideProps = wrapper.getServerSideProps( async( context:any ) => {
+export const getServerSideProps:GetServerSideProps = wrapper.getServerSideProps( async( context: object | any ) => {
     const cookie = context.req ? context.req.headers.cookie : '';
 
     if ( context.req && cookie ) {

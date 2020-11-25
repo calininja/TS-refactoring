@@ -1,24 +1,27 @@
-import { createWrapper } from 'next-redux-wrapper';
-import { applyMiddleware, createStore, compose } from 'redux';
+import { Context, createWrapper, MakeStore } from 'next-redux-wrapper';
+import { applyMiddleware, createStore, compose, Store } from 'redux';
 import { composeWithDevTools } from 'redux-devtools-extension';
-import createSagaMiddleware from 'redux-saga';
-import { RootState } from '../reducers';
-import reducer from '../reducers';
+import createSagaMiddleware, { Task } from 'redux-saga';
+import reducer, { RootState } from '../reducers';
 import rootSaga from '../sagas';
 
-const loggerMiddleware = ({ dispatch, getState }) => (next) => (action) => {
-  console.log(action);
-  return next(action);
-};
+export interface SagaStore extends Store {
+  sagaTask: Task;
+}
 
-const configureStore = () => {
+// const loggerMiddleware = ({ dispatch, getState }) => (next) => (action) => {
+//   console.log(action);
+//   return next(action);
+// };
+
+const configureStore:MakeStore<RootState> = ( context: Context ) => {
   const sagaMiddleware = createSagaMiddleware();
-  const middlewares = [sagaMiddleware, loggerMiddleware];
+  const middlewares = [sagaMiddleware, /*loggerMiddleware*/];
   const enhancer = process.env.NODE_ENV === 'production'
     ? compose(applyMiddleware(...middlewares))
     : composeWithDevTools(applyMiddleware(...middlewares));
-  const store:RootState = createStore(reducer, enhancer);
-  store.sagaTask = sagaMiddleware.run(rootSaga);
+  const store = createStore(reducer, enhancer);
+  ( store as SagaStore ).sagaTask = sagaMiddleware.run(rootSaga);
   return store;
 };
 

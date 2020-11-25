@@ -55,7 +55,7 @@ const Title2 = styled.div`
   color: red;
 `;
 
-export const getServerSideProps:GetServerSideProps = wrapper.getServerSideProps( async( context:any ) => {
+export const getServerSideProps:GetServerSideProps = wrapper.getServerSideProps( async( context:object | any ) => {
     const cookie = context.req ? context.req.headers.cookie : '';
     if ( context.req && cookie ) {
         axios.defaults.headers.Cookie = cookie;

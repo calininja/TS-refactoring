@@ -23,6 +23,10 @@ import {
   loadSinglePostFailureAction,
 
   uploadImagesRequestAction,
+  uploadImagesSuccessAction,
+  uploadImagesFailureAction,
+  removeImageAction,
+
   currentPageNumberAction,
   updateStartEndPageAction,
 
@@ -54,6 +58,10 @@ export type PostAction =
 | ReturnType<typeof loadSinglePostFailureAction>
 
 | ReturnType<typeof uploadImagesRequestAction>
+| ReturnType<typeof uploadImagesSuccessAction>
+| ReturnType<typeof uploadImagesFailureAction>
+| ReturnType<typeof removeImageAction>
+
 | ReturnType<typeof currentPageNumberAction>
 | ReturnType<typeof updateStartEndPageAction>
 
@@ -63,9 +71,9 @@ export type PostAction =
 
 // 상태에서 사용할 데이터 타입 정의(initialState)
 export type PostState = {
-  mainPosts: any,
+  mainPosts: object[] | any,
   mainPostsAll: string[],
-  singlePost: any,
+  singlePost: object[] | any,
   postDeleted: boolean,
   imagePaths: string[],
   addingPostErrorReason: string,

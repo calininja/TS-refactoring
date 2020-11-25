@@ -1,3 +1,5 @@
+export const SIGN_UP_DONE = 'SIGN_UP_DONE' as const;
+
 export const SIGN_UP_REQUEST = 'SIGN_UP_REQUEST' as const;
 export const SIGN_UP_SUCCESS = 'SIGN_UP_SUCCESS' as const;
 export const SIGN_UP_FAILURE = 'SIGN_UP_FAILURE' as const;
@@ -14,7 +16,6 @@ export const LOAD_USER_REQUEST = 'LOAD_USER_REQUEST' as const;
 export const LOAD_USER_SUCCESS = 'LOAD_USER_SUCCESS' as const;
 export const LOAD_USER_FAILURE = 'LOAD_USER_FAILURE' as const;
 
-export const SIGN_UP_DONE = 'SIGN_UP_DONE';
 
 
 export const signUpDoneAction = ( ) => ({
@@ -23,27 +24,30 @@ export const signUpDoneAction = ( ) => ({
 export const signUpRequestAction = ( id: string, password: number ) => ({
     type: SIGN_UP_REQUEST,
     data: {
-        userId: id,
+        id,
         password
     }
 })
 export const signUpSuccessAction = () => ({
     type: SIGN_UP_SUCCESS,
 })
-export const signUpFailureAction = ( data: any ) => ({
+export const signUpFailureAction = () => ({
     type: SIGN_UP_FAILURE,
-    data
 })
 
-export const loginRequestAction = ( id: string, password: string ) => ({
+export const loginRequestAction = ( id: string, password: number ) => ({
     type:LOG_IN_REQUEST,
-    data:{
+    data: {
         userId: id,
         password
     }
 })
-export const loginSuccessAction = () => ({
+export const loginSuccessAction = ( id: string, password: number ) => ({
     type:LOG_IN_SUCCESS,
+    data: {
+        userId: id,
+        password
+    }
 })
 export const loginFailureAction = () => ({
     type:LOG_IN_FAILURE,

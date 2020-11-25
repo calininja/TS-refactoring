@@ -25,10 +25,16 @@ import {
   
   LOAD_SEARCH_POSTS_REQUEST,
   LOAD_SEARCH_POSTS_SUCCESS,
-  LOAD_SEARCH_POSTS_FAILURE
+  LOAD_SEARCH_POSTS_FAILURE,
+
+  UPLOAD_IMAGES_REQUEST,
+  UPLOAD_IMAGES_SUCCESS,
+  UPLOAD_IMAGES_FAILURE,
+  REMOVE_IMAGE,
+  
 } from './actions';
 
-export const initialState:PostState = {
+export const initialState: PostState = {
   mainPosts: [],
   mainPostsAll: [],
   singlePost: null,
@@ -48,7 +54,7 @@ export const initialState:PostState = {
 
 export default ( state:PostState = initialState, action: PostAction):PostState => {
   return produce ( state, (draft) => {
-      switch (action.type) {
+      switch ( action.type ) {
 
           case ADD_POST_REQUEST: {
               draft.isAddingPost = true;
@@ -136,23 +142,23 @@ export default ( state:PostState = initialState, action: PostAction):PostState =
               draft.current = action.payload;
               break;
           }
-          // case UPLOAD_IMAGES_REQUEST: {
-          //     break;
-          // }
-          // case UPLOAD_IMAGES_SUCCESS: {
-          //     action.data.forEach((p) => {
-          //         draft.imagePaths.push(p);
-          //     });
-          //     break;
-          // }
-          // case UPLOAD_IMAGES_FAILURE: {
-          //     break;
-          // }
-          // case REMOVE_IMAGE: {
-          //     const index = draft.imagePaths.findIndex((v, i) => i === action.index);
-          //     draft.imagePaths.splice(index, 1);
-          //     break;
-          // }
+          case UPLOAD_IMAGES_REQUEST: {
+              break;
+          }
+          case UPLOAD_IMAGES_SUCCESS: {
+              action.data.forEach((p) => {
+                  draft.imagePaths.push(p);
+              });
+              break;
+          }
+          case UPLOAD_IMAGES_FAILURE: {
+              break;
+          }
+        //   case REMOVE_IMAGE: {
+        //       const index = draft.imagePaths.findIndex((v, i) => i === action.index);
+        //       draft.imagePaths.splice(index, 1);
+        //       break;
+        //   }
 
           default: {
               break;

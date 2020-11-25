@@ -22,8 +22,8 @@ export const LOAD_SINGLE_POST_FAILURE = 'LOAD_SINGLE_POST_FAILURE' as const;
 export const UPLOAD_IMAGES_REQUEST = 'UPLOAD_IMAGES_REQUEST' as const;
 export const UPLOAD_IMAGES_SUCCESS = 'UPLOAD_IMAGES_SUCCESS' as const;
 export const UPLOAD_IMAGES_FAILURE = 'UPLOAD_IMAGES_FAILURE' as const;
-
 export const REMOVE_IMAGE = 'REMOVE_IMAGE' as const;
+
 export const POST_RESET_DONE = 'POST_RESET_DONE' as const;
 export const POST_DELETE_DONE = 'POST_DELETE_DONE' as const;
 
@@ -156,7 +156,7 @@ export const removePostFailureAction = () => ({
 export const loadMainPostRequestAction = () => ({
     type: LOAD_MAIN_POSTS_REQUEST,
 })
-export const loadMainPostSuccessAction = ( data: any ) => ({
+export const loadMainPostSuccessAction = ( data: object[] | any ) => ({
     type: LOAD_MAIN_POSTS_SUCCESS,
     data: data.posts
 })
@@ -178,7 +178,7 @@ export const loadSearchPostsFailureAction = () => ({
 export const loadSinglePostRequestAction = () => ({
     type: LOAD_SINGLE_POST_REQUEST,
 })
-export const loadSinglePostSuccessAction = ( data: any ) => ({
+export const loadSinglePostSuccessAction = ( data: object[] | any ) => ({
     type: LOAD_SINGLE_POST_SUCCESS,
     data: data.posts
 })
@@ -190,6 +190,18 @@ export const uploadImagesRequestAction = ( imageFormData: FormData ) => ({
     type: UPLOAD_IMAGES_REQUEST,
     data: imageFormData,
 })
+export const uploadImagesSuccessAction = ( data: any) => ({
+    type: UPLOAD_IMAGES_SUCCESS,
+    data
+})
+export const uploadImagesFailureAction = () => ({
+    type: UPLOAD_IMAGES_FAILURE,
+})
+
+export const removeImageAction = () => ({
+    type: REMOVE_IMAGE,
+})
+
 export const currentPageNumberAction = ( val: number ) => ({
     type: CURRENT_PAGE_NUMBER,
     payload: val,

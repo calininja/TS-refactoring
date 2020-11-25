@@ -21,10 +21,10 @@ export const useInput = (initValue = null) => {
 };
 
 const signup:React.FunctionComponent = () => {
-    const [passwordCheck, setPasswordCheck] = useState("");
-    const [term, setTerm] = useState();
-    const [passwordError, setPasswordError] = useState(false);
-    const [termError, setTermError] = useState(false);
+    const [ passwordCheck, setPasswordCheck ] = useState("");
+    const [ term, setTerm ] = useState();
+    const [ passwordError, setPasswordError ] = useState(false);
+    const [ termError, setTermError ] = useState(false);
 
     const [ id, onChangeId ] = useInput('');
     const [ password, onChangePassword ] = useInput('');
@@ -72,7 +72,7 @@ const signup:React.FunctionComponent = () => {
         setTerm(e.target.checked);
     },[])
     useEffect(() => {
-        if (signUpErrorReason.response) {
+        if ( signUpErrorReason ) {
             alert('이미 사용중인 아이디입니다.');
             dispatch(signUpDoneAction())
         }
@@ -116,7 +116,7 @@ const signup:React.FunctionComponent = () => {
 };
 
 
-export const getServerSideProps:GetServerSideProps = wrapper.getServerSideProps( async ( context:any ) => {
+export const getServerSideProps:GetServerSideProps = wrapper.getServerSideProps( async ( context: object | any ) => {
     const cookie = context.req ? context.req.headers.cookie : '';
 
     if ( context.req && cookie ) {
