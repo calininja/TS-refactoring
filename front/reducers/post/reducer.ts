@@ -40,7 +40,7 @@ export const initialState: PostState = {
   singlePost: null,
   postDeleted: false,
   imagePaths: [],
-  addingPostErrorReason: '',
+  addingPostErrorReason: null,
   isAddingPost: false,
   postAdded: false,
   postLoaded: false,
@@ -49,7 +49,6 @@ export const initialState: PostState = {
   end: 10,
   current: 1,
   hasMorePost: false,
-  lastId: null,
 }
 
 export default ( state:PostState = initialState, action: PostAction):PostState => {
@@ -58,7 +57,7 @@ export default ( state:PostState = initialState, action: PostAction):PostState =
 
           case ADD_POST_REQUEST: {
               draft.isAddingPost = true;
-              draft.addingPostErrorReason = '';
+              draft.addingPostErrorReason = null;
               draft.postAdded = false;
               break;
           }
@@ -70,7 +69,7 @@ export default ( state:PostState = initialState, action: PostAction):PostState =
           }
           case ADD_POST_FAILURE: {
               draft.isAddingPost = true;
-              draft.addingPostErrorReason = '';
+              draft.addingPostErrorReason = null;
               draft.postAdded = false;
               break;
           }
@@ -154,11 +153,11 @@ export default ( state:PostState = initialState, action: PostAction):PostState =
           case UPLOAD_IMAGES_FAILURE: {
               break;
           }
-        //   case REMOVE_IMAGE: {
-        //       const index = draft.imagePaths.findIndex((v, i) => i === action.index);
-        //       draft.imagePaths.splice(index, 1);
-        //       break;
-        //   }
+          case REMOVE_IMAGE: {
+              const index = draft.imagePaths.findIndex((v, i) => i === action.data.index);
+              draft.imagePaths.splice(index, 1);
+              break;
+          }
 
           default: {
               break;

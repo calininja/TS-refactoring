@@ -85,7 +85,6 @@ export type PostState = {
   end: number,
   current: number,
   hasMorePost: boolean,
-  lastId: number,
 }
 
 

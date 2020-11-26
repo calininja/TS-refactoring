@@ -42,9 +42,11 @@ export type UserAction =
 export type UserState = {
   isLoggingOut: boolean,
   isLoggingIn: boolean,
+  // logInErrorReason: boolean,
   logInErrorReason: string | any,
   isSignedUp: boolean,
   isSigningUp: boolean,
+  // signUpErrorReason: boolean,
   signUpErrorReason: object | any,
   me: any,
 }

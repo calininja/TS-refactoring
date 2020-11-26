@@ -164,10 +164,12 @@ export const loadMainPostFailureAction = () => ({
     type: LOAD_MAIN_POSTS_FAILURE,
 })
 
-export const loadSearchPostsRequestAction = () => ({
+export const loadSearchPostsRequestAction = ( lastId: any, data: any ) => ({
     type: LOAD_SEARCH_POSTS_REQUEST,
+    lastId,
+    data
 })
-export const loadSearchPostsSuccessAction = ( data: string[] ) => ({
+export const loadSearchPostsSuccessAction = ( data: any ) => ({
     type: LOAD_SEARCH_POSTS_SUCCESS,
     data
 })

@@ -18,10 +18,10 @@ import {
 export const initialState: UserState = {
   isLoggingOut: false, // 로그아웃 시도중
   isLoggingIn: false, // 로그인 시도중
-  logInErrorReason: false, // 로그인 실패 사유
+  logInErrorReason: null, // 로그인 실패 사유
   isSignedUp: false, // 회원가입 성공
   isSigningUp: false, // 회원가입 시도중
-  signUpErrorReason: false, // 회원가입 실패 사유
+  signUpErrorReason: null, // 회원가입 실패 사유
   me: null, // 내 정보
 };
 
@@ -58,8 +58,7 @@ export default ( state:UserState = initialState, action: UserAction ):UserState 
           case SIGN_UP_FAILURE: {
               draft.isLoggingIn = false;
               draft.isSignedUp = false;
-              draft.signUpErrorReason = true;
-            //   draft.signUpErrorReason = action.error;
+              draft.signUpErrorReason = action.error;
               draft.me = null;
               break;
           }
@@ -75,8 +74,8 @@ export default ( state:UserState = initialState, action: UserAction ):UserState 
           }
           case LOG_IN_FAILURE: {
               draft.isLoggingIn = false;
-              draft.logInErrorReason = true;
             //   draft.logInErrorReason = action.reason;
+              draft.logInErrorReason = action.error;
               draft.me = null;
               break;
           }

@@ -31,8 +31,9 @@ export const signUpRequestAction = ( id: string, password: number ) => ({
 export const signUpSuccessAction = () => ({
     type: SIGN_UP_SUCCESS,
 })
-export const signUpFailureAction = () => ({
+export const signUpFailureAction = ( error: Error ) => ({
     type: SIGN_UP_FAILURE,
+    error
 })
 
 export const loginRequestAction = ( id: string, password: number ) => ({
@@ -49,8 +50,9 @@ export const loginSuccessAction = ( id: string, password: number ) => ({
         password
     }
 })
-export const loginFailureAction = () => ({
+export const loginFailureAction = ( error: Error) => ({
     type:LOG_IN_FAILURE,
+    error
 })
 
 export const logoutRequestAction = () => ({
