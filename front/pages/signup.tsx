@@ -2,10 +2,9 @@ import * as React from 'react';
 import { useState, useEffect, useCallback } from 'react';
 import { useDispatch, useSelector } from "react-redux";
 import Router from "next/router";
-import { signUpDoneAction } from '../reducers/user';
+import { loadUserRequestAction, signUpDoneAction } from '../reducers/user';
 import { RootState } from '../reducers';
 import { signUpRequestAction } from '../reducers/user';
-import { LOAD_USER_REQUEST } from '../reducers/user';
 import { END } from 'redux-saga';
 import axios from 'axios';
 import wrapper from '../store/configureStore';
@@ -54,22 +53,22 @@ const signup:React.FunctionComponent = () => {
         e.preventDefault();
         // 패스워드 & 약관 체크
         if ( password !== passwordCheck ) {
-            return setPasswordError(true);
+            return setPasswordError( true );
         }
         if ( !term ) {
-            return setTermError(true);
+            return setTermError( true );
         }
         dispatch( signUpRequestAction( id, password ) );
     },[ id, password, passwordCheck, term ])
 
     const onChangePasswordCheck = useCallback((e) => {
-        setPasswordError(e.target.value !== password);
-        setPasswordCheck(e.target.value);
-    },[password]);
+        setPasswordError( e.target.value !== password );
+        setPasswordCheck( e.target.value );
+    },[ password ]);
 
     const onChangeTerm = useCallback((e) => {
-        setTermError(false);
-        setTerm(e.target.checked);
+        setTermError( false );
+        setTerm( e.target.checked );
     },[])
     useEffect(() => {
         if ( signUpErrorReason ) {
@@ -116,22 +115,18 @@ const signup:React.FunctionComponent = () => {
 };
 
 
-export const getServerSideProps:GetServerSideProps = wrapper.getServerSideProps( async ( context: object | any ) => {
+export const getServerSideProps: GetServerSideProps = wrapper.getServerSideProps( async ( context: object | any ) => {
     const cookie = context.req ? context.req.headers.cookie : '';
-
     if ( context.req && cookie ) {
         axios.defaults.headers.Cookie = cookie;
     }
-    context.store.dispatch({
-        type: LOAD_USER_REQUEST,
-    })
+    context.store.dispatch(loadUserRequestAction())
     context.store.dispatch(END);
     await context.store.sagaTask.toPromise();
     return { props: {
         pathname: '/signup',
     } };
 })
-
 // getInitialProps
 // signup.getInitialProps = async ( context ) => {
 //     const { pathname } = context;

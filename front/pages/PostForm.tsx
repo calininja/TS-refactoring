@@ -1,19 +1,19 @@
 import React, { useCallback, useEffect, useState, useRef } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
+import { LOAD_USER_REQUEST } from '../reducers/user';
+import { END } from 'redux-saga';
+import { RootState } from '../reducers';
 import Router from 'next/router';
+import axios from 'axios';
+import wrapper from '../store/configureStore';
+import { GetServerSideProps } from 'next';
 import { 
     removeImageAction,
     addPostRequestAction,
     uploadImagesRequestAction
 } from '../reducers/post/actions';
-import { LOAD_USER_REQUEST } from '../reducers/user';
-import { END } from 'redux-saga';
-import axios from 'axios';
-import wrapper from '../store/configureStore';
-import { RootState } from '../reducers';
-import { GetServerSideProps } from 'next';
 
-const PostForm:React.FunctionComponent = () => {
+const PostForm: React.FunctionComponent = () => {
     const dispatch = useDispatch();
     const [ title, setTitle ] = useState('');
     const [ content, setContent ] = useState('');
@@ -29,7 +29,7 @@ const PostForm:React.FunctionComponent = () => {
         }
     }, [ postAdded ]);
 
-    const onSubmit = useCallback((e: React.FormEvent<HTMLFormElement>) => {
+    const onSubmit = useCallback(( e: React.FormEvent<HTMLFormElement> ) => {
         e.preventDefault();
         if ( !title || !title.trim()){
             return alert('제목을 작성하세요.');
@@ -41,24 +41,24 @@ const PostForm:React.FunctionComponent = () => {
         imagePaths.forEach((i) => {
             formData.append('image', i);
         });
-        formData.append('title', title);
-        formData.append('content', content);
-        console.log(title, content, formData);
+        formData.append( 'title', title );
+        formData.append( 'content', content );
+        console.log( title, content, formData );
         dispatch(addPostRequestAction( formData ));
     }, [ title, content, imagePaths ]);
 
     const onChangeTitle = useCallback((e) => {
-        setTitle(e.target.value);
+        setTitle( e.target.value );
     }, []);
     const onChangeContent = useCallback((e) => {
-        setContent(e.target.value);
+        setContent( e.target.value );
     }, []);
 
     const onChangeImages = useCallback((e) => {
-        console.log(e.target.files);
-        const imageFormData = new FormData();
+        console.log( e.target.files );
+        const imageFormData:FormData = new FormData();
         [].forEach.call(e.target.files, (f) => {
-            imageFormData.append('image', f);
+            imageFormData.append( 'image', f );
         });
         dispatch(uploadImagesRequestAction( imageFormData ));
     }, []);
@@ -67,7 +67,7 @@ const PostForm:React.FunctionComponent = () => {
     }, [imageInput.current]);
 
     const onRemoveImage = useCallback(index => () => {
-        dispatch(removeImageAction());
+        dispatch(removeImageAction( index ));
     }, []);
 
     return (
@@ -99,7 +99,7 @@ const PostForm:React.FunctionComponent = () => {
     );
 };
 
-export const getServerSideProps:GetServerSideProps = wrapper.getServerSideProps( async( context: object | any ) => {
+export const getServerSideProps: GetServerSideProps = wrapper.getServerSideProps( async( context: object | any ) => {
     const cookie = context.req ? context.req.headers.cookie : '';
 
     if ( context.req && cookie ) {
@@ -114,7 +114,6 @@ export const getServerSideProps:GetServerSideProps = wrapper.getServerSideProps(
         pathname: '/PostForm',
     } };
 });
-
 // getInitialProps
 // PostForm.getInitialProps = async ( context ) => {
 //     const { pathname } = context;

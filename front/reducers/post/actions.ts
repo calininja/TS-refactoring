@@ -33,117 +33,27 @@ export const CURRENT_PAGE_NUMBER_FAILURE = 'CURRENT_PAGE_NUMBER_FAILURE' as cons
 export const UPDATE_START_END_PAGE = 'UPDATE_START_END_PAGE' as const;
 export const GO_TO_BEGIN = 'GO_TO_BEGIN' as const;
 
-// export type addPostRequest = {
-//     type: typeof ADD_POST_REQUEST;
-// }
-// export type ADD_POST_SUCCESS = {
-//     type: typeof ADD_POST_REQUEST;
-//     data: PostState[];
-// }
-// export type ADD_POST_FAILURE = {
-//     type: typeof ADD_POST_REQUEST;
-//     error: Error;
-// }
-// export type REMOVE_POST_REQUEST = {
-//     type: typeof REMOVE_POST_REQUEST;
-// }
-// export type REMOVE_POST_SUCCESS = {
-//     type: typeof REMOVE_POST_SUCCESS;
-//     data: PostState[];
-// }
-// export type REMOVE_POST_FAILURE = {
-//     type: typeof REMOVE_POST_FAILURE;
-// }
-// export type POST_RESET_DONE = {
-//     type: typeof POST_RESET_DONE;
-// }
-// export type POST_DELETE_DONE = {
-//     type: typeof POST_DELETE_DONE;
-// }
-// export type LOAD_MAIN_POSTS_REQUEST = {
-//     type: typeof LOAD_MAIN_POSTS_REQUEST;
-// }
-// export type LOAD_MAIN_POSTS_SUCCESS = {
-//     type: typeof LOAD_MAIN_POSTS_SUCCESS;
-//     data: PostState[];
-// }
-// export type LOAD_MAIN_POSTS_FAILURE = {
-//     type: typeof LOAD_MAIN_POSTS_FAILURE;
-// }
-// export type LOAD_SINGLE_POST_REQUEST = {
-//     type: typeof LOAD_SINGLE_POST_REQUEST;
-// }
-// export type LOAD_SINGLE_POST_SUCCESS = {
-//     type: typeof LOAD_SINGLE_POST_SUCCESS;
-//     data: PostState[];
-// }
-// export type LOAD_SINGLE_POST_FAILURE = {
-//     type: typeof LOAD_SINGLE_POST_FAILURE;
-// }
-
-// export type LOAD_SEARCH_POSTS_REQUEST = {
-//     type: typeof LOAD_SEARCH_POSTS_REQUEST;
-// }
-// export type LOAD_SEARCH_POSTS_SUCCESS = {
-//     type: typeof LOAD_SEARCH_POSTS_SUCCESS;
-//     data: PostState[];
-// }
-// export type LOAD_SEARCH_POSTS_FAILURE = {
-//     type: typeof LOAD_SEARCH_POSTS_FAILURE;
-// }
-// export type UPDATE_START_END_PAGE = {
-//     type: typeof UPDATE_START_END_PAGE;
-// }
-// export type CURRENT_PAGE_NUMBER = {
-//     type: typeof CURRENT_PAGE_NUMBER;
-// }
-// export type UPLOAD_IMAGES_REQUEST = {
-//     type: typeof UPLOAD_IMAGES_REQUEST;
-// }
-// export type UPLOAD_IMAGES_SUCCESS = {
-//     type: typeof UPLOAD_IMAGES_SUCCESS;
-//     data: PostState[];
-// }
-// export type UPLOAD_IMAGES_FAILURE = {
-//     type: typeof UPLOAD_IMAGES_FAILURE;
-// }
-// export type REMOVE_IMAGE = {
-//     type: typeof REMOVE_IMAGE;
-// }
-
-
-// 액션 생성 함수
-
-// export type addPostRequestType = {
-//     type: typeof ADD_POST_REQUEST,
-//     data: FormData
-// }
-// export type AsyncState<T> = {
-//     type: typeof REMOVE_POST_SUCCESS,
-//     data: T,
-// }
 
 export const addPostRequestAction = ( formData: FormData ) => ({
     type: ADD_POST_REQUEST,
     data: formData,
 })
-export const addPostSuccessAction = ( data: string ) => ({
+export const addPostSuccessAction = ( data: object | any ) => ({
     type: ADD_POST_SUCCESS,
     data
 })
 export const addPostFailureAction = () => ({
     type: ADD_POST_FAILURE,
 })
-
 export const postResetDoneAction = () => ({
     type: POST_RESET_DONE,
 })
 export const postDeleteDoneAction = () => ({
     type: POST_DELETE_DONE,
 })
-
-export const removePostRequestAction = () => ({
+export const removePostRequestAction = ( postId ) => ({
     type: REMOVE_POST_REQUEST,
+    data: postId
 })
 export const removePostSuccessAction = ( data ) => ({
     type: REMOVE_POST_SUCCESS,
@@ -152,7 +62,6 @@ export const removePostSuccessAction = ( data ) => ({
 export const removePostFailureAction = () => ({
     type: REMOVE_POST_FAILURE,
 })
-
 export const loadMainPostRequestAction = () => ({
     type: LOAD_MAIN_POSTS_REQUEST,
 })
@@ -163,8 +72,7 @@ export const loadMainPostSuccessAction = ( data: object[] | any ) => ({
 export const loadMainPostFailureAction = () => ({
     type: LOAD_MAIN_POSTS_FAILURE,
 })
-
-export const loadSearchPostsRequestAction = ( lastId: any, data: any ) => ({
+export const loadSearchPostsRequestAction = ( lastId: number, data: any ) => ({
     type: LOAD_SEARCH_POSTS_REQUEST,
     lastId,
     data
@@ -176,7 +84,6 @@ export const loadSearchPostsSuccessAction = ( data: any ) => ({
 export const loadSearchPostsFailureAction = () => ({
     type: LOAD_SEARCH_POSTS_FAILURE,
 })
-
 export const loadSinglePostRequestAction = () => ({
     type: LOAD_SINGLE_POST_REQUEST,
 })
@@ -187,7 +94,6 @@ export const loadSinglePostSuccessAction = ( data: object[] | any ) => ({
 export const loadSinglePostFailureAction = () => ({
     type: LOAD_SINGLE_POST_FAILURE,
 })
-
 export const uploadImagesRequestAction = ( imageFormData: FormData ) => ({
     type: UPLOAD_IMAGES_REQUEST,
     data: imageFormData,
@@ -199,11 +105,10 @@ export const uploadImagesSuccessAction = ( data: any) => ({
 export const uploadImagesFailureAction = () => ({
     type: UPLOAD_IMAGES_FAILURE,
 })
-
-export const removeImageAction = () => ({
+export const removeImageAction = ( index: number ) => ({
     type: REMOVE_IMAGE,
+    index
 })
-
 export const currentPageNumberAction = ( val: number ) => ({
     type: CURRENT_PAGE_NUMBER,
     payload: val,

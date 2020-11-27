@@ -1,6 +1,6 @@
 import React, { useCallback, memo } from 'react';
 import Link from 'next/link';
-import { useSelector, useDispatch } from 'react-redux';
+import { useSelector } from 'react-redux';
 import { RootState } from '../reducers';
 
 type TitleType = {

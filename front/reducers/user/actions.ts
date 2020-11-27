@@ -21,10 +21,10 @@ export const LOAD_USER_FAILURE = 'LOAD_USER_FAILURE' as const;
 export const signUpDoneAction = ( ) => ({
     type:SIGN_UP_DONE,
 })
-export const signUpRequestAction = ( id: string, password: number ) => ({
+export const signUpRequestAction = ( userId: string, password: number ) => ({
     type: SIGN_UP_REQUEST,
     data: {
-        id,
+        userId,
         password
     }
 })
@@ -35,7 +35,6 @@ export const signUpFailureAction = ( error: Error ) => ({
     type: SIGN_UP_FAILURE,
     error
 })
-
 export const loginRequestAction = ( id: string, password: number ) => ({
     type:LOG_IN_REQUEST,
     data: {
@@ -54,7 +53,6 @@ export const loginFailureAction = ( error: Error) => ({
     type:LOG_IN_FAILURE,
     error
 })
-
 export const logoutRequestAction = () => ({
     type:LOG_OUT_REQUEST,
 })

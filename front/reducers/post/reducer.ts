@@ -51,7 +51,7 @@ export const initialState: PostState = {
   hasMorePost: false,
 }
 
-export default ( state:PostState = initialState, action: PostAction):PostState => {
+export default ( state: PostState = initialState, action: PostAction): PostState => {
   return produce ( state, (draft) => {
       switch ( action.type ) {
 
@@ -154,7 +154,7 @@ export default ( state:PostState = initialState, action: PostAction):PostState =
               break;
           }
           case REMOVE_IMAGE: {
-              const index = draft.imagePaths.findIndex((v, i) => i === action.data.index);
+              const index = draft.imagePaths.findIndex((v, i) => i === action.index);
               draft.imagePaths.splice(index, 1);
               break;
           }

@@ -64,7 +64,7 @@ export default ( state:UserState = initialState, action: UserAction ):UserState 
           }
           case LOG_IN_REQUEST: {
               draft.isLoggingIn = true;
-              draft.logInErrorReason = false;
+              draft.logInErrorReason = null;
               break;
           }
           case LOG_IN_SUCCESS: {

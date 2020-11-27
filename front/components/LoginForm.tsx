@@ -6,7 +6,7 @@ import { loginRequestAction } from '../reducers/user';
 import { useInput } from "../pages/signup";
 
 
-const LoginForm = () => {
+const LoginForm: React.FunctionComponent = () => {
     const [ id, onChangeId ] = useInput("");
     const [ password, onChangePassword ] = useInput("");
     const dispatch = useDispatch();

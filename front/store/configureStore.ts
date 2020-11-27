@@ -14,7 +14,7 @@ export interface SagaStore extends Store {
 //   return next(action);
 // };
 
-const configureStore:MakeStore<RootState> = ( context: Context ) => {
+const configureStore: MakeStore<RootState> = ( context: Context ) => {
   const sagaMiddleware = createSagaMiddleware();
   const middlewares = [sagaMiddleware, /*loggerMiddleware*/];
   const enhancer = process.env.NODE_ENV === 'production'

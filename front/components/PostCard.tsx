@@ -1,7 +1,7 @@
 import React, { useEffect, useCallback, useRef, memo } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import Router from 'next/router';
-import { REMOVE_POST_REQUEST, POST_DELETE_DONE } from '../reducers/post';
+import { postDeleteDoneAction, removePostRequestAction } from '../reducers/post';
 import { RootState } from '../reducers';
 // import Rating from './Rating';
 
@@ -21,14 +21,12 @@ const PostCard:React.FunctionComponent<PostCardType> = memo(({ postId }) => {
     useEffect(() =>{ // 삭제 완료 => 스테이트 초기화(false)
         if( postDeleted ) {
             Router.push('/');
-            dispatch({
-                type: POST_DELETE_DONE,
-            })
+            dispatch(postDeleteDoneAction())
         }
     },[ postDeleted, singlePost ])
 
     const showMenu = useCallback(() => { // 메뉴창 토글
-        if ( me.id === singlePost.User.id) {
+        if ( me.id === singlePost.User.id ) {
             const activated = menuRef.current.classList.contains('active');
             if ( !activated ) {
                 menuRef.current.classList.add('active');
@@ -42,10 +40,7 @@ const PostCard:React.FunctionComponent<PostCardType> = memo(({ postId }) => {
 
     const showDeleteConfirm = useCallback(() => {
         if (confirm("정말 삭제하시겠습니까??") == true){ // 삭제 확인
-            dispatch({
-                type: REMOVE_POST_REQUEST,
-                data: postId,
-            })
+            dispatch(removePostRequestAction( postId ))
         }else{ //취소
             return false;
         }

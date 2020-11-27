@@ -11,7 +11,7 @@ export type State = {
   post: PostState;
 };
 
-const rootReducer = ( state: State, action: AnyAction ):State => {
+const rootReducer = ( state: State, action: AnyAction ): State => {
   switch ( action.type ) {
     case HYDRATE:
       console.log('HYDRATE',action);

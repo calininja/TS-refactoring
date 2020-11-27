@@ -4,13 +4,13 @@ import { useDispatch, useSelector } from "react-redux";
 import { logoutRequestAction } from '../reducers/user';
 import Router from 'next/router';
 import { RootState } from '../reducers';
-const UserProfile = () => {
+const UserProfile: React.FunctionComponent = () => {
 
     const { me } = useSelector( ( state: RootState ) => state.user );
     const dispatch = useDispatch();
     const onLogOut = useCallback(() => {
         dispatch(logoutRequestAction());
-        Router.push('/');
+        Router.push( '/' );
     },[])
     return (
         <div className="userProfile__container">

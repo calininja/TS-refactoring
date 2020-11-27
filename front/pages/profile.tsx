@@ -1,11 +1,10 @@
 import React from 'react';
-import PropTypes from 'prop-types';
-import { LOAD_USER_REQUEST } from '../reducers/user';
-import { useRouter } from 'next/router'
+import { loadUserRequestAction, LOAD_USER_REQUEST } from '../reducers/user';
 import { END } from 'redux-saga';
 import axios from 'axios';
 import wrapper from '../store/configureStore';
 import { GetServerSideProps } from 'next';
+import { useRouter } from 'next/router'
 
 const Profile:React.FunctionComponent = () => {
     return (
@@ -23,23 +22,20 @@ const Profile:React.FunctionComponent = () => {
     );
 };
 
-export const getServerSideProps:GetServerSideProps = wrapper.getServerSideProps( async ( context: object | any ) => {
+export const getServerSideProps: GetServerSideProps = wrapper.getServerSideProps( async ( context: object | any ) => {
     const cookie = context.req ? context.req.headers.cookie : '';
     console.log(context.query);
     console.log('pathname');
     if ( context.req && cookie ) {
         axios.defaults.headers.Cookie = cookie;
     }
-    context.store.dispatch({
-        type: LOAD_USER_REQUEST,
-    })
+    context.store.dispatch(loadUserRequestAction())
     context.store.dispatch(END);
     await context.store.sagaTask.toPromise();
     return { props: {
         pathname: '/profile',
     } };
 })
-
 // getInitialProps
 // Profile.getInitialProps = async ( context ) => {
 // const { pathname } = context;
@@ -48,6 +44,5 @@ export const getServerSideProps:GetServerSideProps = wrapper.getServerSideProps(
 // return { pathname};
 // };
   
-Profile.propTypes = {
-};
+
 export default Profile;

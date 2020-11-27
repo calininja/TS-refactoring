@@ -8,7 +8,7 @@ import {
   updateStartEndPageAction,
 } from '../reducers/post';
 
-const Pagination:React.FunctionComponent = () => {
+const Pagination: React.FunctionComponent = () => {
   const dispatch = useDispatch();
   const { mainPostsAll, start, end, current } = useSelector( ( state: RootState ) => state.post );
 
