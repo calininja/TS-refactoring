@@ -4,15 +4,19 @@ import {
   LOAD_USER_FAILURE, 
   LOAD_USER_REQUEST, 
   LOAD_USER_SUCCESS, 
+
   LOG_IN_FAILURE, 
   LOG_IN_REQUEST, 
   LOG_IN_SUCCESS, 
+
   LOG_OUT_REQUEST, 
   LOG_OUT_SUCCESS, 
+
   SIGN_UP_DONE, 
   SIGN_UP_REQUEST, 
   SIGN_UP_SUCCESS,
   SIGN_UP_FAILURE, 
+
 } from "./actions";
 
 export const initialState: UserState = {

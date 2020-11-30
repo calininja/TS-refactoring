@@ -17,7 +17,10 @@ const rootReducer = ( state: State, action: AnyAction ): State => {
       console.log('HYDRATE',action);
       return action.payload;
     default: {
-      const combineReducer = combineReducers({
+      const combineReducer = combineReducers<{
+        user: UserState,
+        post: PostState,
+      }>({
         user,
         post,
       });

@@ -23,12 +23,12 @@ const Pagination: React.FunctionComponent = () => {
   const target = array.slice( start, end );
   
   // 현재 페이지 current 업데이트
-  const updateCurrentPage = ( val ) => {
+  const updateCurrentPage = ( val: number ) => {
     dispatch(currentPageNumberAction(val))
   }
 
   // 현재 장의 start와 end 번호 업데이트
-  const updateStartEndPage = ( start, end ) => {
+  const updateStartEndPage = ( start: number, end: number ) => {
     dispatch(updateStartEndPageAction( start, end ));
   }
 

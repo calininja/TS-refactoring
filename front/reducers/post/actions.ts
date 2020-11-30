@@ -38,7 +38,7 @@ export const addPostRequestAction = ( formData: FormData ) => ({
     type: ADD_POST_REQUEST,
     data: formData,
 })
-export const addPostSuccessAction = ( data: object | any ) => ({
+export const addPostSuccessAction = ( data: object ) => ({
     type: ADD_POST_SUCCESS,
     data
 })
