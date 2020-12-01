@@ -36,7 +36,7 @@ import {
 
 export const initialState: PostState = {
   mainPosts: [],
-  mainPostsAll: [],
+  mainPostsAll: null,
   singlePost: null,
   postDeleted: false,
   imagePaths: [],

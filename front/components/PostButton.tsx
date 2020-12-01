@@ -1,9 +1,10 @@
 import React, { useCallback, useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import Router from 'next/router';
+import { RootState } from '../reducers';
 
-const PostButton = () => {
-  const { me } = useSelector( state => state.user );
+const PostButton: React.FunctionComponent = () => {
+  const { me } = useSelector( (state: RootState) => state.user );
 
   const onTogglePost = useCallback(() => {
     if( !me ) {
@@ -11,7 +12,7 @@ const PostButton = () => {
     } else {
         Router.push('/PostForm');
     }
-})
+  },[])
 
   return (
     <>

@@ -4,10 +4,16 @@ import { useSelector } from 'react-redux';
 import { RootState } from '../reducers';
 
 type TitleType = {
-  post: any;
+  post: {
+    id?: number,
+    title?: string,
+    User?: {userId:number},
+    createdAt?: string,
+  };
 }
-const Title = memo<TitleType>(({ post }) => {
-  const { me } = useSelector( (state:RootState) => state.user );
+
+const Title = memo(({ post }: TitleType) => {
+  const { me } = useSelector( (state: RootState) => state.user );
   const preventAccess = useCallback(() => {
     alert('로그인이 필요합니다.');
   },[])

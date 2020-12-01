@@ -33,6 +33,10 @@ export const CURRENT_PAGE_NUMBER_FAILURE = 'CURRENT_PAGE_NUMBER_FAILURE' as cons
 export const UPDATE_START_END_PAGE = 'UPDATE_START_END_PAGE' as const;
 export const GO_TO_BEGIN = 'GO_TO_BEGIN' as const;
 
+type postPropType = {
+    posts: object[];
+    postsAll: object[];
+}
 
 export const addPostRequestAction = ( formData: FormData ) => ({
     type: ADD_POST_REQUEST,
@@ -65,9 +69,9 @@ export const removePostFailureAction = () => ({
 export const loadMainPostRequestAction = () => ({
     type: LOAD_MAIN_POSTS_REQUEST,
 })
-export const loadMainPostSuccessAction = ( data: object[] | any ) => ({
+export const loadMainPostSuccessAction = ( posts: postPropType, postsAll: postPropType ) => ({
     type: LOAD_MAIN_POSTS_SUCCESS,
-    data: data.posts
+    data: posts, postsAll
 })
 export const loadMainPostFailureAction = () => ({
     type: LOAD_MAIN_POSTS_FAILURE,
@@ -87,7 +91,7 @@ export const loadSearchPostsFailureAction = () => ({
 export const loadSinglePostRequestAction = () => ({
     type: LOAD_SINGLE_POST_REQUEST,
 })
-export const loadSinglePostSuccessAction = ( data: object[] | any ) => ({
+export const loadSinglePostSuccessAction = ( data: postPropType ) => ({
     type: LOAD_SINGLE_POST_SUCCESS,
     data: data.posts
 })

@@ -69,11 +69,21 @@ export type PostAction =
 
 // 상태에서 사용할 데이터 타입 정의(initialState)
 export type PostState = {
-  mainPosts: object[] | any,
-  mainPostsAll: string[],
-  singlePost: object[] | any,
+  mainPosts: {
+    id?: number,
+    title?: string,
+    User?: {userId:number},
+    createdAt?: string,
+  }[],
+  singlePost: {
+    title?: string,
+    User?: {userId: number, id: number},
+    Images?: string | object,
+    content?: string,
+  }[] | any,
+  mainPostsAll: number,
   postDeleted: boolean,
-  imagePaths: object[] | any,
+  imagePaths: object[],
   addingPostErrorReason: string,
   isAddingPost: boolean,
   postAdded: boolean,

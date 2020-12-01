@@ -9,7 +9,7 @@ type PostCardType = {
     postId: any;
 }
 
-const PostCard:React.FunctionComponent<PostCardType> = memo(({ postId }) => {
+const PostCard: React.FunctionComponent<PostCardType> = memo(({ postId }) => {
     const { singlePost, postDeleted } = useSelector( (state:RootState) => state.post);
     const { me } = useSelector( (state:RootState) => state.user);
     const dispatch = useDispatch();

@@ -6,14 +6,12 @@ import { END } from 'redux-saga';
 import wrapper from '../store/configureStore';
 import Title from '../components/Title';
 import { 
-    LOAD_MAIN_POSTS_REQUEST,
-    CURRENT_PAGE_NUMBER,
-    UPDATE_START_END_PAGE,
     postResetDoneAction,
     loadMainPostRequestAction,
-    currentPageNumberAction
+    currentPageNumberAction,
+    updateStartEndPageAction
 } from '../reducers/post';
-import { loadUserRequestAction, LOAD_USER_REQUEST } from '../reducers/user';
+import { loadUserRequestAction } from '../reducers/user';
 import axios from 'axios';
 import styled from 'styled-components';
 import { RootState } from '../reducers';
@@ -29,10 +27,7 @@ const Home: React.FunctionComponent = () => {
         // 홈 이동 시 페이지네이션 리셋.
         const start = 0;
         const end = 10;
-        dispatch({
-            type: UPDATE_START_END_PAGE,
-            payload:  { start, end }
-        });
+        dispatch(updateStartEndPageAction( start, end ));
         // 홈 이동 시 이미지 리셋.
         dispatch(postResetDoneAction())
     },[])

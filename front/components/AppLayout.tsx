@@ -3,13 +3,12 @@ import Link from 'next/link';
 import UserProfile from '../components/UserProfile';
 import LoginForm from './LoginForm';
 import SearchInput from './SearchInput';
-import PropTypes from 'prop-types';
-import { useDispatch, useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
+import { RootState } from '../reducers';
 
 
-const AppLayout = ({ children }) => {
-  const { me } = useSelector( state => state.user );
-  const dispatch = useDispatch();
+const AppLayout: React.FunctionComponent = ({ children }) => {
+  const { me } = useSelector( (state: RootState) => state.user );
 
   return (
     <>
@@ -32,10 +31,5 @@ const AppLayout = ({ children }) => {
     </>
   );
 };
-
-
-AppLayout.propTypes = {
-  children: PropTypes.node.isRequired
-}
 
 export default AppLayout;
