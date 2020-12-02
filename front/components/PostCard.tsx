@@ -6,11 +6,11 @@ import { RootState } from '../reducers';
 // import Rating from './Rating';
 
 type PostCardType = {
-    postId: any;
+    postId: {id: number};
 }
 
-const PostCard: React.FunctionComponent<PostCardType> = memo(({ postId }) => {
-    const { singlePost, postDeleted } = useSelector( (state:RootState) => state.post);
+const PostCard: React.FunctionComponent<PostCardType> = memo(({ postId }:PostCardType) => {
+    const { singlePost, postDeleted } = useSelector( (state: RootState) => state.post);
     const { me } = useSelector( (state:RootState) => state.user);
     const dispatch = useDispatch();
     

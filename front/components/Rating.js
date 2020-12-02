@@ -1,16 +1,9 @@
 import React, { useEffect } from 'react';
 // import styled from 'styled-components';
 
-type starPropType = {
-  star: {
-    image: string,
-    id: number,
-    content: string,
-    rating: number,
-  }
-}
 
-const Rating: React.FunctionComponent = ({ star }: starPropType) => {
+
+const Rating: React.FunctionComponent = ({ star }) => {
 
   const active = [];
   const frame = [];

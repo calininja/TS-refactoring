@@ -44,14 +44,13 @@ export const initialState: PostState = {
   isAddingPost: false,
   postAdded: false,
   postLoaded: false,
-
   start: 0, // pagination
   end: 10,
   current: 1,
   hasMorePost: false,
 }
 
-export default ( state: PostState = initialState, action: PostAction): PostState => {
+export default ( state: PostState = initialState, action: PostAction ): PostState => {
   return produce ( state, (draft) => {
       switch ( action.type ) {
 

@@ -33,7 +33,7 @@ export const CURRENT_PAGE_NUMBER_FAILURE = 'CURRENT_PAGE_NUMBER_FAILURE' as cons
 export const UPDATE_START_END_PAGE = 'UPDATE_START_END_PAGE' as const;
 export const GO_TO_BEGIN = 'GO_TO_BEGIN' as const;
 
-type postPropType = {
+type PostPropType = {
     posts: object[];
     postsAll: object[];
 }
@@ -55,11 +55,11 @@ export const postResetDoneAction = () => ({
 export const postDeleteDoneAction = () => ({
     type: POST_DELETE_DONE,
 })
-export const removePostRequestAction = ( postId ) => ({
+export const removePostRequestAction = ( postId: object ) => ({
     type: REMOVE_POST_REQUEST,
     data: postId
 })
-export const removePostSuccessAction = ( data ) => ({
+export const removePostSuccessAction = ( data: number ) => ({
     type: REMOVE_POST_SUCCESS,
     data
 })
@@ -69,19 +69,19 @@ export const removePostFailureAction = () => ({
 export const loadMainPostRequestAction = () => ({
     type: LOAD_MAIN_POSTS_REQUEST,
 })
-export const loadMainPostSuccessAction = ( posts: postPropType, postsAll: postPropType ) => ({
+export const loadMainPostSuccessAction = ( posts: PostPropType, postsAll: PostPropType ) => ({
     type: LOAD_MAIN_POSTS_SUCCESS,
     data: posts, postsAll
 })
 export const loadMainPostFailureAction = () => ({
     type: LOAD_MAIN_POSTS_FAILURE,
 })
-export const loadSearchPostsRequestAction = ( lastId: number, data: any ) => ({
+export const loadSearchPostsRequestAction = ( lastId: number, data: object[] ) => ({
     type: LOAD_SEARCH_POSTS_REQUEST,
     lastId,
     data
 })
-export const loadSearchPostsSuccessAction = ( data: any ) => ({
+export const loadSearchPostsSuccessAction = ( data: object[] ) => ({
     type: LOAD_SEARCH_POSTS_SUCCESS,
     data
 })
@@ -91,9 +91,9 @@ export const loadSearchPostsFailureAction = () => ({
 export const loadSinglePostRequestAction = () => ({
     type: LOAD_SINGLE_POST_REQUEST,
 })
-export const loadSinglePostSuccessAction = ( data: postPropType ) => ({
+export const loadSinglePostSuccessAction = <T>( data: T ) => ({
     type: LOAD_SINGLE_POST_SUCCESS,
-    data: data.posts
+    data
 })
 export const loadSinglePostFailureAction = () => ({
     type: LOAD_SINGLE_POST_FAILURE,
@@ -102,7 +102,7 @@ export const uploadImagesRequestAction = ( imageFormData: FormData ) => ({
     type: UPLOAD_IMAGES_REQUEST,
     data: imageFormData,
 })
-export const uploadImagesSuccessAction = ( data: any) => ({
+export const uploadImagesSuccessAction = ( data: object[]) => ({
     type: UPLOAD_IMAGES_SUCCESS,
     data
 })

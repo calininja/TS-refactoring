@@ -14,7 +14,7 @@ const Pagination: React.FunctionComponent = () => {
 
   // 페이지네이션 도트 개수 설정
   const per = 10;
-  const dbPostsAll = Number(mainPostsAll);
+  const dbPostsAll = Number( mainPostsAll );
   const total = Math.ceil( dbPostsAll / per );
   const array = [];
   for ( let i=1; i < total+1; i++ ) {
@@ -62,12 +62,12 @@ const Pagination: React.FunctionComponent = () => {
   
   useEffect(() => { // URL 이동 시 커렌트번호 삽입 및 페이지네이션 이동
     const pageUrl = document.location.href.split('page/')[1];
-    const getCurrent = parseInt(pageUrl,10);
-    const getStart = pageUrl ? parseInt(pageUrl[0]+'0',10) : 0;
+    const getCurrent = parseInt( pageUrl, 10 );
+    const getStart = pageUrl ? parseInt( pageUrl[0]+'0', 10 ) : 0;
 
     // 페이지 창일때 쿼리값 커랜트로 받기
     if( pageUrl ) {
-      dispatch( currentPageNumberAction(getCurrent) );
+      dispatch( currentPageNumberAction( getCurrent ) );
       getCurrent <= 10 ?
       updateStartEndPage( 0, 10 ) : 
       updateStartEndPage( getStart, getStart+10 );
@@ -119,7 +119,7 @@ const Pagination: React.FunctionComponent = () => {
         <Link
           // href={{ pathname: '/page', query: { goto: nextPageValue } }}
           href={'/page/[nextPageValue]'}
-          as={`/page/${ nextPageValue }`}
+          as={`/page/${nextPageValue}`}
           key={ nextPageValue }
           // prefetch
         >

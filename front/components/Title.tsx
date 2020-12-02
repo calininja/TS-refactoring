@@ -3,7 +3,7 @@ import Link from 'next/link';
 import { useSelector } from 'react-redux';
 import { RootState } from '../reducers';
 
-type TitleType = {
+type TitlePropType = {
   post: {
     id?: number,
     title?: string,
@@ -12,7 +12,7 @@ type TitleType = {
   };
 }
 
-const Title = memo(({ post }: TitleType) => {
+const Title = memo(({ post }: TitlePropType) => {
   const { me } = useSelector( (state: RootState) => state.user );
   const preventAccess = useCallback(() => {
     alert('로그인이 필요합니다.');

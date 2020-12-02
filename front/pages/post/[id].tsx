@@ -23,15 +23,14 @@ const post:React.FunctionComponent = () => {
   );
 };
 
-
 export const getServerSideProps:GetServerSideProps = wrapper.getServerSideProps( async( context:any ) => {
   const { id } = context.params;
   const cookie = context.req ? context.req.headers.cookie : '';
   if ( context.req && cookie ) {
-      axios.defaults.headers.Cookie = cookie;
+    axios.defaults.headers.Cookie = cookie;
   }
   context.store.dispatch({
-      type: LOAD_USER_REQUEST,
+    type: LOAD_USER_REQUEST,
   })
   context.store.dispatch({
     type: LOAD_SINGLE_POST_REQUEST,

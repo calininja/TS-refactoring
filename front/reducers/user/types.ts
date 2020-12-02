@@ -47,8 +47,6 @@ export type UserState = {
   isSigningUp: boolean,
   signUpErrorReason: Error,
   me: any,
-  // logInErrorReason: string | any,
-  // signUpErrorReason: object | any,
 }
 
 export type initialState = UserState[];

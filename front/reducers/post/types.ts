@@ -80,7 +80,7 @@ export type PostState = {
     User?: {userId: number, id: number},
     Images?: string | object,
     content?: string,
-  }[] | any,
+  },
   mainPostsAll: number,
   postDeleted: boolean,
   imagePaths: object[],
@@ -88,7 +88,6 @@ export type PostState = {
   isAddingPost: boolean,
   postAdded: boolean,
   postLoaded: boolean,
-
   start: number,// pagination
   end: number,
   current: number,

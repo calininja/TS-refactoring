@@ -6,7 +6,7 @@ import { RootState } from '../reducers';
 const PostButton: React.FunctionComponent = () => {
   const { me } = useSelector( (state: RootState) => state.user );
 
-  const onTogglePost = useCallback(() => {
+  const onTogglePost = useCallback(():void => {
     if( !me ) {
         alert('로그인이 필요합니다.');
     } else {
