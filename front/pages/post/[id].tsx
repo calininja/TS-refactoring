@@ -6,7 +6,7 @@ import { LOAD_USER_REQUEST } from '../../reducers/user';
 import { useRouter } from 'next/router';
 import { END } from 'redux-saga';
 import axios from 'axios';
-import wrapper from '../../store/configureStore';
+import wrapper, { SagaStore } from '../../store/configureStore';
 import { RootState } from '../../reducers';
 import { GetServerSideProps } from 'next';
 
@@ -23,7 +23,7 @@ const post:React.FunctionComponent = () => {
   );
 };
 
-export const getServerSideProps:GetServerSideProps = wrapper.getServerSideProps( async( context:any ) => {
+export const getServerSideProps:GetServerSideProps = wrapper.getServerSideProps( async( context ) => {
   const { id } = context.params;
   const cookie = context.req ? context.req.headers.cookie : '';
   if ( context.req && cookie ) {
@@ -37,7 +37,7 @@ export const getServerSideProps:GetServerSideProps = wrapper.getServerSideProps(
     data: id,
   });
   context.store.dispatch(END);
-  await context.store.sagaTask.toPromise();
+  await (context.store as SagaStore).sagaTask.toPromise();
   return { props: {
     pathname: '/post',
   } };

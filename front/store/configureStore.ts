@@ -21,7 +21,8 @@ const configureStore: MakeStore<RootState> = ( context: Context ) => {
     ? compose(applyMiddleware(...middlewares))
     : composeWithDevTools(applyMiddleware(...middlewares));
   const store = createStore(reducer, enhancer);
-  ( store as SagaStore ).sagaTask = sagaMiddleware.run(rootSaga);
+  // ( store as SagaStore ).sagaTask = sagaMiddleware.run(rootSaga);
+  (store as SagaStore).sagaTask = sagaMiddleware.run(rootSaga);
   return store;
 };
 

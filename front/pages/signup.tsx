@@ -7,7 +7,7 @@ import { RootState } from '../reducers';
 import { signUpRequestAction } from '../reducers/user';
 import { END } from 'redux-saga';
 import axios from 'axios';
-import wrapper from '../store/configureStore';
+import wrapper, { SagaStore } from '../store/configureStore';
 import { GetServerSideProps } from 'next';
 
 // 커스텀 훅
@@ -115,14 +115,14 @@ const signup:React.FunctionComponent = () => {
 };
 
 
-export const getServerSideProps: GetServerSideProps = wrapper.getServerSideProps( async ( context: object | any ) => {
+export const getServerSideProps: GetServerSideProps = wrapper.getServerSideProps( async ( context ) => {
     const cookie = context.req ? context.req.headers.cookie : '';
     if ( context.req && cookie ) {
         axios.defaults.headers.Cookie = cookie;
     }
     context.store.dispatch(loadUserRequestAction())
     context.store.dispatch(END);
-    await context.store.sagaTask.toPromise();
+    await (context.store as SagaStore).sagaTask.toPromise();
     return { props: {
         pathname: '/signup',
     } };

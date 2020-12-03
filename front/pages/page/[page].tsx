@@ -6,14 +6,14 @@ import { LOAD_MAIN_POSTS_REQUEST, UPDATE_START_END_PAGE } from '../../reducers/p
 import { LOAD_USER_REQUEST } from '../../reducers/user';
 import { END } from 'redux-saga';
 import axios from 'axios';
-import wrapper from '../../store/configureStore';
+import wrapper, { SagaStore } from '../../store/configureStore';
 import { RootState } from '../../reducers';
 import { GetServerSideProps } from 'next';
 
 
 const Page:React.FunctionComponent = () => {
   // const dispatch = useDispatch();
-  const { mainPosts } = useSelector( ( state:RootState ) => state.post );
+  const { mainPosts } = useSelector( ( state: RootState ) => state.post );
   const router = useRouter();
   const { page } = router.query;
   return (
@@ -27,9 +27,9 @@ const Page:React.FunctionComponent = () => {
   );
 };
 
-export const getServerSideProps:GetServerSideProps  = wrapper.getServerSideProps( async( context:any ) => {
+export const getServerSideProps:GetServerSideProps  = wrapper.getServerSideProps( async( context ) => {
   const cookie = context.req ? context.req.headers.cookie : '';
-  const { page } = context.params;
+  const { page }:any = context.params;
 
   if ( context.req && cookie ) {
       axios.defaults.headers.Cookie = cookie;
@@ -42,7 +42,7 @@ export const getServerSideProps:GetServerSideProps  = wrapper.getServerSideProps
     offset: (page-1)*10,
   });
   context.store.dispatch(END);
-  await context.store.sagaTask.toPromise();
+  await (context.store as SagaStore).sagaTask.toPromise();
   return { props: {
     pathname: '/page',
   } };

@@ -3,7 +3,7 @@ import * as React from 'react';
 import { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { END } from 'redux-saga';
-import wrapper from '../store/configureStore';
+import wrapper, { SagaStore } from '../store/configureStore';
 import Title from '../components/Title';
 import { 
     postResetDoneAction,
@@ -49,7 +49,7 @@ const Title2 = styled.div`
   color: red;
 `;
 
-export const getServerSideProps: GetServerSideProps = wrapper.getServerSideProps( async( context: object | any ) => {
+export const getServerSideProps: GetServerSideProps = wrapper.getServerSideProps( async( context ) => {
     const cookie = context.req ? context.req.headers.cookie : '';
     if ( context.req && cookie ) {
         axios.defaults.headers.Cookie = cookie;
@@ -58,7 +58,8 @@ export const getServerSideProps: GetServerSideProps = wrapper.getServerSideProps
     context.store.dispatch(loadUserRequestAction())
     context.store.dispatch(currentPageNumberAction(1));
     context.store.dispatch(END);
-    await context.store.sagaTask.toPromise();
+    // await context.store.sagaTask.toPromise();
+    await (context.store as SagaStore).sagaTask.toPromise();
 });
 
 // getInitialProps
