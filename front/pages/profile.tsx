@@ -36,13 +36,5 @@ export const getServerSideProps: GetServerSideProps = wrapper.getServerSideProps
         pathname: '/profile',
     } };
 })
-// getInitialProps
-// Profile.getInitialProps = async ( context ) => {
-// const { pathname } = context;
-// console.log(pathname);
-// console.log('pathname');
-// return { pathname};
-// };
-  
 
 export default Profile;

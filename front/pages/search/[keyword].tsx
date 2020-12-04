@@ -1,20 +1,20 @@
-import React, { useEffect, useCallback } from 'react';
+import React, { useCallback } from 'react';
 import PropTypes from "prop-types";
 import { useDispatch, useSelector } from 'react-redux';
 import Title from '../../components/Title';
-
 import { useRouter } from 'next/router'
 import { LOAD_SEARCH_POSTS_REQUEST } from '../../reducers/post';
 import { LOAD_USER_REQUEST } from '../../reducers/user';
 import { END } from 'redux-saga';
 import axios from 'axios';
-import wrapper from '../../store/configureStore';
+import wrapper, { SagaStore } from '../../store/configureStore';
+import { RootState } from '../../reducers';
 
 const Search = () => {
   const dispatch = useDispatch();
   const router = useRouter();
   const { keyword } = router.query;
-  const { mainPosts, hasMorePost } = useSelector( state => state.post );
+  const { mainPosts, hasMorePost } = useSelector( (state: RootState) => state.post );
   const seeMore = useCallback(() => {
       if ( hasMorePost ) {
         dispatch({
@@ -23,7 +23,7 @@ const Search = () => {
           data: keyword,
         })
       }
-  })
+  },[ hasMorePost ])
 
   return (
     <div>
@@ -57,7 +57,7 @@ export const getServerSideProps = wrapper.getServerSideProps( async( context ) =
     data: keyword,
   });
   context.store.dispatch(END);
-  await context.store.sagaTask.toPromise();
+  await (context.store as SagaStore).sagaTask.toPromise();
   return { props: {
     pathname: '/search',
   } };

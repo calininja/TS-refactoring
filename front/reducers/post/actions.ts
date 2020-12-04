@@ -66,8 +66,9 @@ export const removePostSuccessAction = ( data: number ) => ({
 export const removePostFailureAction = () => ({
     type: REMOVE_POST_FAILURE,
 })
-export const loadMainPostRequestAction = () => ({
+export const loadMainPostRequestAction = ( offset?: string ) => ({
     type: LOAD_MAIN_POSTS_REQUEST,
+    offset
 })
 export const loadMainPostSuccessAction = ( posts: PostPropType, postsAll: PostPropType ) => ({
     type: LOAD_MAIN_POSTS_SUCCESS,
@@ -102,7 +103,7 @@ export const uploadImagesRequestAction = ( imageFormData: FormData ) => ({
     type: UPLOAD_IMAGES_REQUEST,
     data: imageFormData,
 })
-export const uploadImagesSuccessAction = ( data: object[]) => ({
+export const uploadImagesSuccessAction = ( data: string[]) => ({
     type: UPLOAD_IMAGES_SUCCESS,
     data
 })

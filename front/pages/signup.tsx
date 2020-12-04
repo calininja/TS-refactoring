@@ -127,10 +127,5 @@ export const getServerSideProps: GetServerSideProps = wrapper.getServerSideProps
         pathname: '/signup',
     } };
 })
-// getInitialProps
-// signup.getInitialProps = async ( context ) => {
-//     const { pathname } = context;
-//     return { pathname }
-// };
 
 export default signup;

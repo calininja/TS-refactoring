@@ -2,7 +2,6 @@ import React, { useCallback, useEffect } from 'react';
 import Link from 'next/link';
 import { useSelector, useDispatch } from 'react-redux';
 import { RootState } from '../reducers';
-
 import { 
   currentPageNumberAction,
   updateStartEndPageAction,
@@ -14,8 +13,8 @@ const Pagination: React.FunctionComponent = () => {
 
   // 페이지네이션 도트 개수 설정
   const per = 10;
-  const dbPostsAll = Number( mainPostsAll );
-  const total = Math.ceil( dbPostsAll / per );
+  const getPostResult = Number( mainPostsAll );
+  const total = Math.ceil( getPostResult / per );
   const array = [];
   for ( let i=1; i < total+1; i++ ) {
       array.push( i );
@@ -24,7 +23,7 @@ const Pagination: React.FunctionComponent = () => {
   
   // 현재 페이지 current 업데이트
   const updateCurrentPage = ( val: number ) => {
-    dispatch(currentPageNumberAction(val))
+    dispatch(currentPageNumberAction( val ))
   }
 
   // 현재 장의 start와 end 번호 업데이트
@@ -36,7 +35,7 @@ const Pagination: React.FunctionComponent = () => {
   const prevPageValue = start > 0 ? start : current;
   const nextPageValue =  end < total ? end+1 : total;
 
-  // 이전 버튼
+  // prev 버튼 함수
   const setPrev = useCallback(() => {
       if ( start > 1 ) {
         const s = start - 10;
@@ -47,7 +46,7 @@ const Pagination: React.FunctionComponent = () => {
       return;
   },[ start, end ]);
 
-  // 다음 버튼
+  // next 버튼 함수
   const setNext = useCallback(() => {
       if ( end < total ) {
         const s = start + 10;
@@ -57,8 +56,6 @@ const Pagination: React.FunctionComponent = () => {
       updateCurrentPage( nextPageValue );
       return;
   },[ start, end, total ]);
-
-
   
   useEffect(() => { // URL 이동 시 커렌트번호 삽입 및 페이지네이션 이동
     const pageUrl = document.location.href.split('page/')[1];
@@ -78,56 +75,46 @@ const Pagination: React.FunctionComponent = () => {
   return (
     <>
       <div className="pagination__container">
-        
-      <Link
-          // href={{pathname: '/page', query: { goto : prevPageValue } }}
+        {/* prev */}
+        <Link
           href={'/page/[prevPageValue]'}
           as={`/page/${ prevPageValue }`}
           key={ prevPageValue }
-          // prefetch
         >
-            <a className={ 
-              start == 0 ? 'prev--none' : 'prev'
-            }>
-              <button onClick={ setPrev }>
-                이전
-              </button>
-            </a>
+          <a className={ start == 0 ? 'prev--none' : 'prev' }>
+            <button onClick={ setPrev }>
+              이전
+            </button>
+          </a>
         </Link>
-
+        
+        {/* dot */}
         { target.map( val => (
           <Link
-            // href={{ pathname: '/page', query: { goto: val } }}
+          // href={{ pathname: '/page', query: { goto: val } }}
             href={'/page/[val]'}
             as={`/page/${val}`}
             key={ val }
-            // prefetch
           >
-            <li key={ val }
-              onClick={() => {
-                updateCurrentPage( val );
-              }}
-              className={ 
-                current === val ? 'active' : '' 
-              }
+            <li
+              key={ val }
+              onClick={() => { updateCurrentPage( val ); }}
+              className={ current === val ? 'active' : '' }
             >
               {val}
             </li>
           </Link>
         ))}
 
+        {/* next */}
         <Link
-          // href={{ pathname: '/page', query: { goto: nextPageValue } }}
           href={'/page/[nextPageValue]'}
           as={`/page/${nextPageValue}`}
           key={ nextPageValue }
-          // prefetch
         >
-          <a className={ 
-            end+1 > total ? 'next--none' : 'next'
-          }>
+          <a className={ end+1 > total ? 'next--none' : 'next' }>
             <button onClick={ setNext }>
-            다음
+              다음
             </button>
           </a>
         </Link>

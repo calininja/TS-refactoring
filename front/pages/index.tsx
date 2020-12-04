@@ -1,32 +1,30 @@
 // import React, { useCallback, useEffect, useState } from 'react';
 import * as React from 'react';
 import { useEffect } from 'react';
+import { RootState } from '../reducers';
 import { useSelector, useDispatch } from 'react-redux';
-import { END } from 'redux-saga';
-import wrapper, { SagaStore } from '../store/configureStore';
-import Title from '../components/Title';
 import { 
     postResetDoneAction,
     loadMainPostRequestAction,
     currentPageNumberAction,
     updateStartEndPageAction
-} from '../reducers/post';
-import { loadUserRequestAction } from '../reducers/user';
+} from '../reducers/post/actions';
+import { loadUserRequestAction } from '../reducers/user/actions';
+import Title from '../components/Title';
+import { GetServerSideProps } from 'next';
+import { END } from 'redux-saga';
+import wrapper, { SagaStore } from '../store/configureStore';
 import axios from 'axios';
 import styled from 'styled-components';
-import { RootState } from '../reducers';
-import { GetServerSideProps } from 'next';
-
 
 const Home: React.FunctionComponent = () => {
-    // const { me } = useSelector( (state: RootState) => state.user );
     const { mainPosts } = useSelector( (state: RootState) => state.post );
     const dispatch = useDispatch();
 
     useEffect(() => {
         // 홈 이동 시 페이지네이션 리셋.
-        const start = 0;
-        const end = 10;
+        const start: number = 0;
+        const end: number = 10;
         dispatch(updateStartEndPageAction( start, end ));
         // 홈 이동 시 이미지 리셋.
         dispatch(postResetDoneAction())
@@ -61,17 +59,5 @@ export const getServerSideProps: GetServerSideProps = wrapper.getServerSideProps
     // await context.store.sagaTask.toPromise();
     await (context.store as SagaStore).sagaTask.toPromise();
 });
-
-// getInitialProps
-// Home.getInitialProps = async ( context ) => {
-//     // console.log(context);
-//     context.store.dispatch({
-//       type: LOAD_MAIN_POSTS_REQUEST,
-//     });
-//     context.store.dispatch({
-//         type: CURRENT_PAGE_NUMBER,
-//         payload: 1
-//     });
-// };
 
 export default Home;

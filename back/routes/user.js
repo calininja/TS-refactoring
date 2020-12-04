@@ -10,7 +10,6 @@ const router = express.Router();
 // ('/', = REST API
 // , async ( req, res, next ) => {.. = 컨트롤러
 router.get('/', isLoggedIn, (req, res) => { // /api/user/
-  console.log(req.headers,'22222222222222222');
   const user = Object.assign({}, req.user.toJSON());
   delete user.password;
   return res.json(user);

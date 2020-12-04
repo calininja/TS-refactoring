@@ -1,4 +1,4 @@
-import { all, fork, takeLatest, takeEvery, put, throttle, call }  from 'redux-saga/effects';
+import { all, fork, takeLatest, put, call, throttle, takeEvery }  from 'redux-saga/effects';
 import axios from 'axios';
 import {
     ADD_POST_REQUEST,

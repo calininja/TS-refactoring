@@ -83,7 +83,7 @@ export type PostState = {
   },
   mainPostsAll: number,
   postDeleted: boolean,
-  imagePaths: any,
+  imagePaths: string[],
   addingPostErrorReason: string,
   isAddingPost: boolean,
   postAdded: boolean,

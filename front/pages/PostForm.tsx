@@ -1,24 +1,25 @@
-import React, { useCallback, useEffect, useState, useRef } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
-import { LOAD_USER_REQUEST } from '../reducers/user';
-import { END } from 'redux-saga';
+import * as React from 'react';
+import { useCallback, useEffect, useState, useRef } from 'react';
 import { RootState } from '../reducers';
-import Router from 'next/router';
-import axios from 'axios';
-import wrapper, { SagaStore } from '../store/configureStore';
-import { GetServerSideProps } from 'next';
+import { useSelector, useDispatch } from 'react-redux';
+import { loadUserRequestAction } from '../reducers/user/actions';
 import { 
     removeImageAction,
     addPostRequestAction,
     uploadImagesRequestAction
 } from '../reducers/post/actions';
+import { END } from 'redux-saga';
+import wrapper, { SagaStore } from '../store/configureStore';
+import Router from 'next/router';
+import { GetServerSideProps } from 'next';
+import axios from 'axios';
 
 const PostForm: React.FunctionComponent = () => {
     const dispatch = useDispatch();
     const [ title, setTitle ] = useState('');
     const [ content, setContent ] = useState('');
     const { imagePaths, postAdded } = useSelector( ( state:RootState ) => state.post);
-    const imageInput = useRef<HTMLInputElement>();
+    const imageInput:React.MutableRefObject<HTMLInputElement> = useRef();
 
     useEffect(() => {
         if ( postAdded ) {
@@ -47,16 +48,16 @@ const PostForm: React.FunctionComponent = () => {
         dispatch(addPostRequestAction( formData ));
     }, [ title, content, imagePaths ]);
 
-    const onChangeTitle = useCallback((e) => {
+    const onChangeTitle = useCallback((e: React.ChangeEvent<HTMLTextAreaElement>) => {
         setTitle( e.target.value );
     }, []);
-    const onChangeContent = useCallback((e) => {
+    const onChangeContent = useCallback((e: React.ChangeEvent<HTMLTextAreaElement>) => {
         setContent( e.target.value );
     }, []);
 
-    const onChangeImages = useCallback((e) => {
+    const onChangeImages = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
         console.log( e.target.files );
-        const imageFormData:FormData = new FormData();
+        const imageFormData: FormData = new FormData();
         [].forEach.call(e.target.files, (f) => {
             imageFormData.append( 'image', f );
         });
@@ -105,9 +106,7 @@ export const getServerSideProps: GetServerSideProps = wrapper.getServerSideProps
     if ( context.req && cookie ) {
         axios.defaults.headers.Cookie = cookie;
     }
-    context.store.dispatch({
-        type: LOAD_USER_REQUEST,
-    })
+    context.store.dispatch(loadUserRequestAction());
     context.store.dispatch(END);
     await (context.store as SagaStore).sagaTask.toPromise();
     return { props: {
