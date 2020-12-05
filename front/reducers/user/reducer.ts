@@ -1,22 +1,18 @@
 import produce from 'immer';
 import { UserState, UserAction } from './types';
 import { 
-  LOAD_USER_FAILURE, 
+  LOAD_USER_FAILURE, // 로드유저 
   LOAD_USER_REQUEST, 
   LOAD_USER_SUCCESS, 
-
-  LOG_IN_FAILURE, 
-  LOG_IN_REQUEST, 
+  LOG_IN_REQUEST, // 로그인
   LOG_IN_SUCCESS, 
-
-  LOG_OUT_REQUEST, 
+  LOG_IN_FAILURE, 
+  LOG_OUT_REQUEST, // 로그아웃
   LOG_OUT_SUCCESS, 
-
-  SIGN_UP_DONE, 
-  SIGN_UP_REQUEST, 
+  SIGN_UP_REQUEST, // 사인업
   SIGN_UP_SUCCESS,
   SIGN_UP_FAILURE, 
-
+  SIGN_UP_DONE, // 사인업 완료
 } from "./actions";
 
 export const initialState: UserState = {
@@ -30,7 +26,7 @@ export const initialState: UserState = {
 };
 
 
-export default ( state:UserState = initialState, action: UserAction ):UserState => {
+export default ( state: UserState = initialState, action: UserAction ):UserState => {
   return produce( state, ( draft ) => {
       switch ( action.type ) {
           // immer 안쓸때

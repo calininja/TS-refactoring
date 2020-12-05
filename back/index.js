@@ -55,5 +55,5 @@ app.use('/search', searchAPIRouter);
 
 // 서버 실행
 app.listen(3065, () => {
-  console.log('server is running on localhost:8080]')
+  console.log('server is running on localhost:3065]')
 });

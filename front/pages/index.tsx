@@ -3,6 +3,11 @@ import * as React from 'react';
 import { useEffect } from 'react';
 import { RootState } from '../reducers';
 import { useSelector, useDispatch } from 'react-redux';
+import Title from '../components/Title';
+import { GetServerSideProps } from 'next';
+import { END } from 'redux-saga';
+import wrapper, { SagaStore } from '../store/configureStore';
+import axios from 'axios';
 import { 
     postResetDoneAction,
     loadMainPostRequestAction,
@@ -10,11 +15,6 @@ import {
     updateStartEndPageAction
 } from '../reducers/post/actions';
 import { loadUserRequestAction } from '../reducers/user/actions';
-import Title from '../components/Title';
-import { GetServerSideProps } from 'next';
-import { END } from 'redux-saga';
-import wrapper, { SagaStore } from '../store/configureStore';
-import axios from 'axios';
 import styled from 'styled-components';
 
 const Home: React.FunctionComponent = () => {

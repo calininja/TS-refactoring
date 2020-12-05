@@ -9,20 +9,20 @@ export interface SagaStore extends Store {
   sagaTask: Task;
 }
 
-// const loggerMiddleware = ({ dispatch, getState }) => (next) => (action) => {
-//   console.log(action);
-//   return next(action);
-// };
+const loggerMiddleware = ({ dispatch, getState }) => (next) => (action) => {
+  console.log(action);
+  return next(action);
+};
 
 const configureStore: MakeStore<RootState> = ( context: Context ) => {
   const sagaMiddleware = createSagaMiddleware();
-  const middlewares = [sagaMiddleware, /*loggerMiddleware*/];
+  const middlewares = [sagaMiddleware, loggerMiddleware];
   const enhancer = process.env.NODE_ENV === 'production'
     ? compose(applyMiddleware(...middlewares))
     : composeWithDevTools(applyMiddleware(...middlewares));
   const store = createStore(reducer, enhancer);
-  // ( store as SagaStore ).sagaTask = sagaMiddleware.run(rootSaga);
   (store as SagaStore).sagaTask = sagaMiddleware.run(rootSaga);
+  // ( store as SagaStore ).sagaTask = sagaMiddleware.run(rootSaga);
   return store;
 };
 

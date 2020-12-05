@@ -1,10 +1,9 @@
 import React from 'react';
-import { loadUserRequestAction, LOAD_USER_REQUEST } from '../reducers/user';
+import { loadUserRequestAction } from '../reducers/user';
 import { END } from 'redux-saga';
 import axios from 'axios';
 import wrapper, { SagaStore } from '../store/configureStore';
 import { GetServerSideProps } from 'next';
-import { useRouter } from 'next/router'
 
 const Profile:React.FunctionComponent = () => {
     return (
