@@ -42,7 +42,7 @@ export const loginRequestAction = <T1, T2>( id: T1, password: T2 ) => ({
         password
     }
 })
-export const loginSuccessAction = ( id: string, password: string ) => ({
+export const loginSuccessAction = ( id: string, password: string ): any => ({
     type:LOG_IN_SUCCESS,
     data: {
         userId: id,

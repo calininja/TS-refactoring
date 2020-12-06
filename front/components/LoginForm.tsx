@@ -13,7 +13,7 @@ const LoginForm: React.FunctionComponent = () => {
 
     const onSubmitForm = useCallback((e: React.FormEvent<HTMLFormElement>) => {
       e.preventDefault();
-        dispatch(loginRequestAction( id, password ));
+        dispatch(loginRequestAction<string, string>( id, password ));
     },[id, password])
 
 

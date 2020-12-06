@@ -10,14 +10,18 @@ type TitlePropType = {
     User?: {userId:number},
     createdAt?: string,
   };
+  keyword: any,
 }
 
-const Title = memo(({ post }: TitlePropType) => {
+const Title = memo(({ post, keyword }: TitlePropType) => {
   const { me } = useSelector( (state: RootState) => state.user );
   const preventAccess = useCallback(() => {
     alert('로그인이 필요합니다.');
   },[])
   const postId = post.id;
+  const Rex1 = new RegExp('('+keyword+')');
+  const Rex2 = new RegExp(keyword);
+  
   return (
     <>
         <div className="title__container">
@@ -29,8 +33,25 @@ const Title = memo(({ post }: TitlePropType) => {
                 prefetch
               >
                 <a className="link__item">
-                  {post.title}
+                  {
+                    keyword ?
+                    post.title.split(Rex1).map((v)=>{
+                      if(v.match(Rex2)){
+                        return(
+                          <span className="highlights">
+                            {v}
+                          </span>
+                        )
+                      }
+                      return v;
+                    })
+                    :
+                    <span>
+                      {post.title}
+                    </span>                  
+                  }
                 </a>
+                
               </Link>
               :
               <a className="link__item" onClick={preventAccess}>

@@ -33,6 +33,10 @@ export const CURRENT_PAGE_NUMBER_FAILURE = 'CURRENT_PAGE_NUMBER_FAILURE' as cons
 export const UPDATE_START_END_PAGE = 'UPDATE_START_END_PAGE' as const;
 export const GO_TO_BEGIN = 'GO_TO_BEGIN' as const;
 
+export const MODIFY_POST_REQUEST = 'MODIFY_POST_REQUEST' as const;
+export const MODIFY_POST_SUCCESS = 'MODIFY_POST_SUCCESS' as const;
+export const MODIFY_POST_FAILURE = 'MODIFY_POST_FAILURE' as const;
+
 type PostPropType = {
     posts: object[];
     postsAll: object[];
@@ -121,4 +125,16 @@ export const currentPageNumberAction = ( val: number ) => ({
 export const updateStartEndPageAction = ( start: number, end: number ) => ({
     type: UPDATE_START_END_PAGE,
     payload: { start, end },
+})
+
+export const modifyPostRequestAction = ( postId: object ) => ({
+    type: MODIFY_POST_REQUEST,
+    data: postId,
+})
+export const modifyPostSuccessAction = ( data: number ) => ({
+    type: MODIFY_POST_SUCCESS,
+    data,
+})
+export const modifyPostFailureAction = ( postId: number ) => ({
+    type: MODIFY_POST_FAILURE,
 })

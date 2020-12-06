@@ -1,7 +1,7 @@
 import React, { useEffect, useCallback, useRef, memo } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import Router from 'next/router';
-import { postDeleteDoneAction, removePostRequestAction } from '../reducers/post';
+import { postDeleteDoneAction, removePostRequestAction, modifyPostRequestAction } from '../reducers/post';
 import { RootState } from '../reducers';
 // import Rating from './Rating';
 
@@ -44,7 +44,12 @@ const PostCard: React.FunctionComponent<PostCardType> = memo(({ postId }:PostCar
         }else{ //취소
             return false;
         }
-    },[ postId.id ])
+    },[ postId.id ]);
+    
+    const modifyPost = useCallback(()=>{
+        dispatch(modifyPostRequestAction(postId));
+    },[postId])
+
 
     // const dummy = [
     //     {
@@ -65,7 +70,7 @@ const PostCard: React.FunctionComponent<PostCardType> = memo(({ postId }:PostCar
                             ...
                             <div>
                                 <div className="remove" ref={ deleteRef } onClick={showDeleteConfirm}>삭제</div>
-                                <div className="cancel" ref={ modifyRef }>수정</div>
+                                <div className="cancel" ref={ modifyRef } onClick={modifyPost}>수정</div>
                             </div>
                     </button>
                 </section>

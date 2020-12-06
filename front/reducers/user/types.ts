@@ -1,18 +1,14 @@
 import {
-  signUpDoneAction, 
-
-  signUpRequestAction, 
+  signUpRequestAction, // 사인업
   signUpSuccessAction,
   signUpFailureAction,
-  
-  loginRequestAction, 
+  signUpDoneAction, // 사인업 완료
+  loginRequestAction, // 로그인
   loginSuccessAction, 
   loginFailureAction, 
-
-  logoutRequestAction, 
+  logoutRequestAction, // 로그아웃
   logoutSuccessAction, 
-
-  loadUserRequestAction, 
+  loadUserRequestAction,  // 유저 로드
   loadUserSuccessAction, 
   loadUserFailureAction, 
 } from "./actions"
@@ -21,19 +17,15 @@ import {
 
 // 액션 타입을 선언할 때 as const를 사용하여야 아래부분 사용가능
 export type UserAction = 
-| ReturnType<typeof signUpDoneAction>
-
 | ReturnType<typeof signUpRequestAction>
 | ReturnType<typeof signUpSuccessAction>
 | ReturnType<typeof signUpFailureAction>
-
+| ReturnType<typeof signUpDoneAction>
 | ReturnType<typeof loginRequestAction>
 | ReturnType<typeof loginSuccessAction>
 | ReturnType<typeof loginFailureAction>
-
 | ReturnType<typeof logoutRequestAction>
 | ReturnType<typeof logoutSuccessAction>
-
 | ReturnType<typeof loadUserRequestAction>
 | ReturnType<typeof loadUserSuccessAction>
 | ReturnType<typeof loadUserFailureAction>
@@ -46,7 +38,7 @@ export type UserState = {
   isSignedUp: boolean,
   isSigningUp: boolean,
   signUpErrorReason: Error,
-  me: {userId:string,password:string}|string,
+  me: {userId:string,password:string} ,
 }
 
 export type initialState = UserState[];

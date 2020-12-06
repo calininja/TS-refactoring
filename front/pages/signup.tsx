@@ -58,7 +58,7 @@ const signup:React.FunctionComponent = () => {
         if ( !term ) {
             return setTermError( true );
         }
-        dispatch( signUpRequestAction( id, password ) );
+        dispatch( signUpRequestAction<string, string>( id, password ) );
     },[ id, password, passwordCheck, term ])
 
     const onChangePasswordCheck = useCallback((e) => {

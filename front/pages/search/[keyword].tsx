@@ -29,7 +29,7 @@ const Search = () => {
     <div>
       { mainPosts.map((item) => {
             return (
-                <Title key={item.id} post={item}/> 
+                <Title key={item.id} post={item} keyword={keyword}/> 
             );
         }) }
       { hasMorePost ?

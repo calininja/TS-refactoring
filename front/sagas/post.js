@@ -19,6 +19,9 @@ import {
     UPLOAD_IMAGES_FAILURE,
     UPLOAD_IMAGES_REQUEST,
     UPLOAD_IMAGES_SUCCESS,
+    MODIFY_POST_REQUEST,
+    MODIFY_POST_SUCCESS,
+    MODIFY_POST_FAILURE,
 } from '../reducers/post/actions';
 
 function addPostAPI(postData) {

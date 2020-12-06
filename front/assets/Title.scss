@@ -11,10 +11,11 @@
   .link__item{
     display: inline-block;
     width: 70%;
+    cursor: pointer;
   }
-  .highlight{
+  .highlights{
     display: inline-block;
-    width: 70%;
+    width: auto;
     background: yellow;
   }
   >span{

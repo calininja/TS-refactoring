@@ -31,6 +31,10 @@ import {
   UPLOAD_IMAGES_SUCCESS,
   UPLOAD_IMAGES_FAILURE,
   REMOVE_IMAGE,
+
+  MODIFY_POST_REQUEST,
+  MODIFY_POST_SUCCESS,
+  MODIFY_POST_FAILURE,
   
 } from './actions';
 
@@ -157,7 +161,18 @@ export default ( state: PostState = initialState, action: PostAction ): PostStat
               draft.imagePaths.splice(index, 1);
               break;
           }
-
+          case MODIFY_POST_REQUEST: {
+              break;
+          }
+          case MODIFY_POST_SUCCESS: {
+            const index = draft.mainPosts.findIndex(v => v.id === action.data);
+            draft.mainPosts.splice(index, 1);
+            draft.postDeleted = true;
+              break;
+          }
+          case MODIFY_POST_FAILURE: {
+              break;
+          }
           default: {
               break;
           }
