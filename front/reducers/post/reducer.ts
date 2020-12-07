@@ -162,13 +162,13 @@ export default ( state: PostState = initialState, action: PostAction ): PostStat
               break;
           }
           case MODIFY_POST_REQUEST: {
+                draft.postModify = false;
               break;
           }
           case MODIFY_POST_SUCCESS: {
-            const index = draft.mainPosts.findIndex(v => v.id === action.data);
-            draft.mainPosts.splice(index, 1);
-            draft.postDeleted = true;
-              break;
+            draft.mainPosts = action.data;
+            draft.postModify = true;
+            break;
           }
           case MODIFY_POST_FAILURE: {
               break;

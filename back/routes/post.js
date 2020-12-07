@@ -99,19 +99,23 @@ router.delete('/:id', isLoggedIn, async (req, res, next) => {
     next(e);
   }
 });
-router.put('/:id', isLoggedIn, async (req, res, next) => {
+router.patch('/modify', isLoggedIn, async (req, res, next) => {
+  console.log(req.body.modify.id,'글수정 글수정 글수정222');
   try {
-    const post = await db.Post.findOne({ where: { id: req.params.id } });
-    // if (!post) {
-    //   return res.status(404).send('포스트가 존재하지 않습니다.');
-    // }
-    await db.Post.destroy({ where: { id: req.params.id } });
-    res.send(req.params.id);
+    await db.Post.update({ 
+      title: req.body.modify.title, 
+      content: req.body.modify.content,
+    },{
+      where: { id: req.body.modify.id}
+    });
+    // await db.Post.destroy({ where: { id: req.params.id } });
+    res.send(req.body.modify.id);
   } catch (e) {
     console.error(e);
     next(e);
   }
 });
+
 router.post('/images', upload.array('image'), (req, res) => {
   console.log(req.files);
   res.json(req.files.map(v => v.filename));

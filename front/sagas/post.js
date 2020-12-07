@@ -155,6 +155,36 @@ function* watchUploadImages() {
     yield takeLatest(UPLOAD_IMAGES_REQUEST, uploadImages);
 }
 
+function modifyPostAPI(modify) {
+    console.log(modify,'123123');
+    return axios.patch(
+        "/post/modify",
+        { modify },
+        {
+            withCredentials: true,
+        }
+    );
+}
+function* modifyPost(action) {
+    try {
+        console.log(action.data.postId,'글수정 글수정 글수정222221')
+        const result = yield call(modifyPostAPI, action.data);
+        // throw (new Error("Something went wrong"));
+        yield put({
+            type: MODIFY_POST_SUCCESS,
+            data: result.data,
+        })
+    } catch (e) {
+        yield put({
+            type: MODIFY_POST_FAILURE,
+            error: e,
+        });
+    }
+}
+function* watchmodifyost() {
+    yield takeLatest(MODIFY_POST_REQUEST, modifyPost);
+}
+
 export default function* postSaga() {
     yield all([
         fork(watchAddPost),
@@ -163,5 +193,6 @@ export default function* postSaga() {
         fork(watchLoadSinglePost),
         fork(watchLoadSearchPost),
         fork(watchUploadImages),
+        fork(watchmodifyost),
     ]);
 }

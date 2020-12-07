@@ -127,14 +127,18 @@ export const updateStartEndPageAction = ( start: number, end: number ) => ({
     payload: { start, end },
 })
 
-export const modifyPostRequestAction = ( postId: object ) => ({
+export const modifyPostRequestAction = ( title: string, content: string, id: number ) => ({
     type: MODIFY_POST_REQUEST,
-    data: postId,
+    data:{
+        title,
+        content,
+        id
+    }
 })
-export const modifyPostSuccessAction = ( data: number ) => ({
+export const modifyPostSuccessAction = ( data ) => ({
     type: MODIFY_POST_SUCCESS,
-    data,
+    data
 })
-export const modifyPostFailureAction = ( postId: number ) => ({
+export const modifyPostFailureAction = () => ({
     type: MODIFY_POST_FAILURE,
 })

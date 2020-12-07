@@ -26,7 +26,7 @@ const Title = memo(({ post, keyword }: TitlePropType) => {
     <>
         <div className="title__container">
             { me ?
-                <Link
+              <Link
                 href={'/post/[postId]'}
                 as={`/post/${postId}`}
                 key={postId}
