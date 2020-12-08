@@ -4,24 +4,30 @@ import {
     ADD_POST_REQUEST,
     ADD_POST_SUCCESS,
     ADD_POST_FAILURE,
-    REMOVE_POST_REQUEST,
-    REMOVE_POST_SUCCESS,
-    REMOVE_POST_FAILURE,
-    LOAD_MAIN_POSTS_REQUEST,
-    LOAD_MAIN_POSTS_SUCCESS,
-    LOAD_MAIN_POSTS_FAILURE,
-    LOAD_SINGLE_POST_REQUEST,
-    LOAD_SINGLE_POST_SUCCESS,
-    LOAD_SINGLE_POST_FAILURE,
-    LOAD_SEARCH_POSTS_REQUEST,
-    LOAD_SEARCH_POSTS_SUCCESS,
-    LOAD_SEARCH_POSTS_FAILURE,
-    UPLOAD_IMAGES_FAILURE,
-    UPLOAD_IMAGES_REQUEST,
-    UPLOAD_IMAGES_SUCCESS,
+
     MODIFY_POST_REQUEST,
     MODIFY_POST_SUCCESS,
     MODIFY_POST_FAILURE,
+
+    REMOVE_POST_REQUEST,
+    REMOVE_POST_SUCCESS,
+    REMOVE_POST_FAILURE,
+
+    LOAD_MAIN_POSTS_REQUEST,
+    LOAD_MAIN_POSTS_SUCCESS,
+    LOAD_MAIN_POSTS_FAILURE,
+
+    LOAD_SINGLE_POST_REQUEST,
+    LOAD_SINGLE_POST_SUCCESS,
+    LOAD_SINGLE_POST_FAILURE,
+
+    LOAD_SEARCH_POSTS_REQUEST,
+    LOAD_SEARCH_POSTS_SUCCESS,
+    LOAD_SEARCH_POSTS_FAILURE,
+    
+    UPLOAD_IMAGES_FAILURE,
+    UPLOAD_IMAGES_REQUEST,
+    UPLOAD_IMAGES_SUCCESS,
 } from '../reducers/post/actions';
 
 function addPostAPI(postData) {
@@ -46,6 +52,32 @@ function* addPost(action) {
 }
 function* watchAddPost() {
     yield takeLatest(ADD_POST_REQUEST, addPost);
+}
+function modifyPostAPI(modify) {
+    return axios.patch(
+        "/post/modify",
+        { modify },
+        {
+            withCredentials: true,
+        }
+    );
+}
+function* modifyPost(action) {
+    try {
+        const result = yield call(modifyPostAPI, action.data);
+        yield put({
+            type: MODIFY_POST_SUCCESS,
+            data: result.data,
+        })
+    } catch (e) {
+        yield put({
+            type: MODIFY_POST_FAILURE,
+            error: e,
+        });
+    }
+}
+function* watchmodifyost() {
+    yield takeLatest(MODIFY_POST_REQUEST, modifyPost);
 }
 function removePostAPI(postId) {
     return axios.delete(`/post/${postId}`, {
@@ -153,36 +185,6 @@ function* uploadImages(action) {
 }
 function* watchUploadImages() {
     yield takeLatest(UPLOAD_IMAGES_REQUEST, uploadImages);
-}
-
-function modifyPostAPI(modify) {
-    console.log(modify,'123123');
-    return axios.patch(
-        "/post/modify",
-        { modify },
-        {
-            withCredentials: true,
-        }
-    );
-}
-function* modifyPost(action) {
-    try {
-        console.log(action.data.postId,'글수정 글수정 글수정222221')
-        const result = yield call(modifyPostAPI, action.data);
-        // throw (new Error("Something went wrong"));
-        yield put({
-            type: MODIFY_POST_SUCCESS,
-            data: result.data,
-        })
-    } catch (e) {
-        yield put({
-            type: MODIFY_POST_FAILURE,
-            error: e,
-        });
-    }
-}
-function* watchmodifyost() {
-    yield takeLatest(MODIFY_POST_REQUEST, modifyPost);
 }
 
 export default function* postSaga() {

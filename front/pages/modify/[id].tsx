@@ -8,57 +8,45 @@ import axios from 'axios';
 import wrapper, { SagaStore } from '../../store/configureStore';
 import { RootState } from '../../reducers';
 import { GetServerSideProps } from 'next';
-import Router from 'next/router';
 
-const modify:React.FunctionComponent = ( postId ) => {
+const modify:React.FunctionComponent = () => {
   const { singlePost } = useSelector( (state: RootState) => state.post);
   const router = useRouter();
-  const { id }: any = router.query;
-  const postId2 = postId;
   const dispatch = useDispatch();
+  const { id }: any = router.query;
   const [ title, setTitle ] = useState('');
   const [ content, setContent ] = useState('');
-  const { imagePaths, postAdded, postModify } = useSelector( ( state:RootState ) => state.post);
+  const { imagePaths, postModify } = useSelector( ( state: RootState ) => state.post);
   // const imageInput:React.MutableRefObject<HTMLInputElement> = useRef();
 
   const onChangeTitle = useCallback((e: React.ChangeEvent<HTMLTextAreaElement>) => {
       setTitle( e.target.value );
   }, []);
+
   const onChangeContent = useCallback((e: React.ChangeEvent<HTMLTextAreaElement>) => {
       setContent( e.target.value );
   }, []);
 
   const modifyPost = useCallback(( e: React.FormEvent<HTMLFormElement> ) => {
       e.preventDefault();
-      // const result = {title, content};
       dispatch(modifyPostRequestAction(title, content, id));
-
-  }, [title, content, id ]);
-
-  useEffect(() => {
-      if ( postAdded ) {
-          // 포스트 작성 완료 시 홈 이동 및 제목/내용 리셋.
-          Router.push('/');
-          setTitle('');
-          setContent('');
+      if ( postModify ) {
+        router.push(`/post/${id}`);
       }
-  }, [ postAdded ]);
-  useEffect(() => {
-    if ( postModify ) {
-        // 포스트 작성 완료 시 홈 이동 및 제목/내용 리셋.
-        router.push('/');
-    }
-  }, [ postModify ]);
+  }, [ title, content, id, postModify ]);
+
+
+
   return (
     <>
       <form onSubmit={modifyPost} className="postForm__container">
-          <textarea name="title" placeholder="제목" cols={93} rows={1.5} value={title || (singlePost && singlePost.title)} onChange={onChangeTitle}/>
+          <textarea name="title" cols={93} rows={1.5} value={ title || (singlePost && singlePost.title) } onChange={onChangeTitle}/>
           {/* <div>
               <input type="file" multiple hidden ref={imageInput} onChange={onChangeImages}/>
               <button type="button" className="imageUploadButton" onClick={onClickImageUpload}><img src="https://cdn.onlinewebfonts.com/svg/img_192880.png" alt=""/></button>
           </div> */}
           <div>
-              <textarea name="content" title="내용 입력" cols={93} rows={28} value={content || (singlePost && singlePost.content)} onChange={onChangeContent}/>
+              <textarea name="content" cols={93} rows={28} value={ content || (singlePost && singlePost.content) } onChange={onChangeContent}/>
           </div>
           <div>
               <button type="submit" className="submitButton custom-button">제출하기</button>

@@ -102,14 +102,18 @@ router.delete('/:id', isLoggedIn, async (req, res, next) => {
 router.patch('/modify', isLoggedIn, async (req, res, next) => {
   console.log(req.body.modify.id,'글수정 글수정 글수정222');
   try {
-    await db.Post.update({ 
+    const fullPost = await db.Post.update({ 
       title: req.body.modify.title, 
       content: req.body.modify.content,
     },{
-      where: { id: req.body.modify.id}
+      where: { id: req.body.modify.id},
+      // include: [{
+      //   model: db.User,
+      //   attributes: ['id','userId'],
+      // }]
     });
-    // await db.Post.destroy({ where: { id: req.params.id } });
-    res.send(req.body.modify.id);
+    
+    res.status(201).json(fullPost);
   } catch (e) {
     console.error(e);
     next(e);

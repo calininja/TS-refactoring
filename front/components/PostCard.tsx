@@ -75,7 +75,7 @@ const PostCard: React.FunctionComponent<PostCardType> = memo(({ postId }:PostCar
                                     // key={postId}
                                     prefetch
                                 >
-                                <div className="cancel" ref={ modifyRef }>수정</div>
+                                    <div className="cancel" ref={ modifyRef }>수정</div>
                                 </Link>
                             </div>
                     </button>

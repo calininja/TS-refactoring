@@ -8,6 +8,10 @@ import {
   POST_RESET_DONE,
   POST_DELETE_DONE,
 
+  MODIFY_POST_REQUEST,
+  MODIFY_POST_SUCCESS,
+  MODIFY_POST_FAILURE,
+
   LOAD_MAIN_POSTS_FAILURE, 
   LOAD_MAIN_POSTS_REQUEST, 
   LOAD_MAIN_POSTS_SUCCESS,
@@ -31,10 +35,6 @@ import {
   UPLOAD_IMAGES_SUCCESS,
   UPLOAD_IMAGES_FAILURE,
   REMOVE_IMAGE,
-
-  MODIFY_POST_REQUEST,
-  MODIFY_POST_SUCCESS,
-  MODIFY_POST_FAILURE,
   
 } from './actions';
 
@@ -52,6 +52,7 @@ export const initialState: PostState = {
   end: 10,
   current: 1,
   hasMorePost: false,
+  postModify: false
 }
 
 export default ( state: PostState = initialState, action: PostAction ): PostState => {
