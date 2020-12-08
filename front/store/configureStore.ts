@@ -7,7 +7,9 @@ import rootSaga from '../sagas';
 
 export interface SagaStore extends Store {
   sagaTask: Task;
-  err: Error
+  err: {
+    statusCode: Error;
+  };
 }
 
 const loggerMiddleware = ({ dispatch, getState }) => (next) => (action) => {

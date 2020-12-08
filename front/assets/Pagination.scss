@@ -3,7 +3,8 @@
     li{
         display: inline-block;
         text-align: center;
-        width: calc(100%/12);
+        margin: 0 0.4rem;
+        // width: calc(100%/12);
         cursor: pointer;
         &.active{
             font-weight: 900;

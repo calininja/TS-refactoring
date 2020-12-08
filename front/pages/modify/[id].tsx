@@ -16,7 +16,7 @@ const modify:React.FunctionComponent = () => {
   const { id }: any = router.query;
   const [ title, setTitle ] = useState('');
   const [ content, setContent ] = useState('');
-  const { imagePaths, postModify } = useSelector( ( state: RootState ) => state.post);
+  const { imagePaths, postModify } = useSelector( (state: RootState) => state.post);
   // const imageInput:React.MutableRefObject<HTMLInputElement> = useRef();
 
   const onChangeTitle = useCallback((e: React.ChangeEvent<HTMLTextAreaElement>) => {
@@ -29,13 +29,19 @@ const modify:React.FunctionComponent = () => {
 
   const modifyPost = useCallback(( e: React.FormEvent<HTMLFormElement> ) => {
       e.preventDefault();
-      dispatch(modifyPostRequestAction(title, content, id));
-      if ( postModify ) {
-        router.push(`/post/${id}`);
-      }
-  }, [ title, content, id, postModify ]);
+      dispatch(modifyPostRequestAction(
+        title ? title : singlePost && singlePost.title, 
+        content ? content : singlePost && singlePost.content, 
+        id
+      ));
 
+  }, [ title, content, id ]);
 
+  useEffect(() => {
+    if ( postModify ) {
+      router.push(`/post/${id}`);
+    }
+  },[ postModify ])
 
   return (
     <>

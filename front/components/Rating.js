@@ -3,7 +3,7 @@ import React, { useEffect } from 'react';
 
 
 
-const Rating: React.FunctionComponent = ({ star }) => {
+const Rating = ({ star }) => {
 
   const active = [];
   const frame = [];
