@@ -1,6 +1,9 @@
 .title__container{
   border-bottom: 1px solid #ccc;
   padding: 10px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
   &:nth-of-type(1){
     // border-top: 1px solid #ccc;
   }
@@ -9,9 +12,12 @@
     color: #000;
   }
   .link__item{
-    display: inline-block;
-    width: 70%;
     cursor: pointer;
+    text-overflow:ellipsis;
+    overflow:hidden;
+    text-overflow:ellipsis;
+    white-space:nowrap;
+    width: 70%;
   }
   .highlights{
     display: inline-block;
@@ -19,12 +25,18 @@
     background: yellow;
   }
   >span{
-    display: inline-block;
-    width: 30%;
     text-align: center;
-    em{
-      display: inline-block;
-      width: 50%;
+    width: 15%;
+    margin-right: 0;
+    @media screen and (max-width: 414px) {
+      width: 30%;
+    }
+    >div,>em{
+      margin: 0 0.2rem;
+    }
+    >div{
+    }
+    >em{
     }
   }
 }

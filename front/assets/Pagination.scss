@@ -2,7 +2,8 @@
     margin: 10px 0;
     li{
         display: inline-block;
-        margin:0 10px;
+        text-align: center;
+        width: calc(100%/12);
         cursor: pointer;
         &.active{
             font-weight: 900;

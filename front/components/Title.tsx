@@ -59,7 +59,7 @@ const Title = memo(({ post, keyword }: TitlePropType) => {
               </a>
            }
             <span>
-              <em>{post.User.userId}</em>
+              <div>{post.User.userId}</div>
               <em>{post.createdAt.slice(0,10)}</em> 
               {/* <em>{post.createdAt.slice(0,10)} {post.createdAt.slice(11,19)}</em>  */}
             </span>
