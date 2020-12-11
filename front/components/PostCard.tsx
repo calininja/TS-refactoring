@@ -10,14 +10,14 @@ type PostCardType = {
     postId: {id: number};
 }
 
-const PostCard: React.FunctionComponent<PostCardType> = memo(({ postId }:PostCardType) => {
+const PostCard: React.FunctionComponent<PostCardType> = memo(({ postId }: PostCardType) => {
     const { singlePost, postDeleted } = useSelector( (state: RootState) => state.post);
     const { me } = useSelector( (state:RootState) => state.user);
     const dispatch = useDispatch();
     
-    const menuRef:React.MutableRefObject<HTMLButtonElement> = useRef();
-    const deleteRef:React.MutableRefObject<HTMLDivElement> = useRef();
-    const modifyRef:React.MutableRefObject<HTMLDivElement> = useRef();
+    const menuRef: React.MutableRefObject<HTMLButtonElement> = useRef();
+    const deleteRef: React.MutableRefObject<HTMLDivElement> = useRef();
+    const modifyRef: React.MutableRefObject<HTMLDivElement> = useRef();
 
     useEffect(() =>{ // 삭제 완료 => 스테이트 초기화(false)
         if( postDeleted ) {

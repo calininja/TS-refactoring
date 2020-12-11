@@ -10,10 +10,10 @@ type TitlePropType = {
     User?: {userId:number},
     createdAt?: string,
   };
-  keyword: any,
+  keyword?: any,
 }
 
-const Title = memo(({ post, keyword }: TitlePropType) => {
+const Title: React.FunctionComponent<TitlePropType> = memo(({ post, keyword }: TitlePropType) => {
   const { me } = useSelector( (state: RootState) => state.user );
   const preventAccess = useCallback(() => {
     alert('로그인이 필요합니다.');

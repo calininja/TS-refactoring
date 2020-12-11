@@ -17,11 +17,13 @@ import {
     LOAD_USER_SUCCESS,
     LOAD_USER_FAILURE,
 } from "../reducers/user/actions";
+import { signUpType } from "../reducers/user";
 
 
 function signUpAPI(signUpData) {
     return axios.post("/user/", signUpData);
 }
+
 function* signUp(action) {
     try {
         yield call(signUpAPI, action.data);

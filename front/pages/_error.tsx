@@ -4,11 +4,7 @@ import { GetServerSideProps } from 'next';
 import wrapper, { SagaStore } from '../store/configureStore';
 
 const MyError: React.FunctionComponent = ({ statusCode }: any) => {
-  type contextError = {
-    context: {
-      err: Error;
-    }
-  }
+
   return (
     <div>
       <h1>{statusCode} 에러 발생</h1>

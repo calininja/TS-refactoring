@@ -37,11 +37,6 @@ export const MODIFY_POST_REQUEST = 'MODIFY_POST_REQUEST' as const;
 export const MODIFY_POST_SUCCESS = 'MODIFY_POST_SUCCESS' as const;
 export const MODIFY_POST_FAILURE = 'MODIFY_POST_FAILURE' as const;
 
-type PostPropType = {
-    posts: object[];
-    postsAll: object[];
-}
-
 export const addPostRequestAction = ( formData: FormData ) => ({
     type: ADD_POST_REQUEST,
     data: formData,
@@ -74,9 +69,12 @@ export const loadMainPostRequestAction = ( offset?: string ) => ({
     type: LOAD_MAIN_POSTS_REQUEST,
     offset
 })
-export const loadMainPostSuccessAction = ( posts: PostPropType, postsAll: PostPropType ) => ({
+export const loadMainPostSuccessAction = ( posts: object[], postsAll: object[] ) => ({
     type: LOAD_MAIN_POSTS_SUCCESS,
-    data: posts, postsAll
+    data: {
+        posts, 
+        postsAll
+    }
 })
 export const loadMainPostFailureAction = () => ({
     type: LOAD_MAIN_POSTS_FAILURE,
