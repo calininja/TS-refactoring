@@ -13,7 +13,7 @@ import { GetServerSideProps } from 'next';
 // 커스텀 훅
 export const useInput = (initValue = null) => {
     const [value, setter] = useState(initValue);
-    const handler = useCallback((e) => {
+    const handler = useCallback(( e ) => {
       setter(e.target.value);
     }, []);
     return [value, handler];
@@ -28,7 +28,7 @@ const signup:React.FunctionComponent = () => {
     const [ id, onChangeId ] = useInput('');
     const [ password, onChangePassword ] = useInput('');
     const dispatch = useDispatch();
-    const { signUpErrorReason, isSignedUp } = useSelector( ( state: RootState ) => state.user );
+    const { signUpErrorReason, isSignedUp } = useSelector( (state: RootState) => state.user );
     // const { isSigningUp } = useSelector( state => state.user );
 
     // 커스텀 훅으로 코드 줄임

@@ -4,27 +4,27 @@ import {
     SIGN_UP_REQUEST,
     SIGN_UP_SUCCESS,
     SIGN_UP_FAILURE,
-
     LOG_IN_REQUEST,
     LOG_IN_SUCCESS,
     LOG_IN_FAILURE,
-
     LOG_OUT_REQUEST,
     LOG_OUT_SUCCESS,
     LOG_OUT_FAILURE,
-    
     LOAD_USER_REQUEST,
     LOAD_USER_SUCCESS,
     LOAD_USER_FAILURE,
+    // 액션 생성 함수
+    signUpRequestAction,
+    loginRequestAction,
+    logoutRequestAction,
+    loadUserRequestAction,
 } from "../reducers/user/actions";
-import { signUpType } from "../reducers/user";
 
 
 function signUpAPI(signUpData) {
     return axios.post("/user/", signUpData);
 }
-
-function* signUp(action) {
+function* signUp(action: ReturnType<typeof signUpRequestAction>) {
     try {
         yield call(signUpAPI, action.data);
         yield put({
@@ -42,7 +42,7 @@ function* signUp(action) {
 function* watchSignUp() {
     yield takeEvery(SIGN_UP_REQUEST, signUp);
 }
-function logInAPI(loginData) {
+function logInAPI( loginData ) {
     // return axios.post("/login");
     // return axios.post("/user/login/", loginData);
     // 서버와 도메인이 다르면 프론트에서 쿠키를 받을수 없다.(cors 문제)
@@ -51,7 +51,7 @@ function logInAPI(loginData) {
         withCredentials: true,
     });
 }
-function* logIn(action) {
+function* logIn( action: ReturnType<typeof loginRequestAction> ) {
     try {
         // console.log(action.data);
         const result = yield call(logInAPI, action.data);
@@ -77,7 +77,7 @@ function logOutAPI() {
         withCredentials: true,
     });
 }
-function* logOut(action) {
+function* logOut() {
     try {
         yield call(logOutAPI);
         yield put({
@@ -96,13 +96,13 @@ function* logOut(action) {
 function* watchLogOut() {
     yield takeEvery(LOG_OUT_REQUEST, logOut);
 }
-function loadUserAPI(userId) {
+function loadUserAPI( userId ) {
     // 서버에 요청을 보내는 부분
-    return axios.get( "/user/", {
+    return axios.get( userId ? `/user/${userId}` : "/user/", {
         withCredentials: true, // 클라이언트에서 요청 보낼 때는 브라우저가 쿠키를 같이 동봉해줘요
     }); // 서버사이드렌더링일 때는, 브라우저가 없어요.
 }
-function* loadUser(action) {
+function* loadUser( action ) {
     try {
         // yield call(loadUserAPI);
         const result = yield call(loadUserAPI, action.data);

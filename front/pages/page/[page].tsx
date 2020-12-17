@@ -27,8 +27,8 @@ const Page:React.FunctionComponent = () => {
 
 export const getServerSideProps:GetServerSideProps  = wrapper.getServerSideProps( async( context ) => {
   const cookie = context.req ? context.req.headers.cookie : '';
-  const { page }:any = context.params;
-  const getPage = String((page-1)*10);
+  const { page }: any = context.params;
+  const getPage = (page-1)*10;
 
   if ( context.req && cookie ) {
       axios.defaults.headers.Cookie = cookie;

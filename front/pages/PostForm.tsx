@@ -18,7 +18,7 @@ const PostForm: React.FunctionComponent = () => {
     const dispatch = useDispatch();
     const [ title, setTitle ] = useState('');
     const [ content, setContent ] = useState('');
-    const { imagePaths, postAdded } = useSelector( ( state:RootState ) => state.post);
+    const { imagePaths, postAdded } = useSelector( ( state: RootState ) => state.post);
     const imageInput:React.MutableRefObject<HTMLInputElement> = useRef();
 
     useEffect(() => {

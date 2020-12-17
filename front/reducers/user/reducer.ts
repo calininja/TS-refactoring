@@ -4,16 +4,12 @@ import {
     SIGN_UP_REQUEST,
     SIGN_UP_SUCCESS,
     SIGN_UP_FAILURE, 
-
     SIGN_UP_DONE,
-
     LOG_IN_REQUEST,
     LOG_IN_SUCCESS, 
     LOG_IN_FAILURE, 
-
     LOG_OUT_REQUEST,
     LOG_OUT_SUCCESS, 
-    
     LOAD_USER_REQUEST, 
     LOAD_USER_SUCCESS, 
     LOAD_USER_FAILURE, 
@@ -78,8 +74,8 @@ export default ( state: UserState = initialState, action: UserAction ): UserStat
           }
           case LOG_IN_FAILURE: {
               draft.isLoggingIn = false;
-            //   draft.logInErrorReason = action.reason;
-              draft.logInErrorReason = action.error;
+              draft.logInErrorReason = action.reason;
+            //   draft.logInErrorReason = action.error;
               draft.me = null;
               break;
           }

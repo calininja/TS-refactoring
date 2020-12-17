@@ -51,7 +51,6 @@ const Title: React.FunctionComponent<TitlePropType> = memo(({ post, keyword }: T
                     </span>                  
                   }
                 </a>
-                
               </Link>
               :
               <a className="link__item" onClick={preventAccess}>
