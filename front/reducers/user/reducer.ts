@@ -92,7 +92,9 @@ export default ( state: UserState = initialState, action: UserAction ): UserStat
               break;
           }
           case LOAD_USER_SUCCESS: {
-              draft.me = action.data;
+              if( action.me ) {
+                  draft.me = action.data;
+              }
               break;
           }
           case LOAD_USER_FAILURE: {

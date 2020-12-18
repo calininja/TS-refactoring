@@ -52,16 +52,22 @@ const Title2 = styled.div`
 `;
 
 export const getServerSideProps: GetServerSideProps = wrapper.getServerSideProps( async( context ) => {
-    const cookie = context.req ? context.req.headers.cookie : '';
+
+    const state = context.store.getState();
+    const isServer: boolean = !!context.req;
+    console.log(isServer,'여기여기');
+    const cookie = isServer ? context.req.headers.cookie : '';
     if ( context.req && cookie ) {
         axios.defaults.headers.Cookie = cookie;
-    }
-    context.store.dispatch(loadMainPostRequestAction())
-    context.store.dispatch(loadUserRequestAction())
+    };
+    if (!state.user.me) {
+        context.store.dispatch(loadUserRequestAction())
+    };
+    context.store.dispatch(loadMainPostRequestAction());
     context.store.dispatch(currentPageNumberAction(1));
     context.store.dispatch(END);
-    // await context.store.sagaTask.toPromise();
     await (context.store as SagaStore).sagaTask.toPromise();
+    // await context.store.sagaTask.toPromise();
 });
 
 export default Home;

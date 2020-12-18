@@ -19,7 +19,7 @@ const loggerMiddleware = ({ dispatch, getState }) => (next) => (action) => {
 
 const configureStore: MakeStore<RootState> = ( context: Context ) => {
   const sagaMiddleware = createSagaMiddleware();
-  const middlewares = [sagaMiddleware, loggerMiddleware];
+  const middlewares = [sagaMiddleware, /* loggerMiddleware */];
   const enhancer = process.env.NODE_ENV === 'production'
     ? compose(applyMiddleware(...middlewares))
     : composeWithDevTools(applyMiddleware(...middlewares));

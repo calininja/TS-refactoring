@@ -110,7 +110,7 @@ function* loadUser( action ) {
         // put은 dispatch 동일
         type: LOAD_USER_SUCCESS,
         data: result.data,
-        // me: !action.data,
+        me: !action.data,
         });
     } catch (e) {
         // loginAPI 실패
