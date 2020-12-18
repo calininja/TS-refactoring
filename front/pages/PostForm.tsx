@@ -103,9 +103,7 @@ const PostForm: React.FunctionComponent = () => {
 export const getServerSideProps: GetServerSideProps = wrapper.getServerSideProps( async( context ) => {
     const cookie = context.req ? context.req.headers.cookie : '';
 
-    if ( context.req && cookie ) {
-        axios.defaults.headers.Cookie = cookie;
-    }
+    if ( context.req && cookie ) axios.defaults.headers.Cookie = cookie;
     context.store.dispatch(loadUserRequestAction());
     context.store.dispatch(END);
     await (context.store as SagaStore).sagaTask.toPromise();

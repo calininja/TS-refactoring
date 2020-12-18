@@ -29,12 +29,12 @@ export const getServerSideProps:GetServerSideProps  = wrapper.getServerSideProps
   const cookie = context.req ? context.req.headers.cookie : '';
   const { page }: any = context.params;
   const getPage = (page-1)*10;
+  const state = context.store.getState();
 
-  if ( context.req && cookie ) {
-      axios.defaults.headers.Cookie = cookie;
-  }
-  context.store.dispatch(loadUserRequestAction());
-  context.store.dispatch(loadMainPostRequestAction(getPage));
+  if ( context.req && cookie ) axios.defaults.headers.Cookie = cookie;
+  if ( !state.user.me ) context.store.dispatch(loadUserRequestAction());
+  // context.store.dispatch(loadUserRequestAction());
+  context.store.dispatch(loadMainPostRequestAction( getPage ));
   // context.store.dispatch({
   //     type: LOAD_USER_REQUEST,
   // })

@@ -1,8 +1,8 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
 import PostCard from '../../components/PostCard';
-import { LOAD_SINGLE_POST_REQUEST } from '../../reducers/post';
-import { LOAD_USER_REQUEST } from '../../reducers/user';
+import { loadSinglePostRequestAction, LOAD_SINGLE_POST_REQUEST } from '../../reducers/post';
+import { loadUserRequestAction, LOAD_USER_REQUEST } from '../../reducers/user';
 import { useRouter } from 'next/router';
 import { END } from 'redux-saga';
 import axios from 'axios';
@@ -26,16 +26,11 @@ const post:React.FunctionComponent = () => {
 export const getServerSideProps:GetServerSideProps = wrapper.getServerSideProps( async( context ) => {
   const { id } = context.params;
   const cookie = context.req ? context.req.headers.cookie : '';
-  if ( context.req && cookie ) {
-    axios.defaults.headers.Cookie = cookie;
-  }
-  context.store.dispatch({
-    type: LOAD_USER_REQUEST,
-  })
-  context.store.dispatch({
-    type: LOAD_SINGLE_POST_REQUEST,
-    data: id,
-  });
+  const state = context.store.getState();
+
+  if ( context.req && cookie ) axios.defaults.headers.Cookie = cookie;
+  if ( !state.user.me ) context.store.dispatch(loadUserRequestAction());
+  context.store.dispatch(loadSinglePostRequestAction(id));
   context.store.dispatch(END);
   await (context.store as SagaStore).sagaTask.toPromise();
   return { props: {

@@ -88,10 +88,10 @@ export const loadMainPostSuccessAction = ( posts: object[], postsAll: object[] )
 export const loadMainPostFailureAction = () => ({
     type: LOAD_MAIN_POSTS_FAILURE,
 })
-export const loadSearchPostsRequestAction = ( lastId: number, data: object[] ) => ({
+export const loadSearchPostsRequestAction = ( data: string | string[], lastId?: number ) => ({
     type: LOAD_SEARCH_POSTS_REQUEST,
-    lastId,
-    data
+    data,
+    lastId
 })
 export const loadSearchPostsSuccessAction = ( data: object[] ) => ({
     type: LOAD_SEARCH_POSTS_SUCCESS,

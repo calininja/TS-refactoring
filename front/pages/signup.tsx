@@ -2,13 +2,13 @@ import * as React from 'react';
 import { useState, useEffect, useCallback } from 'react';
 import { useDispatch, useSelector } from "react-redux";
 import Router from "next/router";
-import { signUpDoneAction } from '../reducers/user';
+import { loadUserRequestAction, signUpDoneAction } from '../reducers/user';
 import { RootState } from '../reducers';
 import { signUpRequestAction } from '../reducers/user';
-// import { END } from 'redux-saga';
-// import axios from 'axios';
-// import wrapper, { SagaStore } from '../store/configureStore';
-// import { GetServerSideProps } from 'next';
+import { END } from 'redux-saga';
+import axios from 'axios';
+import wrapper, { SagaStore } from '../store/configureStore';
+import { GetServerSideProps } from 'next';
 
 // 커스텀 훅
 export const useInput = (initValue = null) => {
@@ -115,17 +115,17 @@ const signup:React.FunctionComponent = () => {
 };
 
 
-// export const getServerSideProps: GetServerSideProps = wrapper.getServerSideProps( async ( context ) => {
-//     const cookie = context.req ? context.req.headers.cookie : '';
-//     if ( context.req && cookie ) {
-//         axios.defaults.headers.Cookie = cookie;
-//     }
-//     context.store.dispatch(loadUserRequestAction())
-//     context.store.dispatch(END);
-//     await (context.store as SagaStore).sagaTask.toPromise();
-//     return { props: {
-//         pathname: '/signup',
-//     } };
-// })
+export const getServerSideProps: GetServerSideProps = wrapper.getServerSideProps( async ( context ) => {
+    const cookie = context.req ? context.req.headers.cookie : '';
+    const state = context.store.getState();
+    
+    if ( context.req && cookie ) axios.defaults.headers.Cookie = cookie;
+    if ( !state.user.me ) context.store.dispatch(loadUserRequestAction());
+    context.store.dispatch(END);
+    await (context.store as SagaStore).sagaTask.toPromise();
+    return { props: {
+        pathname: '/signup',
+    } };
+})
 
 export default signup;

@@ -23,11 +23,9 @@ const Profile:React.FunctionComponent = () => {
 
 export const getServerSideProps: GetServerSideProps = wrapper.getServerSideProps( async ( context ) => {
     const cookie = context.req ? context.req.headers.cookie : '';
-    console.log(context.query);
-    console.log('pathname');
-    if ( context.req && cookie ) {
-        axios.defaults.headers.Cookie = cookie;
-    }
+    // console.log(context.query);
+    // console.log('pathname');
+    if ( context.req && cookie ) axios.defaults.headers.Cookie = cookie;
     context.store.dispatch(loadUserRequestAction())
     context.store.dispatch(END);
     await (context.store as SagaStore).sagaTask.toPromise();

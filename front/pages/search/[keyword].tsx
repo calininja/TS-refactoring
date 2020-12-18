@@ -1,10 +1,9 @@
 import React, { useCallback } from 'react';
-import PropTypes from "prop-types";
 import { useDispatch, useSelector } from 'react-redux';
 import Title from '../../components/Title';
 import { useRouter } from 'next/router'
-import { LOAD_SEARCH_POSTS_REQUEST } from '../../reducers/post';
-import { LOAD_USER_REQUEST } from '../../reducers/user';
+import { loadSearchPostsRequestAction, LOAD_SEARCH_POSTS_REQUEST } from '../../reducers/post';
+import { loadUserRequestAction, LOAD_USER_REQUEST } from '../../reducers/user';
 import { END } from 'redux-saga';
 import axios from 'axios';
 import wrapper, { SagaStore } from '../../store/configureStore';
@@ -44,39 +43,17 @@ const Search = () => {
 
 export const getServerSideProps = wrapper.getServerSideProps( async( context ) => {
   const cookie = context.req ? context.req.headers.cookie : '';
+  const state = context.store.getState();
   const { keyword } = context.query;
 
-  if ( context.req && cookie ) {
-      axios.defaults.headers.Cookie = cookie;
-  }
-  context.store.dispatch({
-      type: LOAD_USER_REQUEST,
-  })
-  context.store.dispatch({
-    type: LOAD_SEARCH_POSTS_REQUEST,
-    data: keyword,
-  });
-  context.store.dispatch(END);
+  if ( context.req && cookie ) axios.defaults.headers.Cookie = cookie;
+  if ( !state.user.me ) context.store.dispatch(loadUserRequestAction());
+  context.store.dispatch(loadSearchPostsRequestAction(keyword));
+  context.store.dispatch( END );
   await (context.store as SagaStore).sagaTask.toPromise();
   return { props: {
     pathname: '/search',
   } };
 });
-
-// getInitialProps
-// Search.getInitialProps = async ( context ) => {
-//   // console.log(context);
-//   const { pathname } = context;
-//   const { keyword } = context.query;
-//   context.store.dispatch({
-//     type: LOAD_SEARCH_POSTS_REQUEST,
-//     data: keyword,
-//   });
-//   return { keyword, pathname }
-// };
-
-Search.propTypes = {
-  keyword: PropTypes.string.isRequired,
-};
 
 export default Search;

@@ -20,7 +20,7 @@ import { useRouter } from 'next/router'
 
 
 const Home: React.FunctionComponent = () => {
-    const { mainPosts } = useSelector( (state: RootState) => state.post );
+    const { mainPosts } = useSelector((state: RootState) => state.post);
     const dispatch = useDispatch();
     const router = useRouter();
     const { keyword } = router.query;
@@ -55,17 +55,14 @@ export const getServerSideProps: GetServerSideProps = wrapper.getServerSideProps
 
     const state = context.store.getState();
     const isServer: boolean = !!context.req;
-    console.log(isServer,'여기여기');
     const cookie = isServer ? context.req.headers.cookie : '';
-    if ( context.req && cookie ) {
-        axios.defaults.headers.Cookie = cookie;
-    };
-    if (!state.user.me) {
-        context.store.dispatch(loadUserRequestAction())
-    };
+    console.log(isServer,'여기여기');
+    
+    if ( context.req && cookie ) axios.defaults.headers.Cookie = cookie;
+    if ( !state.user.me ) context.store.dispatch(loadUserRequestAction());
     context.store.dispatch(loadMainPostRequestAction());
     context.store.dispatch(currentPageNumberAction(1));
-    context.store.dispatch(END);
+    context.store.dispatch( END );
     await (context.store as SagaStore).sagaTask.toPromise();
     // await context.store.sagaTask.toPromise();
 });
