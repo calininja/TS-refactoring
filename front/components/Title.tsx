@@ -19,8 +19,8 @@ const Title: React.FunctionComponent<TitlePropType> = memo(({ post, keyword }: T
     alert('로그인이 필요합니다.');
   },[])
   const postId = post.id;
-  const Rex1 = new RegExp('('+keyword+')');
-  const Rex2 = new RegExp(keyword);
+  const reg = new RegExp('('+keyword+')');
+  const keywordText = keyword;
   
   return (
     <>
@@ -35,8 +35,8 @@ const Title: React.FunctionComponent<TitlePropType> = memo(({ post, keyword }: T
                 <a className="link__item">
                   {
                     keyword ?
-                    post.title.split(Rex1).map((v)=>{
-                      if(v.match(Rex2)){
+                    post.title.split(reg).map((v)=>{
+                      if(v.match(keywordText)){
                         return(
                           <span className="highlights">
                             {v}

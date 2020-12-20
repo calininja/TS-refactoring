@@ -9,7 +9,6 @@ import { RootState } from '../reducers';
 
 const AppLayout: React.FunctionComponent = ({ children }) => {
   const { me } = useSelector( (state: RootState) => state.user );
-
   return (
     <>
       <header className="navigation" role="header">
