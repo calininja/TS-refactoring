@@ -6,6 +6,7 @@ const router = express.Router();
 
 router.get('/:keyword', async (req, res, next) => {
   try {
+    console.log(req.params.keyword,'111111')
     let keyword = req.params.keyword;
     let where = {};
 

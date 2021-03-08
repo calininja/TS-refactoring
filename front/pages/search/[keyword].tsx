@@ -22,7 +22,7 @@ const Search = () => {
           data: keyword,
         })
       }
-  },[ hasMorePost ])
+  },[ hasMorePost ]);
 
   return (
     <div>

@@ -42,7 +42,7 @@ function* signUp(action: ReturnType<typeof signUpRequestAction>) {
 function* watchSignUp() {
     yield takeEvery(SIGN_UP_REQUEST, signUp);
 }
-function logInAPI( loginData ) {
+function logInAPI(loginData) {
     // return axios.post("/login");
     // return axios.post("/user/login/", loginData);
     // 서버와 도메인이 다르면 프론트에서 쿠키를 받을수 없다.(cors 문제)
@@ -51,7 +51,7 @@ function logInAPI( loginData ) {
         withCredentials: true,
     });
 }
-function* logIn( action: ReturnType<typeof loginRequestAction> ) {
+function* logIn(action: ReturnType<typeof loginRequestAction>) {
     try {
         // console.log(action.data);
         const result = yield call(logInAPI, action.data);
@@ -73,7 +73,7 @@ function* watchLogIn() {
     yield takeEvery(LOG_IN_REQUEST, logIn);
 }
 function logOutAPI() {
-    return axios.post("/user/logout",{},{
+    return axios.post("/user/logout", {}, {
         withCredentials: true,
     });
 }
@@ -96,28 +96,28 @@ function* logOut() {
 function* watchLogOut() {
     yield takeEvery(LOG_OUT_REQUEST, logOut);
 }
-function loadUserAPI( userId ) {
+function loadUserAPI(userId) {
     // 서버에 요청을 보내는 부분
-    return axios.get( userId ? `/user/${userId}` : "/user/", {
+    return axios.get(userId ? `/user/${userId}` : "/user/", {
         withCredentials: true, // 클라이언트에서 요청 보낼 때는 브라우저가 쿠키를 같이 동봉해줘요
     }); // 서버사이드렌더링일 때는, 브라우저가 없어요.
 }
-function* loadUser( action ) {
+function* loadUser(action) {
     try {
         // yield call(loadUserAPI);
         const result = yield call(loadUserAPI, action.data);
         yield put({
-        // put은 dispatch 동일
-        type: LOAD_USER_SUCCESS,
-        data: result.data,
-        me: !action.data,
+            // put은 dispatch 동일
+            type: LOAD_USER_SUCCESS,
+            data: result.data,
+            me: !action.data,
         });
     } catch (e) {
         // loginAPI 실패
         console.error(e);
         yield put({
-        type: LOAD_USER_FAILURE,
-        error: e,
+            type: LOAD_USER_FAILURE,
+            error: e,
         });
     }
 }

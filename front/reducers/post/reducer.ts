@@ -27,7 +27,6 @@ import {
   UPLOAD_IMAGES_SUCCESS,
   UPLOAD_IMAGES_FAILURE,
   REMOVE_IMAGE,
-  
 } from './actions';
 
 export const initialState: PostState = {

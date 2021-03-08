@@ -11,10 +11,10 @@ export type State = {
   post: PostState;
 };
 
-const rootReducer = ( state: State, action: AnyAction ): State => {
-  switch ( action.type ) {
+const rootReducer = (state: State, action: AnyAction): State => {
+  switch (action.type) {
     case HYDRATE:
-      console.log('HYDRATE',action);
+      console.log('HYDRATE', action);
       return action.payload;
     default: {
       const combineReducer = combineReducers<{
@@ -24,7 +24,7 @@ const rootReducer = ( state: State, action: AnyAction ): State => {
         user,
         post,
       });
-      return combineReducer( state, action );
+      return combineReducer(state, action);
     }
   }
 };

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import PostCard from '../../components/PostCard';
 import { loadSinglePostRequestAction, LOAD_SINGLE_POST_REQUEST } from '../../reducers/post';
@@ -14,6 +14,9 @@ const post:React.FunctionComponent = () => {
   const { singlePost } = useSelector( (state: RootState) => state.post);
   const router = useRouter();
   const { id }: any = router.query;
+  useEffect(()=>{
+    console.log(id);
+  },[id])
   return (
     <div>
       {singlePost ?

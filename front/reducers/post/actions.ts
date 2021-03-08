@@ -29,26 +29,26 @@ export const CURRENT_PAGE_NUMBER_FAILURE = 'CURRENT_PAGE_NUMBER_FAILURE' as cons
 export const UPDATE_START_END_PAGE = 'UPDATE_START_END_PAGE' as const;
 export const GO_TO_BEGIN = 'GO_TO_BEGIN' as const;
 
-export const addPostRequestAction = ( formData: FormData ) => ({
+export const addPostRequestAction = (formData: FormData) => ({
     type: ADD_POST_REQUEST,
     data: formData,
 })
-export const addPostSuccessAction = ( data: object ) => ({
+export const addPostSuccessAction = (data: object) => ({
     type: ADD_POST_SUCCESS,
     data
 })
 export const addPostFailureAction = () => ({
     type: ADD_POST_FAILURE,
 })
-export const modifyPostRequestAction = ( title: string, content: string, id: number ) => ({
+export const modifyPostRequestAction = (title: string, content: string, id: number) => ({
     type: MODIFY_POST_REQUEST,
-    data:{
+    data: {
         title,
         content,
         id
     }
 })
-export const modifyPostSuccessAction = ( data ) => ({
+export const modifyPostSuccessAction = (data) => ({
     type: MODIFY_POST_SUCCESS,
     data
 })
@@ -61,76 +61,76 @@ export const postResetDoneAction = () => ({
 export const postDeleteDoneAction = () => ({
     type: POST_DELETE_DONE,
 })
-export const removePostRequestAction = ( postId: object ) => ({
+export const removePostRequestAction = (postId: object) => ({
     type: REMOVE_POST_REQUEST,
     data: postId
 })
-export const removePostSuccessAction = ( data: number ) => ({
+export const removePostSuccessAction = (data: number) => ({
     type: REMOVE_POST_SUCCESS,
     data
 })
 export const removePostFailureAction = () => ({
     type: REMOVE_POST_FAILURE,
 })
-export const loadMainPostRequestAction = ( lastId?: number, limit?: number, offset?: number ) => ({
+export const loadMainPostRequestAction = (offset: number, lastId?: number, limit?: number) => ({
     type: LOAD_MAIN_POSTS_REQUEST,
     lastId,
     limit,
     offset,
 })
-export const loadMainPostSuccessAction = ( posts: object[], postsAll: object[] ) => ({
+export const loadMainPostSuccessAction = (posts: object[], postsAll: object[]) => ({
     type: LOAD_MAIN_POSTS_SUCCESS,
     data: {
-        posts, 
+        posts,
         postsAll
     }
 })
 export const loadMainPostFailureAction = () => ({
     type: LOAD_MAIN_POSTS_FAILURE,
 })
-export const loadSearchPostsRequestAction = ( data: string | string[], lastId?: number ) => ({
+export const loadSearchPostsRequestAction = (data: string | string[], lastId?: number) => ({
     type: LOAD_SEARCH_POSTS_REQUEST,
     data,
     lastId
 })
-export const loadSearchPostsSuccessAction = ( data: object[] ) => ({
+export const loadSearchPostsSuccessAction = (data: object[]) => ({
     type: LOAD_SEARCH_POSTS_SUCCESS,
     data
 })
 export const loadSearchPostsFailureAction = () => ({
     type: LOAD_SEARCH_POSTS_FAILURE,
 })
-export const loadSinglePostRequestAction = ( id: string | string[] ) => ({
+export const loadSinglePostRequestAction = (id: string | string[]) => ({
     type: LOAD_SINGLE_POST_REQUEST,
     data: id
 })
-export const loadSinglePostSuccessAction = <T>( data: T ) => ({
+export const loadSinglePostSuccessAction = <T>(data: T) => ({
     type: LOAD_SINGLE_POST_SUCCESS,
     data
 })
 export const loadSinglePostFailureAction = () => ({
     type: LOAD_SINGLE_POST_FAILURE,
 })
-export const uploadImagesRequestAction = ( imageFormData: FormData ) => ({
+export const uploadImagesRequestAction = (imageFormData: FormData) => ({
     type: UPLOAD_IMAGES_REQUEST,
     data: imageFormData,
 })
-export const uploadImagesSuccessAction = ( data: string[]) => ({
+export const uploadImagesSuccessAction = (data: string[]) => ({
     type: UPLOAD_IMAGES_SUCCESS,
     data
 })
 export const uploadImagesFailureAction = () => ({
     type: UPLOAD_IMAGES_FAILURE,
 })
-export const removeImageAction = ( index: number ) => ({
+export const removeImageAction = (index: number) => ({
     type: REMOVE_IMAGE,
     index
 })
-export const currentPageNumberAction = ( val: number ) => ({
+export const currentPageNumberAction = (val: number) => ({
     type: CURRENT_PAGE_NUMBER,
     payload: val,
 })
-export const updateStartEndPageAction = ( start: number, end: number ) => ({
+export const updateStartEndPageAction = (start: number, end: number) => ({
     type: UPDATE_START_END_PAGE,
     payload: { start, end },
 })

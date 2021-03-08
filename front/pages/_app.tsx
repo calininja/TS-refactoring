@@ -24,36 +24,36 @@ const CaliBlog = ({ Component, pageProps }) => {
             htmlAttributes={{ lang: "ko" }}
             meta={[
                 {
-                charset: "UTF-8",
+                    charset: "UTF-8",
                 },
                 {
-                name: "viewport",
-                content:
-                    "width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=yes,viewport-fit=cover",
+                    name: "viewport",
+                    content:
+                        "width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=yes,viewport-fit=cover",
                 },
                 {
-                "http-equiv": "X-UA-Compatible",
-                content: "IE=edge",
+                    "http-equiv": "X-UA-Compatible",
+                    content: "IE=edge",
                 },
                 {
-                name: "description",
-                content: "CaliBlog",
+                    name: "description",
+                    content: "CaliBlog",
                 },
                 {
-                name: "og:title",
-                content: "CaliBlog",
+                    name: "og:title",
+                    content: "CaliBlog",
                 },
                 {
-                name: "og:description",
-                content: "CaliBlog",
+                    name: "og:description",
+                    content: "CaliBlog",
                 },
                 {
-                property: "og:type",
-                content: "website",
+                    property: "og:type",
+                    content: "website",
                 },
                 {
-                property: "og:image",
-                content: "http://caliblog.com/favicon.ico",
+                    property: "og:image",
+                    content: "http://caliblog.com/favicon.ico",
                 },
             ]}
             link={[
@@ -68,34 +68,34 @@ const CaliBlog = ({ Component, pageProps }) => {
             ]}
         />
     );
-    
+
     // 해당 페이지들 네비게이션 및 글쓰기 UI 삭제.
-    const pagePropsValue = ( pageProps && pageProps.pathname );
-    return pagePropsValue ==='/profile'||
-    pagePropsValue ==='/search' ||
-    pagePropsValue ==='/signup' ||
-    pagePropsValue ==='/post' ||
-    pagePropsValue ==='/PostForm'
-    ?
-    (
-        <>
-            {helmets}
-            <AppLayout>
-                <Component {...pageProps} />
-            </AppLayout>
-        </>
-    )
-    :
-    (
-        <>
-            {helmets}
-            <AppLayout>
-                <PostButton />
-                <Component {...pageProps} />
-                <Pagination  />
-            </AppLayout>
-        </>
-    );
+    const pagePropsValue = (pageProps && pageProps.pathname);
+    return pagePropsValue === '/profile' ||
+        pagePropsValue === '/search' ||
+        pagePropsValue === '/signup' ||
+        pagePropsValue === '/post' ||
+        pagePropsValue === '/PostForm'
+        ?
+        (
+            <>
+                {helmets}
+                <AppLayout>
+                    <Component {...pageProps} />
+                </AppLayout>
+            </>
+        )
+        :
+        (
+            <>
+                {helmets}
+                <AppLayout>
+                    <PostButton />
+                    <Component {...pageProps} />
+                    <Pagination />
+                </AppLayout>
+            </>
+        );
 };
 
 // // propTypes
