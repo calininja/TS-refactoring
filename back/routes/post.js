@@ -7,6 +7,7 @@ const { isLoggedIn } = require('./middleware');
 
 const router = express.Router();
 
+// 이미지 업로드
 const upload = multer({
   storage: multer.diskStorage({
     destination(req, file, done) {
@@ -21,14 +22,15 @@ const upload = multer({
   limits: { fileSize: 20 * 1024 * 1024 },
 });
 
-router.post('/', isLoggedIn, upload.none(), async ( req, res, next ) => {
+// 게시물 등록
+router.post('/', isLoggedIn, upload.none(), async (req, res, next) => {
   try {
     const newPost = await db.Post.create({
-      title: req.body.title, 
+      title: req.body.title,
       content: req.body.content,
       UserId: req.user.id,
     });
-    if (req.body.image) { // 이미지 주소를 여러개 올리면 image: [주소1, 주소2]
+    if (req.body.image) { // 이미지 주소````-를 여러개 올리면 image: [주소1, 주소2]
       if (Array.isArray(req.body.image)) {
         const images = await Promise.all(req.body.image.map((image) => {
           return db.Image.create({ src: image });
@@ -45,7 +47,7 @@ router.post('/', isLoggedIn, upload.none(), async ( req, res, next ) => {
       where: { id: newPost.id },
       include: [{
         model: db.User,
-        attributes: ['id','userId'],
+        attributes: ['id', 'userId'],
       }, {
         model: db.Image,
       }],
@@ -66,18 +68,19 @@ router.post('/', isLoggedIn, upload.none(), async ( req, res, next ) => {
   }
 });
 
-router.get('/:id', async ( req, res, next ) => {
-  try{
+// 게시물 찾기
+router.get('/:id', async (req, res, next) => {
+  try {
     const post = await db.Post.findOne({
       where: { id: req.params.id },
       include: [{
         model: db.User,
-        attributes: ['id','userId'],
-      },{
+        attributes: ['id', 'userId'],
+      }, {
         model: db.Image,
       }],
     });
-    if ( !post ) {
+    if (!post) {
       return res.status(404).send('존재하지 않는 게시글 입니다.');
     }
     res.json(post);
@@ -86,6 +89,8 @@ router.get('/:id', async ( req, res, next ) => {
     next(e);
   }
 });
+
+// 글삭제
 router.delete('/:id', isLoggedIn, async (req, res, next) => {
   try {
     const post = await db.Post.findOne({ where: { id: req.params.id } });
@@ -99,20 +104,20 @@ router.delete('/:id', isLoggedIn, async (req, res, next) => {
     next(e);
   }
 });
+
+// 글수정
 router.patch('/modify', isLoggedIn, async (req, res, next) => {
-  console.log(req.body.modify.id,'글수정 글수정 글수정222');
   try {
-    const fullPost = await db.Post.update({ 
-      title: req.body.modify.title, 
+    const fullPost = await db.Post.update({
+      title: req.body.modify.title,
       content: req.body.modify.content,
-    },{
-      where: { id: req.body.modify.id},
+    }, {
+      where: { id: req.body.modify.id },
       // include: [{
       //   model: db.User,
       //   attributes: ['id','userId'],
       // }]
     });
-    
     res.status(201).json(fullPost);
   } catch (e) {
     console.error(e);
@@ -120,8 +125,8 @@ router.patch('/modify', isLoggedIn, async (req, res, next) => {
   }
 });
 
+// 이미지 문자열 추가
 router.post('/images', upload.array('image'), (req, res) => {
-  console.log(req.files);
   res.json(req.files.map(v => v.filename));
 });
 

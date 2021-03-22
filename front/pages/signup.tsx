@@ -26,7 +26,7 @@ const signup: React.FunctionComponent = () => {
     const [termError, setTermError] = useState(false);
 
     const [id, onChangeId] = useInput('');
-    const [password, onChangePassword] = useInput('');
+    const [password, setPasword] = useInput('');
     const dispatch = useDispatch();
     const { signUpErrorReason, isSignedUp } = useSelector((state: RootState) => state.user);
     // const { isSigningUp } = useSelector( state => state.user );
@@ -70,6 +70,7 @@ const signup: React.FunctionComponent = () => {
         setTermError(false);
         setTerm(e.target.checked);
     }, [])
+
     useEffect(() => {
         if (signUpErrorReason) {
             alert('이미 사용중인 아이디입니다.');
@@ -89,7 +90,7 @@ const signup: React.FunctionComponent = () => {
                     <input type="text" value={id} required onChange={onChangeId} className="custom-input" />
                 </div>
                 <div>비밀번호
-                    <input type="password" value={password} required onChange={onChangePassword} className="custom-input" />
+                    <input type="password" value={password} required onChange={setPasword} className="custom-input" />
                 </div>
                 <div>비밀번호 확인
                     <input type="password" value={passwordCheck} required onChange={onChangePasswordCheck} className="custom-input" />

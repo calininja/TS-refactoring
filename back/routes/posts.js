@@ -3,6 +3,7 @@ const db = require('../models');
 
 const router = express.Router();
 
+// 게시물 여러개 찾기
 router.get('/', async (req, res, next) => { // GET /api/posts
   try {
     let where = {};
@@ -17,7 +18,7 @@ router.get('/', async (req, res, next) => { // GET /api/posts
       where,
       include: [{
         model: db.User,
-        attributes: ['id','userId'],
+        attributes: ['id', 'userId'],
       }],
       offset: parseInt(req.query.offset, 10),
       limit: parseInt(req.query.limit, 10),

@@ -16,11 +16,11 @@ import Pagination from '../components/Pagination';
 import PostButton from '../components/PostButton';
 
 
-const CaliBlog = ({ Component, pageProps }) => {
+const Board = ({ Component, pageProps }) => {
     const helmets = (
         <Helmet
-            title="CaliBlog"
-            description="블로그"
+            title="Board"
+            description="게시판"
             htmlAttributes={{ lang: "ko" }}
             meta={[
                 {
@@ -37,15 +37,15 @@ const CaliBlog = ({ Component, pageProps }) => {
                 },
                 {
                     name: "description",
-                    content: "CaliBlog",
+                    content: "Board",
                 },
                 {
                     name: "og:title",
-                    content: "CaliBlog",
+                    content: "Board",
                 },
                 {
                     name: "og:description",
-                    content: "CaliBlog",
+                    content: "Board",
                 },
                 {
                     property: "og:type",
@@ -150,6 +150,6 @@ const CaliBlog = ({ Component, pageProps }) => {
 //     return store;
 // }
 
-export default wrapper.withRedux(CaliBlog);
+export default wrapper.withRedux(Board);
 // export default withRedux(configureStore)(withReduxSaga(CaliBlog));
 

@@ -12,10 +12,10 @@ export const LOAD_USER_REQUEST = 'LOAD_USER_REQUEST' as const;
 export const LOAD_USER_SUCCESS = 'LOAD_USER_SUCCESS' as const;
 export const LOAD_USER_FAILURE = 'LOAD_USER_FAILURE' as const;
 
-export const signUpDoneAction = ( ) => ({
-    type:SIGN_UP_DONE,
+export const signUpDoneAction = () => ({
+    type: SIGN_UP_DONE,
 })
-export const signUpRequestAction = <T1, T2>( userId: T1, password: T2 ) => ({
+export const signUpRequestAction = <T1, T2>(userId: T1, password: T2) => ({
     type: SIGN_UP_REQUEST,
     data: {
         userId,
@@ -25,42 +25,42 @@ export const signUpRequestAction = <T1, T2>( userId: T1, password: T2 ) => ({
 export const signUpSuccessAction = () => ({
     type: SIGN_UP_SUCCESS,
 })
-export const signUpFailureAction = ( error: Error ) => ({
+export const signUpFailureAction = (error: Error) => ({
     type: SIGN_UP_FAILURE,
     error
 })
-export const loginRequestAction = <T1, T2>( id: T1, password: T2 ) => ({
-    type:LOG_IN_REQUEST,
+export const loginRequestAction = <T1, T2>(id: T1, password: T2) => ({
+    type: LOG_IN_REQUEST,
     data: {
         userId: id,
         password
     }
 })
-export const loginSuccessAction = ( id: string, password: string ): any => ({
-    type:LOG_IN_SUCCESS,
+export const loginSuccessAction = (id: string, password: string): any => ({
+    type: LOG_IN_SUCCESS,
     data: {
         userId: id,
         password
     }
 })
-export const loginFailureAction = ( error: Error) => ({
-    type:LOG_IN_FAILURE,
+export const loginFailureAction = (error: Error) => ({
+    type: LOG_IN_FAILURE,
     error
 })
 export const logoutRequestAction = () => ({
-    type:LOG_OUT_REQUEST,
+    type: LOG_OUT_REQUEST,
 })
 export const logoutSuccessAction = () => ({
-    type:LOG_OUT_SUCCESS,
+    type: LOG_OUT_SUCCESS,
 })
 
 export const loadUserRequestAction = () => ({
-    type:LOAD_USER_REQUEST,
+    type: LOAD_USER_REQUEST,
 })
-export const loadUserSuccessAction = ( data: string ) => ({
-    type:LOAD_USER_SUCCESS,
+export const loadUserSuccessAction = (data: string) => ({
+    type: LOAD_USER_SUCCESS,
     data
 })
 export const loadUserFailureAction = () => ({
-    type:LOAD_USER_FAILURE,
+    type: LOAD_USER_FAILURE,
 })

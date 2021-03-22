@@ -1,4 +1,4 @@
-module.exports = ( sequelize, DataTypes ) => { // 모델은 테이블
+module.exports = (sequelize, DataTypes) => { // 모델은 테이블
   const User = sequelize.define('User', { // 테이블 명은 소문자 users
     userId: { // User 테이블 안에 userId 컬럼
       type: DataTypes.STRING(20), // 20글자 이하
@@ -14,7 +14,7 @@ module.exports = ( sequelize, DataTypes ) => { // 모델은 테이블
     collate: 'utf8_general_ci', // 한글
   });
 
-  User.associate = ( db ) => {
+  User.associate = (db) => {
     db.User.hasMany(db.Post, { as: 'Posts' });
   };
 

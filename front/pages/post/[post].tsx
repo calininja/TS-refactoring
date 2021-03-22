@@ -10,35 +10,39 @@ import wrapper, { SagaStore } from '../../store/configureStore';
 import { RootState } from '../../reducers';
 import { GetServerSideProps } from 'next';
 
-const post:React.FunctionComponent = () => {
-  const { singlePost } = useSelector( (state: RootState) => state.post);
+const post: React.FunctionComponent = () => {
+  const { singlePost } = useSelector((state: RootState) => state.post);
   const router = useRouter();
-  const { id }: any = router.query;
-  useEffect(()=>{
-    console.log(id);
-  },[id])
+  const { post }: any = router.query;
+
+  useEffect(() => {
+    console.log(post);
+  }, [post])
+
   return (
     <div>
       {singlePost ?
-        <PostCard key={id} postId={id} /> :
-      ''}
+        <PostCard key={post} postId={post} /> :
+        ''}
     </div>
   );
 };
 
-export const getServerSideProps:GetServerSideProps = wrapper.getServerSideProps( async( context ) => {
-  const { id } = context.params;
+export const getServerSideProps: GetServerSideProps = wrapper.getServerSideProps(async (context) => {
+  const { post } = context.params;
   const cookie = context.req ? context.req.headers.cookie : '';
   const state = context.store.getState();
 
-  if ( context.req && cookie ) axios.defaults.headers.Cookie = cookie;
-  if ( !state.user.me ) context.store.dispatch(loadUserRequestAction());
-  context.store.dispatch(loadSinglePostRequestAction(id));
+  if (context.req && cookie) axios.defaults.headers.Cookie = cookie;
+  if (!state.user.me) context.store.dispatch(loadUserRequestAction());
+  context.store.dispatch(loadSinglePostRequestAction(post));
   context.store.dispatch(END);
   await (context.store as SagaStore).sagaTask.toPromise();
-  return { props: {
-    pathname: '/post',
-  } };
+  return {
+    props: {
+      pathname: '/post',
+    }
+  };
 });
 
 // getInitialProps

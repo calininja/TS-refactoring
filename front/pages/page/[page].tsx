@@ -13,12 +13,13 @@ import { GetServerSideProps } from 'next';
 const Page: React.FunctionComponent = () => {
   const { mainPosts } = useSelector((state: RootState) => state.post);
   const router = useRouter();
-  const { page, keyword } = router.query;
+  // const { page, keyword } = router.query;
   return (
     <>
       {mainPosts.map((item) => {
         return (
-          <Title key={item.id} post={item} keyword={keyword} />
+          <Title key={item.id} post={item} />
+          // <Title key={item.id} post={item} keyword={keyword} />
         );
       })}
     </>

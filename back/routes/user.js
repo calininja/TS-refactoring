@@ -9,34 +9,39 @@ const router = express.Router();
 // post, get, patch, put, delete = HTTP API
 // ('/', = REST API
 // , async ( req, res, next ) => {.. = 컨트롤러
+
+// 로그인 유저정보
 router.get('/', isLoggedIn, (req, res) => { // /api/user/
   const user = Object.assign({}, req.user.toJSON());
   delete user.password;
   return res.json(user);
 });
-router.post('/', async ( req, res, next ) => { // POST /api/user 회원가입
+
+// 회원가입
+router.post('/', async (req, res, next) => { // POST /api/user 회원가입
   try {
     const exUser = await db.User.findOne({
       where: {
         userId: req.body.userId,
       },
     });
-    if ( exUser ) {
+    if (exUser) {
       return res.status(403).send('이미 사용중인 아이디입니다.');
     }
     const hashedPassword = await bcrypt.hash(req.body.password, 12); // salt는 10~13 사이로
     const newUser = await db.User.create({
-      userId:req.body.userId,
+      userId: req.body.userId,
       password: hashedPassword,
     });
-    // console.log(newUser);
     return res.status(200).json(newUser);
   } catch (e) {
-    console.error(e);
     // 에러 처리를 여기서
+    console.error(e);
     return next(e);
   }
 });
+
+// 로그인
 router.post('/login', (req, res, next) => { // POST /api/user/login
   passport.authenticate('local', (err, user, info) => {
     if (err) {
@@ -72,7 +77,6 @@ router.post('/login', (req, res, next) => { // POST /api/user/login
           // }],
           // attributes: ['id', 'nickname', 'userId'],
         });
-        // console.log(fullUser);
         return res.json(fullUser);
       } catch (e) {
         next(e);
@@ -81,19 +85,14 @@ router.post('/login', (req, res, next) => { // POST /api/user/login
   })(req, res, next);
 });
 
-router.post('/logout/', ( req, res ) => {
+// 로그아웃
+router.post('/logout/', (req, res) => {
   req.logout();
   req.session.destroy();
   res.send('logout 성공');
 });
-router.post('/', ( req, res ) => {
 
-});
-router.post('/', ( req, res ) => {
-
-});
-router.get('/posts/', ( req, res ) => {
-  
+router.get('/posts/', (req, res) => {
 });
 
 module.exports = router;

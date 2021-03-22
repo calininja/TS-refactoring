@@ -1,4 +1,4 @@
-module.exports = ( sequelize, DataTypes ) => {
+module.exports = (sequelize, DataTypes) => {
   const Post = sequelize.define('Post', {
     title: {
       type: DataTypes.TEXT, // 매우 긴 글

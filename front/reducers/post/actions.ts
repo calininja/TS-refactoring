@@ -72,7 +72,7 @@ export const removePostSuccessAction = (data: number) => ({
 export const removePostFailureAction = () => ({
     type: REMOVE_POST_FAILURE,
 })
-export const loadMainPostRequestAction = (offset: number, lastId?: number, limit?: number) => ({
+export const loadMainPostRequestAction = (offset?: number, lastId?: number, limit?: number) => ({
     type: LOAD_MAIN_POSTS_REQUEST,
     lastId,
     limit,

@@ -23,7 +23,7 @@ const Home: React.FunctionComponent = () => {
     const { mainPosts } = useSelector((state: RootState) => state.post);
     const dispatch = useDispatch();
     const router = useRouter();
-    const { keyword } = router.query;
+    // const { keyword } = router.query;
 
     useEffect(() => {
         // 홈 이동 시 페이지네이션 리셋.
@@ -39,7 +39,8 @@ const Home: React.FunctionComponent = () => {
             <div>
                 {mainPosts.map((item) => {
                     return (
-                        <Title key={item.id} post={item} keyword={keyword} />
+                        <Title key={item.id} post={item} />
+                        // <Title key={item.id} post={item} keyword={keyword} />
                     );
                 })}
                 {/* <Title2>test</Title2> */}

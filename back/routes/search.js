@@ -4,9 +4,10 @@ const sequelize = require("sequelize");
 const Op = sequelize.Op;
 const router = express.Router();
 
+// 게시물 제목 검색
 router.get('/:keyword', async (req, res, next) => {
   try {
-    console.log(req.params.keyword,'111111')
+    console.log(req.params.keyword, '111111')
     let keyword = req.params.keyword;
     let where = {};
 
@@ -16,13 +17,13 @@ router.get('/:keyword', async (req, res, next) => {
           [db.Sequelize.Op.lt]: parseInt(req.query.lastId, 10),
         },
         title: {
-          [Op.like] : "%"+keyword+"%"
+          [Op.like]: "%" + keyword + "%"
         },
       };
-    } else if( keyword ) {
+    } else if (keyword) {
       where = {
         title: {
-          [Op.like] : "%"+keyword+"%"
+          [Op.like]: "%" + keyword + "%"
         },
       };
     }
@@ -43,7 +44,7 @@ router.get('/:keyword', async (req, res, next) => {
       }, {
         model: db.Image,
       },
-    ],
+      ],
       order: [['createdAt', 'DESC']],
       limit: parseInt(req.query.limit, 10),
     });
